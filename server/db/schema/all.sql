@@ -6,22 +6,51 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   full_name VARCHAR(255) NOT NULL,
   email VARCHAR(30) NOT NULL,
-  hashed_password VARCHAR(30) NOT NULL,
 );
 
-CREATE TABLE listings (
+CREATE TABLE addresses (
   id SERIAL PRIMARY KEY NOT NULL,
-  title VARCHAR(255) NOT NULL,
   street_name VARCHAR(255) NOT NULL,
   street_number VARCHAR(255) NOT NULL,
   city VARCHAR(255) NOT NULL,
-  postal_code VARCHAR(255) NOT NULL,
   province VARCHAR(2) NOT NULL,
-  listing_description VARCHAR(2) NOT NULL,
+  country VARCHAR(2) NOT NULL,
+  postal_code VARCHAR(255) NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
 );
 
-CREATE TABLE listing_availability (
+CREATE TABLE dishes (
   id SERIAL PRIMARY KEY NOT NULL,
-  date_available DATE NOT NULL,
-  listing_id INTEGER REFERENCES listing_id(id) ON DELETE CASCADE,
+  title VARCHAR(30) NOT NULL,
+  dish_description VARCHAR(255) NOT NULL,
+  dish_type VARCHAR(30) NOT NULL,
+  price_cents INTEGER NOT NULL,
+  serving_size SMALLINT NOT NULL,
+  image_link VARCHAR(255) NOT NULL,
+  country_of_origin VARCHAR(255) NOT NULL,
+  available_stock SMALLINT NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+);
+
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY NOT NULL,
+  content VARCHAR(255),
+  star_rating INTEGER NOT NULL,
+  reviewer_id INTEGER REFERENCES users(id) ON DELETE CASCADE
+  dish_id INTEGER REFERENC
+);
+
+CREATE TABLE reviews (
+  id SERIAL PRIMARY KEY NOT NULL,
+  content VARCHAR(255),
+  star_rating INTEGER NOT NULL,
+  reviewer_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  dish_id INTEGER REFERENCES dishes(id) ON DELETE CASCADE
+);
+
+CREATE TABLE order_items (
+  id SERIAL PRIMARY KEY NOT NULL,
+  dish_id INTEGER REFERENCES dishes(id) ON DELETE CASCADE,
+  quantity INTEGER NOT NULL
+  paid_price_cents INTEGER NOT NULL
 );
