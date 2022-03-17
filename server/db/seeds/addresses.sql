@@ -1,5 +1,4 @@
 INSERT INTO addresses (
-  id,
   street_name,
   street_number,
   city,
@@ -9,7 +8,7 @@ INSERT INTO addresses (
   user_id
 )
 VALUES
-(1, 
+( 
 'Elizabeth St', 
 '37a', 
 'New York', 
@@ -18,7 +17,7 @@ VALUES
 'USA',
 1 
 ),
-(2, 
+( 
 'Wooster St', 
 '59', 
 'New York', 
@@ -27,7 +26,7 @@ VALUES
 'USA',
 2 
 ),
-(3, 
+( 
 'Bayard St', 
 '87', 
 'New York', 

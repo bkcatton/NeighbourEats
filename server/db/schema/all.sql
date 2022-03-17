@@ -26,7 +26,6 @@ CREATE TABLE dishes (
   id SERIAL PRIMARY KEY NOT NULL,
   title VARCHAR(30) NOT NULL,
   dish_description VARCHAR(255) NOT NULL,
-  dish_type VARCHAR(30) NOT NULL,
   price_cents INTEGER NOT NULL,
   serving_size SMALLINT NOT NULL,
   image_link VARCHAR(255) NOT NULL,
@@ -37,10 +36,8 @@ CREATE TABLE dishes (
 
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY NOT NULL,
-  content VARCHAR(255),
-  star_rating INTEGER NOT NULL,
+  confirmed BOOLEAN DEFAULT FALSE NOT NULL,
   customer_id INTEGER REFERENCES users(id) ON DELETE CASCADE
-  dish_id INTEGER REFERENC
 );
 
 CREATE TABLE reviews (
@@ -53,6 +50,7 @@ CREATE TABLE reviews (
 
 CREATE TABLE order_items (
   id SERIAL PRIMARY KEY NOT NULL,
+  order_id INTEGER REFERENCES orders(id) NOT NULL ON DELETE CASCADE,
   dish_id INTEGER REFERENCES dishes(id) NOT NULL ON DELETE CASCADE,
   quantity INTEGER NOT NULL,
   paid_price_cents INTEGER NOT NULL

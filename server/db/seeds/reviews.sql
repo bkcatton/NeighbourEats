@@ -5,4 +5,4 @@ VALUES
 ("This food was okay. Maybe I would try it again.", 3, 3, 2),
 ("Yee haw! This could feed my horse!", 5, 1, 2),
 ("I really liked this!", 4, 2, 3),
-("I could not eat this!", 2, 3, 3)
+("I could not eat this!", 2, 3, 3);
