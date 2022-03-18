@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const PORT = 3000;
+const PORT = 8080;
 require('dotenv').config();
 
 // middleware
@@ -16,7 +16,10 @@ const db = new Pool(dbParams);
 db.connect();
 
 //DATABASE QUERIES
-//const usersRoutes = require("./routes/browse");
+const addressRoutes = require("./routes/addresses");
+
+//api routes
+app.use("/api/addresses", addressRoutes(db));
 
 
 // user routes
@@ -28,7 +31,7 @@ app.get('/login/:id', (req, res) => {
   // redirect to "/"
 });
 
-// 1. users can log out
+// 2. users can log out
 app.get('/logout', (req, res) => {
   // clear cookie
   // redirect to "/"
@@ -36,21 +39,8 @@ app.get('/logout', (req, res) => {
 
 // 3. users can browse all dishes and filter by culture, location, price, type [Google Maps API]
 app.get('/browse', (req, res) => {
-  // try {
-  //   const addresses = await db.query('SELECT * FROM addresses;');
-  //   res.json(addresses);
-  // } catch (error) {
-  //   console.error(error.message);
-  // }
-  db.query(`SELECT * FROM users;`)
-  .then((data) => {
-    const addresses = data;
-    // console.log(addresses);
-    res.json({ addresses });
-  })
-  .catch((err) => {
-    res.status(500).json({ error: err.message });
-  });
+ 
+  
 });
 
 // api routes
