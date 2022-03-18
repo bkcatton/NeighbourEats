@@ -11,10 +11,13 @@ app.use(express.json());
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
-console.log(dbParams);
-
+console.log(`dbParams = ${JSON.stringify(dbParams)}`);
 const db = new Pool(dbParams);
-// db.connect();
+db.connect();
+
+//DATABASE QUERIES
+//const usersRoutes = require("./routes/browse");
+
 
 // user routes
 // 1. users can log in
@@ -32,13 +35,22 @@ app.get('/logout', (req, res) => {
 });
 
 // 3. users can browse all dishes and filter by culture, location, price, type [Google Maps API]
-app.get('/browse', async (req, res) => {
-  try {
-    const addresses = await db.query('SELECT * FROM addresses;');
-    res.json(addresses);
-  } catch (error) {
-    console.error(error.message);
-  }
+app.get('/browse', (req, res) => {
+  // try {
+  //   const addresses = await db.query('SELECT * FROM addresses;');
+  //   res.json(addresses);
+  // } catch (error) {
+  //   console.error(error.message);
+  // }
+  db.query(`SELECT * FROM users;`)
+  .then((data) => {
+    const addresses = data;
+    // console.log(addresses);
+    res.json({ addresses });
+  })
+  .catch((err) => {
+    res.status(500).json({ error: err.message });
+  });
 });
 
 // api routes
