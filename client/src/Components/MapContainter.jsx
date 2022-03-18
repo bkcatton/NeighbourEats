@@ -19,7 +19,7 @@ function MyComponent() {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={10}
+        zoom={15}
       >
         { /* Child components, such as markers, info windows, etc. */ }
         <></>
