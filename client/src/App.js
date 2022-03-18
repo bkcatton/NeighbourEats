@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import MapContainer from "./Components/MapContainter";
-import { Link } from "react-router-dom";
+import VendorsList from "./Components/VendorsList";
+import Dish from "./Components/Dish";
+
 
 const App = () => {
   const [addresses, setAddresses] = useState([])
   const [dishes, setDishes] = useState([])
+  const [dishId, setDishId] = useState(null)
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/addresses')
@@ -18,7 +21,7 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/dishesID')
+    axios.get('http://localhost:8080/api/dishes')
     .then ((data) => {
       setDishes(data.data.dishes)
     })
@@ -27,23 +30,11 @@ const App = () => {
     })
   }, [])
 
-  console.log(addresses)
-  const addressList = addresses.map(items => {
-    return <li key={items.id}>{items.street_name}</li>   
-  })
-
-  const dishesList = dishes.map(items => {
-    return <li key={items.id}>
-      <Link to={`${items.id}`}>{items.title}</Link>
-    </li>
-  })
-
   return (
     <div className="App">
-      <h1>HI</h1>
-      <ul>{addressList}</ul>
-      <ul>{dishesList}</ul>
       <MapContainer />
+      <VendorsList addresses={addresses} dishes={dishes} setDishId={setDishId}/>
+      {/* <Dish dishes={dishes} dishID={dishes.id}/> */}
     </div>
   );
 }

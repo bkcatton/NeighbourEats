@@ -16,7 +16,7 @@ ReactDOM.render(
         <Route path="browse" element={<App />} />
         <Route path="browse/:id" element={<Dish />} />
       </Routes>
-    </BrowserRouter>,
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
