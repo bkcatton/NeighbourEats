@@ -16,39 +16,32 @@ const db = new Pool(dbParams);
 db.connect();
 
 //DATABASE QUERIES
-const addressRoutes = require("./routes/addresses");
-const dishesRoutes = require("./routes/dishes");
+const addressRoutes = require('./routes/browse');
+const dishesRoutes = require('./routes/dishes');
 
 //api routes
-app.use("/api/addresses", addressRoutes(db));
-app.use("/api/dishes", dishesRoutes(db));
-
+app.use('/api/browse', addressRoutes(db));
+app.use('/api/dishes', dishesRoutes(db));
 
 // user routes
 // 1. users can log in
-app.get('/login/:id', (req, res) => {
-  const { id } = req.params;
+// app.get('/login/:id', (req, res) => {
+//   const { id } = req.params;
 
-  // set cookie = id
-  // redirect to "/"
-});
+//   // set cookie = id
+//   // redirect to "/"
+// });
 
-// 2. users can log out
-app.get('/logout', (req, res) => {
-  // clear cookie
-  // redirect to "/"
-});
+// // 2. users can log out
+// app.get('/logout', (req, res) => {
+//   // clear cookie
+//   // redirect to "/"
+// });
 
-// 3. users can browse all dishes and filter by culture, location, price, type [Google Maps API]
-app.get('/browse', (req, res) => {
- 
-  
-});
+// // 3. users can browse all dishes and filter by culture, location, price, type [Google Maps API]
+// app.get('/browse', (req, res) => {});
 
-app.get('/browse/:id', (req, res) => {
- 
-  
-});
+// app.get('/browse/:id', (req, res) => {});
 
 // api routes
 // users can send a message over text using twilio
