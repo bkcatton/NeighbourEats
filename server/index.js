@@ -17,9 +17,11 @@ db.connect();
 
 //DATABASE QUERIES
 const addressRoutes = require("./routes/addresses");
+const dishesRoutes = require("./routes/dishes");
 
 //api routes
 app.use("/api/addresses", addressRoutes(db));
+app.use("/api/dishes", dishesRoutes(db));
 
 
 // user routes
@@ -39,6 +41,11 @@ app.get('/logout', (req, res) => {
 
 // 3. users can browse all dishes and filter by culture, location, price, type [Google Maps API]
 app.get('/browse', (req, res) => {
+ 
+  
+});
+
+app.get('/browse/:id', (req, res) => {
  
   
 });

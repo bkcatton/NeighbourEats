@@ -12,4 +12,4 @@ if (process.env.DATABASE_URL) {
   };
 }
 
-module.exports = { dbParams };
+module.exports = dbParams;
