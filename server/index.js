@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const PORT = 3000;
+require('dotenv').config();
 
 // middleware
 app.use(cors());
@@ -10,8 +11,10 @@ app.use(express.json());
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
+console.log(dbParams);
+
 const db = new Pool(dbParams);
-db.connect();
+// db.connect();
 
 // user routes
 // 1. users can log in
@@ -31,8 +34,8 @@ app.get('/logout', (req, res) => {
 // 3. users can browse all dishes and filter by culture, location, price, type [Google Maps API]
 app.get('/browse', async (req, res) => {
   try {
-    const dish = await db.query('SELECT * FROM dishes WHERE id = 1');
-    res.json(dish);
+    const addresses = await db.query('SELECT * FROM addresses;');
+    res.json(addresses);
   } catch (error) {
     console.error(error.message);
   }
