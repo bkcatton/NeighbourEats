@@ -1,42 +1,37 @@
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
-import MapContainer from "./Components/MapContainter";
-import VendorsList from "./Components/VendorsList";
-import Dish from "./Components/Dish";
+import React from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
+import Browse from './Components/Browse';
+import Orders from './Components/Orders/Orders';
+import OrdersHistory from './Components/OrdersHistory';
+import CurrentOrders from './Components/CurrentOrders';
+import Reviews from './Components/Reviews';
+import DishDetails from './Components/DishDetails';
+import NewDish from './Components/NewDish';
 
 const App = () => {
-  const [addresses, setAddresses] = useState([])
-  const [dishes, setDishes] = useState([])
-  const [dishId, setDishId] = useState(null)
-
-  useEffect(() => {
-    axios.get('http://localhost:8080/api/addresses')
-      .then((data) => {
-        setAddresses(data.data.addresses)
-      })
-      .catch((e) => {
-        console.log(e)
-      })
-  }, [])
-
-  useEffect(() => {
-    axios.get('http://localhost:8080/api/dishes')
-    .then ((data) => {
-      setDishes(data.data.dishes)
-    })
-    .catch((e) => {
-      console.log(e)
-    })
-  }, [])
-
   return (
-    <div className="App">
-      <MapContainer />
-      <VendorsList addresses={addresses} dishes={dishes} setDishId={setDishId}/>
-      {/* <Dish dishes={dishes} dishID={dishes.id}/> */}
-    </div>
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Browse</Link>
+        <Link to="/orders">Order</Link>
+        <Link to="/orders/history">Orders History</Link>
+        <Link to="/orders/current">Current Orders</Link>
+        <Link to="/reviews">Reviews</Link>
+        <Link to="/dishes/:id">DishDetails</Link>
+        <Link to="/dishes/new">New Dishes</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Browse />} />
+        <Route path="orders" element={<Orders />} />
+        <Route path="orders/history" element={<OrdersHistory />} />
+        <Route path="orders/current" element={<CurrentOrders />} />
+        <Route path="reviews" element={<Reviews />} />
+        <Route path="dishes/:id" element={<DishDetails />} />
+        <Route path="dishes/new" element={<NewDish />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
