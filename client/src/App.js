@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import MapContainer from "./Components/MapContainter";
 
 function App() {
   const [addresses, setAddresses] = useState([])
@@ -22,7 +23,8 @@ function App() {
   return (
     <div className="App">
       <h1>HI</h1>
-      <ul>{addressList}</ul>
+      {<ul>{addressList}</ul>}
+      <MapContainer />
     </div>
   );
 }

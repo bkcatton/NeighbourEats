@@ -37,6 +37,7 @@ const runSeedFiles = async () => {
 };
 
 const runResetDB = async () => {
+  console.log(dbParams)
   try {
     dbParams.host &&
       console.log(
