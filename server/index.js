@@ -17,9 +17,11 @@ db.connect();
 
 //DATABASE QUERIES
 const dishesRoutes = require('./routes/dishes');
+const ordersRoutes = require('./routes/orders');
 
 //api routes
 app.use('/api/dishes', dishesRoutes(db));
+app.use('/api/orders', ordersRoutes(db));
 
 // api routes
 // users can send a message over text using twilio
