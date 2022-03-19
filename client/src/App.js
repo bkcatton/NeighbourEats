@@ -6,7 +6,7 @@ import Orders from './Components/Orders/Orders';
 import OrdersHistory from './Components/OrdersHistory';
 import CurrentOrders from './Components/CurrentOrders';
 import Reviews from './Components/Reviews';
-import DishDetails from './Components/DishDetails';
+import Dish from './Components/Dish';
 import NewDish from './Components/NewDish';
 
 const App = () => {
@@ -26,7 +26,7 @@ const App = () => {
         <Route path="orders/history" element={<OrdersHistory />} />
         <Route path="orders/current" element={<CurrentOrders />} />
         <Route path="reviews" element={<Reviews />} />
-        <Route path="dishes/details/:id" element={<DishDetails />} />
+        <Route path="dishes/details/:id" element={<Dish />} />
         <Route path="dishes/new" element={<NewDish />} />
       </Routes>
     </BrowserRouter>

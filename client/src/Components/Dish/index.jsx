@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router';
-import axiosConfig from '../axiosConfig';
+import axiosConfig from '../../axiosConfig';
 
-const DishDetails = () => {
-  const [dishDetails, setDishDetails] = useState([])
+import DishDetails from "./DishDetails";
+import DishReviews from "./DishReviews";
+
+const Dish = () => {
+  const [dishDetails, setDishDetails] = useState({})
   const [dishReviews, setDishReviews] = useState([])
   const { id } = useParams();
   
@@ -19,11 +22,13 @@ const DishDetails = () => {
       console.log(error)
     }      
   }, [])
- 
 
   return (
-    <div>DishDetails</div>
+    <div>Dish
+      <DishDetails dishDetails={dishDetails} />
+      <DishReviews dishReviews={dishReviews} />
+    </div>
   )
 }
 
-export default DishDetails
+export default Dish
