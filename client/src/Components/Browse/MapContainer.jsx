@@ -17,7 +17,7 @@ const center = {
 };
 
 function MapContainer(props) {
-console.log("map coords object", props.mapCoords)
+// console.log("map coords object", props.mapCoords)
   let locations = [...props.mapCoords];
   if (props.searchValue) {
     locations = props.mapCoords.filter(item => {
@@ -27,13 +27,14 @@ console.log("map coords object", props.mapCoords)
     })
   }
 
-
+  console.log(locations)
   
   const [selected, setSelected] = useState({});
-  console.log(selected);
+  // console.log(selected);
   const onSelect = item => {
     setSelected(item);
   };
+
 
   return (
     <LoadScript googleMapsApiKey="AIzaSyDhp8LqdW-X8POJhX8QFV-ERtVBLr0ujZo">
@@ -41,8 +42,10 @@ console.log("map coords object", props.mapCoords)
         return (
         <Fragment>
           {locations.map((item, i) => {
+              const image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
             return (
               <Marker
+                icon={image}
                 key={i}
                 position={item.location}
                 onClick={() => onSelect(item)}
