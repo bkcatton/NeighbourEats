@@ -2,11 +2,25 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MapContainer from './MapContainer';
 import VendorsList from './VendorsList';
+import Search from './Search';
 
 const Browse = () => {
   const [dishesInfo, setDishesInfo] = useState([]);
   const [dishesReviews, setDishesReviews] = useState([]);
   const [dishesRatings, setDishesRatings] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+  
+//   console.log(typeof searchValue)
+
+//  const filteredDishes = dishesRatings;
+  
+//   useEffect(() => {
+//     //  (new RegExp('word')).test(str)
+//     const filteredDishesRatings = filteredDishes.filter(item => item.title.includes(searchValue))
+    
+//     setDishesRatings(filteredDishesRatings)
+//     console.log("this is the dishesRatings", dishesRatings)
+//   }, [searchValue])
 
   const [mapCoords, setMapCoords] = useState([]);
   useEffect(() => {
@@ -60,8 +74,9 @@ const Browse = () => {
 
   return (
     <div>
+      <Search searchValue={searchValue} setSearchValue={setSearchValue} />
       <MapContainer mapCoords={mapCoords} />
-      <VendorsList dishesRatings={dishesRatings}/>
+      <VendorsList dishesRatings={dishesRatings} searchValue={searchValue}/>
     </div>
   );
 };

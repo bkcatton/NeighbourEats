@@ -29,10 +29,10 @@ function MapContainer(props) {
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={14}>
         return (
         <Fragment>
-          {locations.map(item => {
+          {locations.map((item, i) => {
             return (
               <Marker
-                key={item.name}
+                key={i}
                 position={item.location}
                 onClick={() => onSelect(item)}
               />
