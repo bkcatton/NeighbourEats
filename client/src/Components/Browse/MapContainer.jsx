@@ -17,7 +17,6 @@ const center = {
 };
 
 function MapContainer(props) {
-// console.log("map coords object", props.mapCoords)
   let locations = [...props.mapCoords];
   if (props.searchValue) {
     locations = props.mapCoords.filter(item => {
@@ -26,11 +25,7 @@ function MapContainer(props) {
       return title.includes(searchValue)
     })
   }
-
-  console.log(locations)
-  
   const [selected, setSelected] = useState({});
-  // console.log(selected);
   const onSelect = item => {
     setSelected(item);
   };

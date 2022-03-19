@@ -46,8 +46,9 @@ module.exports = db => {
   router.get('/reviews/:id', async (req, res) => {
     try {
       const data = await db.query(
-        `SELECT *
+        `SELECT content, star_rating, full_name, reviews.id
           FROM reviews
+          JOIN users on reviewer_id = users.id
           WHERE dish_id = $1
           ;`, [req.params.id]
           );
