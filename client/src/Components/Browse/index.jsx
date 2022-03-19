@@ -19,7 +19,7 @@ const Browse = () => {
         axiosConfig.get('/dishes/reviews'),
         axiosConfig.get('/dishes/ratings')
       ]);
-      
+
       setDishesInfo(all[0].data);
       setDishesReviews(all[1].data);
       setDishesRatings(all[2].data);
