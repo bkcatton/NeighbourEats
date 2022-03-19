@@ -5,14 +5,13 @@ import axiosConfig from '../axiosConfig';
 const DishDetails = () => {
   const { id } = useParams();
   
-  useEffect(() => {
-    axiosConfig.get(`/dishes/details/${id}`)
-      .then((data) => {
-        console.log(data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  useEffect(async () => {
+    try {
+      const data = await axiosConfig.get(`/dishes/details/${id}`)
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }      
   }, [])
 
   return (
