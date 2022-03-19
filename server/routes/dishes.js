@@ -2,6 +2,18 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = db => {
+
+  router.get('/details/:id', (req, res) => {
+    console.log("this is the req", req.params)
+    db.query(`SELECT * FROM dishes WHERE id = $1;`, [req.params.id])
+      .then(data => {
+        res.json(data.rows[0]);
+      })
+      .catch(error => {
+        res.status(500).json({ error: error.message });
+      });
+  });
+
   router.get('/information', (req, res) => {
     db.query(
       `SELECT *

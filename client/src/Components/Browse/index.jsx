@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import axiosConfig from '../../axiosConfig';
 import MapContainer from './MapContainer';
 import VendorsList from './VendorsList';
 import Search from './Search';
@@ -10,24 +11,12 @@ const Browse = () => {
   const [dishesRatings, setDishesRatings] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   
-//   console.log(typeof searchValue)
-
-//  const filteredDishes = dishesRatings;
-  
-//   useEffect(() => {
-//     //  (new RegExp('word')).test(str)
-//     const filteredDishesRatings = filteredDishes.filter(item => item.title.includes(searchValue))
-    
-//     setDishesRatings(filteredDishesRatings)
-//     console.log("this is the dishesRatings", dishesRatings)
-//   }, [searchValue])
-
   const [mapCoords, setMapCoords] = useState([]);
   useEffect(() => {
     Promise.all([
-      axios.get('http://localhost:8080/api/dishes/information'),
-      axios.get('http://localhost:8080/api/dishes/reviews'),
-      axios.get('http://localhost:8080/api/dishes/ratings'),
+      axiosConfig.get('/dishes/information'),
+      axiosConfig.get('/dishes/reviews'),
+      axiosConfig.get('/dishes/ratings'),
     ]).then(all => {
       setDishesInfo(all[0].data);
       setDishesReviews(all[1].data);

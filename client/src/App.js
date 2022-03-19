@@ -18,7 +18,6 @@ const App = () => {
         <Link to="/orders/history">Orders History</Link>
         <Link to="/orders/current">Current Orders</Link>
         <Link to="/reviews">Reviews</Link>
-        <Link to="/dishes/:id">DishDetails</Link>
         <Link to="/dishes/new">New Dishes</Link>
       </nav>
       <Routes>
@@ -27,7 +26,7 @@ const App = () => {
         <Route path="orders/history" element={<OrdersHistory />} />
         <Route path="orders/current" element={<CurrentOrders />} />
         <Route path="reviews" element={<Reviews />} />
-        <Route path="dishes/:id" element={<DishDetails />} />
+        <Route path="dishes/details/:id" element={<DishDetails />} />
         <Route path="dishes/new" element={<NewDish />} />
       </Routes>
     </BrowserRouter>

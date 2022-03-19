@@ -17,7 +17,7 @@ const VendorsList = props => {
     const {average_rating, id, title} = item;
 
     return <li key={id}>
-      <Link to={`/dishes/${id}`}>{title} {average_rating}</Link>
+      <Link to={`/dishes/details/${id}`}>{title} {average_rating}</Link>
       </li>
   })
   
