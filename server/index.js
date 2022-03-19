@@ -16,11 +16,9 @@ const db = new Pool(dbParams);
 db.connect();
 
 //DATABASE QUERIES
-const addressRoutes = require('./routes/browse');
 const dishesRoutes = require('./routes/dishes');
 
 //api routes
-app.use('/api/browse', addressRoutes(db));
 app.use('/api/dishes', dishesRoutes(db));
 
 // user routes

@@ -5,12 +5,13 @@ import VendorsList from './VendorsList';
 
 const Browse = () => {
   useEffect(() => {
-    axios
-      .get('localhost:8080/api/browse')
-      .then(data => {
-        console.log(data);
-      })
-      .catch(err => console.log(err));
+    Promise.all([
+      axios.get('http://localhost:8080/api/browse'),
+      axios.get('http://localhost:8080/api/browse'),
+    ]).then(all => {
+      console.log(all[0], all[1]);
+    });
+
   }, []);
 
   return (
