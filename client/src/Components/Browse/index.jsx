@@ -75,7 +75,7 @@ const Browse = () => {
   return (
     <div>
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
-      <MapContainer mapCoords={mapCoords} />
+      <MapContainer mapCoords={mapCoords} searchValue={searchValue}/>
       <VendorsList dishesRatings={dishesRatings} searchValue={searchValue}/>
     </div>
   );

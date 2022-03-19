@@ -17,7 +17,18 @@ const center = {
 };
 
 function MapContainer(props) {
-  const locations = props.mapCoords;
+console.log("map coords object", props.mapCoords)
+  let locations = [...props.mapCoords];
+  if (props.searchValue) {
+    locations = props.mapCoords.filter(item => {
+      const title = item.title.toLowerCase();
+      const searchValue = props.searchValue.toLowerCase();
+      return title.includes(searchValue)
+    })
+  }
+
+
+  
   const [selected, setSelected] = useState({});
   console.log(selected);
   const onSelect = item => {
