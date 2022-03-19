@@ -6,15 +6,18 @@ import VendorsList from './VendorsList';
 const Browse = () => {
   const [dishesInfo, setDishesInfo] = useState([]);
   const [dishesReviews, setDishesReviews] = useState([]);
-  const [mapCoords, setMapCoords] = useState([]);
+  const [dishesRatings, setDishesRatings] = useState([]);
 
+  const [mapCoords, setMapCoords] = useState([]);
   useEffect(() => {
     Promise.all([
       axios.get('http://localhost:8080/api/dishes/information'),
       axios.get('http://localhost:8080/api/dishes/reviews'),
+      axios.get('http://localhost:8080/api/dishes/ratings'),
     ]).then(all => {
       setDishesInfo(all[0].data);
       setDishesReviews(all[1].data);
+      setDishesRatings(all[2].data);
     });
   }, []);
 
@@ -58,7 +61,7 @@ const Browse = () => {
   return (
     <div>
       <MapContainer mapCoords={mapCoords} />
-      <VendorsList />
+      <VendorsList dishesRatings={dishesRatings}/>
     </div>
   );
 };

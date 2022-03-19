@@ -22,7 +22,7 @@ CREATE TABLE dishes (
 );
 CREATE TABLE reviews (
   id SERIAL PRIMARY KEY NOT NULL,
-  content VARCHAR(255),
+  content VARCHAR(450),
   star_rating INTEGER NOT NULL,
   reviewer_id INTEGER REFERENCES users (id) ON DELETE CASCADE NOT NULL,
   dish_id INTEGER REFERENCES dishes (id) ON DELETE CASCADE NOT NULL
