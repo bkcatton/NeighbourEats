@@ -4,7 +4,6 @@ const router = express.Router();
 module.exports = db => {
 
   router.get('/details/:id', (req, res) => {
-    console.log("this is the req", req.params)
     db.query(`SELECT * FROM dishes WHERE id = $1;`, [req.params.id])
       .then(data => {
         res.json(data.rows[0]);
@@ -42,6 +41,20 @@ module.exports = db => {
       .catch(error => {
         res.status(500).json({ error: error.message });
       });
+  });
+
+  router.get('/reviews/:id', async (req, res) => {
+    try {
+      const data = await db.query(
+        `SELECT *
+          FROM reviews
+          WHERE dish_id = $1
+          ;`, [req.params.id]
+          );
+      res.json(data.rows);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   });
   
   router.get('/ratings', (req, res) => {
