@@ -6,6 +6,7 @@ import VendorsList from './VendorsList';
 const Browse = () => {
   const [info, setInfo] = useState([]);
   const [allReviews, setAllReviews] = useState([]);
+  const [mapCoords, setMapCoords] = useState([]);
 
   useEffect(() => {
     Promise.all([
@@ -17,23 +18,53 @@ const Browse = () => {
       setAllReviews(all[1].data);
     });
   }, []);
+  // https://maps.googleapis.com/maps/api/geocode/outputFormat?parameters
+  //parameters address=24%20Sussex%20Drive%20Ottawa%20ON
+  //outputformat = json
 
-  const infoReviews = info.map(item => {
-    item.reviews = [];
+  //https://maps.googleapis.com/maps/api/geocode/json?address=${parameters}&key=AIzaSyDhp8LqdW-X8POJhX8QFV-ERtVBLr0ujZo
 
-    for (const review of allReviews) {
-      if (review.dish_id === item.id) {
-        item.reviews.push(review);
+  useEffect(() => {
+    if (!allReviews.length || !info.length) return;
+    const getCoordinates = dishItem => {
+      console.log(dishItem);
+      const { street_number, street_name, city, state_code } = dishItem;
+
+      const parameter = encodeURIComponent(
+        `${street_number} ${street_name} ${city} ${state_code}`
+      );
+
+      axios
+        .get(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${parameter}&key=AIzaSyDhp8LqdW-X8POJhX8QFV-ERtVBLr0ujZo`
+        )
+        .then(response => {
+          const location = response.data.results[0].geometry.location || {};
+          const name = dishItem.street_name;
+          setMapCoords(prev => [...prev, { name, location }]);
+        });
+    };
+    // results.geometry.location
+    const dishItems = info.map(item => {
+      item.reviews = [];
+
+      for (const review of allReviews) {
+        if (review.dish_id === item.id) {
+          item.reviews.push(review);
+        }
       }
-    }
 
-    return item;
-  });
-  console.log(infoReviews);
+      return item;
+    });
+
+    dishItems.forEach(item => getCoordinates(item));
+  }, [allReviews.length, info.length]);
+
+  console.log('here are the mapcoords', mapCoords);
 
   return (
     <div>
-      <MapContainer />
+      <MapContainer mapCoords={mapCoords} />
       <VendorsList />
     </div>
   );
