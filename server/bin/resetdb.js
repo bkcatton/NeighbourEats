@@ -9,8 +9,8 @@ const fs = require('fs');
 // const chalk = require('chalk');
 const { Client } = require('pg');
 const libdb = require('../lib/db.js');
-console.log('libdb', libdb);
-const { dbParams } = libdb;
+
+const dbParams = libdb;
 const db = new Client(dbParams);
 
 // Loads the schema files from db/schema
@@ -20,7 +20,7 @@ const runSchemaFiles = async () => {
 
   for (const fn of schemaFilenames) {
     const sql = fs.readFileSync(`./db/schema/${fn}`, 'utf8');
-    console.log(`\t-> Running ${(fn)}`);
+    console.log(`\t-> Running ${fn}`);
     await db.query(sql);
   }
 };
@@ -31,13 +31,13 @@ const runSeedFiles = async () => {
 
   for (const fn of schemaFilenames) {
     const sql = fs.readFileSync(`./db/seeds/${fn}`, 'utf8');
-    console.log(`\t-> Running ${(fn)}`);
+    console.log(`\t-> Running ${fn}`);
     await db.query(sql);
   }
 };
 
 const runResetDB = async () => {
-  console.log(dbParams)
+  console.log(dbParams);
   try {
     dbParams.host &&
       console.log(
