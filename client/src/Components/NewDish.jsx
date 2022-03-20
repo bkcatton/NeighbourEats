@@ -24,7 +24,6 @@ const NewDish = () => {
     console.log(newDish)
   }
 
-
   return (
     <div>
       NewDish

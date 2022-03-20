@@ -17,7 +17,7 @@ const App = () => {
   const [userId, setUserId] = useState('');
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       const userId = localStorage.getItem('userId');
       if (userId) {
         setIsAuth(true);
