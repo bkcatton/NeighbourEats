@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axiosConfig from '../../axiosConfig';
 import { Link } from 'react-router-dom';
 
-const Orders = () => {
+const BuyerOrders = () => {
   const [userOrders, setUserOrders] = useState([]);
 
   useEffect(() => {
@@ -61,4 +61,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default BuyerOrders;

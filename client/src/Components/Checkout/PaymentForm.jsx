@@ -21,7 +21,10 @@ const PaymentForm = () => {
     const cardElement = elements.getElement(CardElement);
     console.log('card', cardElement);
     console.log('stripe', stripe);
+    
+
   };
+  
   return (
     <div>
       <form action="">

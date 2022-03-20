@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axiosConfig from '../axiosConfig';
+import axiosConfig from '../../axiosConfig';
+import PaymentForm from './';
 
 const CurrentOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -34,6 +35,7 @@ const CurrentOrders = () => {
     <div>
       CurrentOrders
       <ul>{ordersList}</ul>
+      <PaymentForm />
     </div>
   );
 };

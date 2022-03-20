@@ -1,15 +1,15 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
+import axiosConfig from './axiosConfig';
 import Browse from './Components/Browse';
-import Orders from './Components/Orders';
+import BuyerOrders from './Components/BuyerOrders';
 import OrdersHistory from './Components/OrdersHistory';
-import CurrentOrders from './Components/CurrentOrders';
 import Reviews from './Components/Reviews';
 import Dish from './Components/Dish';
 import NewDish from './Components/NewDish';
-import PaymentForm from './Components/PaymentForm';
-import axiosConfig from './axiosConfig';
+import Checkout from './Components/Checkout';
+import VendorOrders from "./Components/VendorOrders"
 
 const App = () => {
   const [isVendor, setIsVendor] = useState(false);
@@ -52,11 +52,11 @@ const App = () => {
         <Link to="/">Browse</Link>
         {isAuth ? (
           <Fragment>
-            <Link to="/orders">Order</Link>
+            <Link to="/orders/buyer">Order</Link>
             <Link to="/orders/history">Orders History</Link>
             {/* this is for buyers -
             will show all confirmed orders - leave review from here */}
-            {isVendor && <Link to="/orders/current">Current Orders</Link>}
+            {isVendor && <Link to="/orders/vendor">Current Orders</Link>}
             {/* for vendors only -
             will display all orders that have been confirmed */}
             <Link to="/reviews">Reviews</Link>
@@ -77,15 +77,15 @@ const App = () => {
       </nav>
       <Routes>
         <Route path="/" element={<Browse />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/orders/history" element={<OrdersHistory />} />
-        {isVendor && (
-          <Route path="/orders/current" element={<CurrentOrders />} />
+        {isAuth && <Route path="/orders/buyer" element={<BuyerOrders />} />}
+        {isAuth && <Route path="/orders/history" element={<OrdersHistory />} />}
+        {isAuth && isVendor && (
+          <Route path="/orders/vendor" element={<VendorOrders />} />
         )}
-        <Route path="/reviews" element={<Reviews />} />
-        <Route path="/dishes/details/:id" element={<Dish />} />
-        <Route path="/dishes/new" element={<NewDish />} />
-        <Route path="/payment" element={<PaymentForm />} />
+        {isAuth && <Route path="/reviews" element={<Reviews />} />}
+        {isAuth && <Route path="/dishes/details/:id" element={<Dish />} />}
+        {isAuth && <Route path="/dishes/new" element={<NewDish />} />}
+        {isAuth && <Route path="/checkout" element={<Checkout />} />}
       </Routes>
     </BrowserRouter>
   );
