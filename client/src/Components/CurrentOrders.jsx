@@ -5,7 +5,7 @@ const CurrentOrders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       try {
         const { data } = await axiosConfig.get('/orders/current');
         setOrders(data);

@@ -13,7 +13,7 @@ const Browse = () => {
   const [mapCoords, setMapCoords] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       try {
         const all = await Promise.all([
           axiosConfig.get('/dishes/information'),
@@ -26,7 +26,7 @@ const Browse = () => {
       } catch (error) {
         console.log(error);
       }
-    }
+    };
     fetchData();
   }, []);
 
