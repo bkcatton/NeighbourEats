@@ -12,37 +12,45 @@ const Browse = () => {
   const [searchValue, setSearchValue] = useState('');
   const [mapCoords, setMapCoords] = useState([]);
 
-  useEffect(async () => {
-    try {
-      const all = await Promise.all([
-        axiosConfig.get('/dishes/information'),
-        axiosConfig.get('/dishes/reviews'),
-        axiosConfig.get('/dishes/ratings')
-      ]);
-      setDishesInfo(all[0].data);
-      setDishesReviews(all[1].data);
-      setDishesRatings(all[2].data);
-    } catch (error) {
-      console.log(error)
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const all = await Promise.all([
+          axiosConfig.get('/dishes/information'),
+          axiosConfig.get('/dishes/reviews'),
+          axiosConfig.get('/dishes/ratings'),
+        ]);
+        setDishesInfo(all[0].data);
+        setDishesReviews(all[1].data);
+        setDishesRatings(all[2].data);
+      } catch (error) {
+        console.log(error);
+      }
     }
+    fetchData();
   }, []);
 
   useEffect(() => {
     if (!dishesReviews.length || !dishesInfo.length) return;
-    const getCoordinates = async (dishItem) => {
+    const getCoordinates = async dishItem => {
       const { street_number, street_name, city, state_code } = dishItem;
       const parameter = encodeURIComponent(
         `${street_number} ${street_name} ${city} ${state_code}`
       );
-      
+
       try {
-        const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${parameter}&key=AIzaSyDhp8LqdW-X8POJhX8QFV-ERtVBLr0ujZo`)
+        const response = await axios.get(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${parameter}&key=AIzaSyDhp8LqdW-X8POJhX8QFV-ERtVBLr0ujZo`
+        );
         const location = response.data.results[0].geometry.location || {};
-        const {street_name, title, image_link} = dishItem;
-        
-        setMapCoords(prev => [...prev, { street_name, title, image_link, location }]);
+        const { street_name, title, image_link } = dishItem;
+
+        setMapCoords(prev => [
+          ...prev,
+          { street_name, title, image_link, location },
+        ]);
       } catch (error) {
-        console.log("this is the error", error);
+        console.log('this is the error', error);
       }
     };
 

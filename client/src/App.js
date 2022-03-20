@@ -8,6 +8,7 @@ import CurrentOrders from './Components/CurrentOrders';
 import Reviews from './Components/Reviews';
 import Dish from './Components/Dish';
 import NewDish from './Components/NewDish';
+import PaymentForm from './Components/PaymentForm';
 
 const App = () => {
   return (
@@ -22,12 +23,13 @@ const App = () => {
       </nav>
       <Routes>
         <Route path="/" element={<Browse />} />
-        <Route path="orders" element={<Orders />} />
-        <Route path="orders/history" element={<OrdersHistory />} />
-        <Route path="orders/current" element={<CurrentOrders />} />
-        <Route path="reviews" element={<Reviews />} />
-        <Route path="dishes/details/:id" element={<Dish />} />
-        <Route path="dishes/new" element={<NewDish />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/orders/history" element={<OrdersHistory />} />
+        <Route path="/orders/current" element={<CurrentOrders />} />
+        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/dishes/details/:id" element={<Dish />} />
+        <Route path="/dishes/new" element={<NewDish />} />
+        <Route path="/payment" element={<PaymentForm />} />
       </Routes>
     </BrowserRouter>
   );

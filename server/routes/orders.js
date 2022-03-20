@@ -2,9 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = db => {
-
   router.get('/user/:id', async (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
     try {
       const orders = await db.query(
         `SELECT order_items.id AS order_items_id, quantity, orders.customer_id, paid_price_cents, title, dish_description, country_style, image_link
@@ -12,7 +11,8 @@ module.exports = db => {
           JOIN order_items ON orders.id = order_items.order_id
           JOIN dishes ON order_items.dish_id = dishes.id
           WHERE orders.customer_id = $1;
-        `, [id]
+        `,
+        [id]
       );
       res.json(orders.rows);
     } catch (error) {
@@ -21,12 +21,13 @@ module.exports = db => {
   });
 
   router.delete('/delete/:id', async (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
     try {
       const orders = await db.query(
         `DELETE FROM order_items
           WHERE id = $1;
-        `, [id]
+        `,
+        [id]
       );
       res.json(orders.rows);
     } catch (error) {
@@ -34,14 +35,30 @@ module.exports = db => {
     }
   });
 
+  router.get('/current', async (req, res) => {
+    try {
+      const order = await db.query(
+        `SELECT * FROM dishes
+          JOIN order_items ON dishes.id = order_items.dish_id
+          JOIN orders ON order_items.order_id = orders.id
+          WHERE orders.customer_id = 1;
+        `
+      );
+      res.json(order.rows);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   router.post('/order_item', async (req, res) => {
-    console.log("this is the req body", req.body)
-    const { order_id, dish_id, quantity, paid_price_cents } = req.body
+    console.log('this is the req body', req.body);
+    const { order_id, dish_id, quantity, paid_price_cents } = req.body;
     try {
       const order = await db.query(
         `INSERT INTO order_items(order_id, dish_id, quantity, paid_price_cents)
           VALUES ($1, $2, $3, $4) RETURNING *;
-        `, [order_id, dish_id, quantity, paid_price_cents]
+        `,
+        [order_id, dish_id, quantity, paid_price_cents]
       );
       // res.json(order.rows[0]);
     } catch (error) {
@@ -63,4 +80,4 @@ module.exports = db => {
   });
 
   return router;
-}
+};

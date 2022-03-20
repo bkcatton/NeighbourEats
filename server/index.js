@@ -7,7 +7,11 @@ require('dotenv').config();
 // app.use(express.static('public'));
 
 // middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+  })
+);
 app.use(express.json());
 
 // PG database client/connection setup
