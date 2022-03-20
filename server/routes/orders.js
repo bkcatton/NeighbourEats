@@ -36,13 +36,14 @@ module.exports = db => {
   });
 
   router.get('/current', async (req, res) => {
+    const { id } = req.params;
     try {
       const order = await db.query(
         `SELECT title, order_items.paid_price_cents, dishes.image_link, quantity, country_style, orders.id AS order_id FROM dishes
           JOIN order_items ON dishes.id = order_items.dish_id
           JOIN orders ON order_items.order_id = orders.id
-          WHERE orders.confirmed = true AND dishes.user_id = 1;
-        `
+          WHERE orders.confirmed = true AND dishes.user_id = $1;
+        `, [id]
       );
       res.json(order.rows);
     } catch (error) {
