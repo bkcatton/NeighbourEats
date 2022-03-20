@@ -4,6 +4,8 @@ const cors = require('cors');
 const PORT = 8080;
 require('dotenv').config();
 
+// app.use(express.static('public'));
+
 // middleware
 app.use(cors());
 app.use(express.json());

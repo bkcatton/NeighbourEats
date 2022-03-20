@@ -6,6 +6,8 @@ import {
   InfoWindow,
 } from '@react-google-maps/api';
 
+
+
 const containerStyle = {
   width: '400px',
   height: '400px',
@@ -32,7 +34,7 @@ function MapContainer(props) {
 
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyDhp8LqdW-X8POJhX8QFV-ERtVBLr0ujZo">
+    <LoadScript googleMapsApiKey={process.env.REACT_APP_GMAPS_APIKEY}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={14}>
         return (
         <Fragment>

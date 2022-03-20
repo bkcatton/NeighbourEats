@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axiosConfig from '../../axiosConfig';
+import { Link } from 'react-router-dom';
+
 
 const Orders = () => {
   const [userOrders, setUserOrders] = useState([]);
@@ -44,7 +46,7 @@ const Orders = () => {
     <div>
       Pending Orders
       {ordersList.length ? ordersList : <p>No Orders</p>}
-      <button>Stripe Checkout</button>
+      <button><Link to="/checkout">Stripe Checkout</Link></button>
     </div>
   )
 }
