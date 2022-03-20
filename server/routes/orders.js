@@ -2,14 +2,33 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = db => {
-  router.post('/', async (req, res) => {
+
+  router.get('/user/:id', async (req, res) => {
+    const { id } = req.params
     try {
-      const data = await db.query(
-        `INSERT INTO orders(confirmed, customer_id)
-        VALUES (false, 1) RETURNING *
-          ;`
+      const orders = await db.query(
+        `SELECT order_items.id AS order_items_id, quantity, orders.customer_id, paid_price_cents, title, dish_description, country_style, image_link
+          FROM orders
+          JOIN order_items ON orders.id = order_items.order_id
+          JOIN dishes ON order_items.dish_id = dishes.id
+          WHERE orders.customer_id = $1;
+        `, [id]
       );
-      res.json(data.rows[0]);
+      res.json(orders.rows);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  router.delete('/delete/:id', async (req, res) => {
+    const { id } = req.params
+    try {
+      const orders = await db.query(
+        `DELETE FROM order_items
+          WHERE id = $1;
+        `, [id]
+      );
+      res.json(orders.rows);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -30,7 +49,18 @@ module.exports = db => {
     }
   });
 
-
+  router.post('/', async (req, res) => {
+    try {
+      const data = await db.query(
+        `INSERT INTO orders(confirmed, customer_id)
+        VALUES (false, 1) RETURNING *
+          ;`
+      );
+      res.json(data.rows[0]);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
 
   return router;
 }

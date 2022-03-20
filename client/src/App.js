@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 import Browse from './Components/Browse';
-import Orders from './Components/Orders/Orders';
+import Orders from './Components/Orders';
 import OrdersHistory from './Components/OrdersHistory';
 import CurrentOrders from './Components/CurrentOrders';
 import Reviews from './Components/Reviews';
