@@ -2,6 +2,37 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = db => {
+  router.post('/new', (req, res) => {
+    const { title, description, price, servingSize, imageLink, countryStyle, availableStock } = req.body
+    db.query(
+      `INSERT INTO dishes (
+          title, 
+          dish_description, 
+          price_cents, 
+          serving_size, 
+          image_link, 
+          country_style, 
+          available_stock, 
+          user_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, 1);`,
+        [title, description, price, servingSize, imageLink, countryStyle, availableStock])
+      .then(data => {
+        db.query(
+          `INSERT INTO addresses (
+              street_name, 
+              street_number, 
+              city, 
+              state_code, 
+              country, 
+              postal_code, 
+              user_id)
+            VALUES ('Church St', 260, 'New York', 'NY', 'USA', 10013, 1);`)
+        res.json(data.rows[0]);
+      })
+      .catch(error => {
+        res.status(500).json({ error: error.message });
+      });
+  });
 
   router.get('/details/:id', (req, res) => {
     db.query(`SELECT * FROM dishes WHERE id = $1;`, [req.params.id])

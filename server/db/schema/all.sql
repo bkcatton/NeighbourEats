@@ -15,7 +15,7 @@ CREATE TABLE dishes (
   dish_description VARCHAR(255) NOT NULL,
   price_cents INTEGER NOT NULL,
   serving_size SMALLINT NOT NULL,
-  image_link VARCHAR(255) NOT NULL,
+  image_link TEXT NOT NULL,
   country_style VARCHAR(255) NOT NULL,
   available_stock SMALLINT NOT NULL,
   user_id INTEGER REFERENCES users (id) ON DELETE CASCADE
