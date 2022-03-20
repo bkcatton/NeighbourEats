@@ -10,7 +10,7 @@ module.exports = db => {
           FROM orders
           JOIN order_items ON orders.id = order_items.order_id
           JOIN dishes ON order_items.dish_id = dishes.id
-          WHERE orders.customer_id = $1;
+          WHERE orders.confirmed = false AND orders.customer_id = $1;
         `,
         [id]
       );
@@ -38,10 +38,10 @@ module.exports = db => {
   router.get('/current', async (req, res) => {
     try {
       const order = await db.query(
-        `SELECT * FROM dishes
+        `SELECT title, order_items.paid_price_cents, dishes.image_link, quantity, country_style, orders.id AS order_id FROM dishes
           JOIN order_items ON dishes.id = order_items.dish_id
           JOIN orders ON order_items.order_id = orders.id
-          WHERE orders.customer_id = 1;
+          WHERE orders.confirmed = true AND dishes.user_id = 1;
         `
       );
       res.json(order.rows);
