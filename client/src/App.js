@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 import Browse from './Components/Browse';
@@ -50,16 +50,20 @@ const App = () => {
     <BrowserRouter>
       <nav>
         <Link to="/">Browse</Link>
-        <Link to="/orders">Order</Link>
-        <Link to="/orders/history">Orders History</Link>{' '}
-        {/* this is for buyers -
-        will show all confirmed orders - leave review from here */}
-        {isVendor && <Link to="/orders/current">Current Orders</Link>}
-        {/* for vendors only -
-        will display all orders that have been confirmed */}
-        <Link to="/reviews">Reviews</Link>
-        <Link to="/dishes/new">New Dishes</Link>
-        {!isAuth ? (
+        {isAuth ? (
+          <Fragment>
+            <Link to="/orders">Order</Link>
+            <Link to="/orders/history">Orders History</Link>
+            {/* this is for buyers -
+            will show all confirmed orders - leave review from here */}
+            {isVendor && <Link to="/orders/current">Current Orders</Link>}
+            {/* for vendors only -
+            will display all orders that have been confirmed */}
+            <Link to="/reviews">Reviews</Link>
+            <Link to="/dishes/new">New Dishes</Link>
+            <button onClick={handleLogout}>Log out</button>
+          </Fragment>
+        ) : (
           <form onSubmit={e => setLoggedInUser(e)}>
             <input
               type="text"
@@ -69,8 +73,6 @@ const App = () => {
             />
             <button type="submit"> login </button>
           </form>
-        ) : (
-          <button onClick={handleLogout}>Log out</button>
         )}
       </nav>
       <Routes>
