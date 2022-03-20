@@ -11,14 +11,17 @@ const Orders = () => {
     } catch (error) {
       console.log(error)
     }      
-  }, [userOrders])
+  }, [])
 
   const deleteFromOrder =  (orderId) => {
     
-       axiosConfig.delete(`/orders/delete/${orderId}`)
+      axiosConfig.delete(`/orders/delete/${orderId}`)
         .then(() => {
-          const remainingOrders = userOrders.filter(item => item.order_item_id !== orderId)
-          setUserOrders([...remainingOrders]);
+          const remainingOrders = userOrders.filter(item => {
+            return item.order_items_id !== orderId
+          })
+
+          setUserOrders(remainingOrders);
         })
         .catch(error => console.log(error))
    
