@@ -11,13 +11,15 @@ import NavBar from './Components/NavBar';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
+import NavBarMUI from './Components/NavBarMUI'
 
 const App = () => {
 
   return (
     <BrowserRouter>
-    <CssBaseline />
+      <CssBaseline />
       <NavBar />
+      <NavBarMUI />
       <Container maxWidth="sm">
       <Routes>
         <Route path="/" element={<Browse />} />
