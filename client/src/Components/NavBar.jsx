@@ -6,6 +6,7 @@ const NavBar = () => {
   const { user, login, logout } = useContext(UserContext);
   const { userId } = user;
   const [input, setInput] = useState('');
+  console.log(user)
   return (
     <nav>
       <Link to="/">Browse</Link>
@@ -13,8 +14,8 @@ const NavBar = () => {
         <Fragment>
           <Link to="/orders/cart">My Cart</Link>
           <Link to="/orders/previous">Previous Orders</Link>
-          <Link to="/orders/vendor">Current Orders</Link>
-          <Link to="/dishes/new">New Dishes</Link>
+          {user.isVendor && <Link to="/orders/vendor">Current Orders</Link>}
+          {user.isVendor && <Link to="/dishes/new">New Dishes</Link>}
           <button onClick={logout}>Log out</button>
         </Fragment>
       ) : (
