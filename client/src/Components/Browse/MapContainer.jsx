@@ -18,6 +18,7 @@ const center = {
 
 function MapContainer(props) {
   let locations = [...props.mapCoords];
+
   if (props.searchValue) {
     locations = props.mapCoords.filter(item => {
       const title = item.title.toLowerCase();
@@ -25,11 +26,11 @@ function MapContainer(props) {
       return title.includes(searchValue)
     })
   }
+  
   const [selected, setSelected] = useState({});
   const onSelect = item => {
     setSelected(item);
   };
-
 
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_GMAPS_APIKEY}>

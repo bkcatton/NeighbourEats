@@ -21,10 +21,10 @@ const BuyerOrders = () => {
     if (userId) {
       fetchData();
     }
-  }, []);
+  }, [userId]);
 
-  console.log(userOrders)
-  
+  console.log(userOrders);
+
   const deleteFromOrder = orderItemsId => {
     axiosConfig
       .delete('/orders/delete', { orderItemsId })
@@ -56,12 +56,12 @@ const BuyerOrders = () => {
       </div>
     );
   });
-console.log(userOrders)
+  console.log(userOrders);
   return (
     <div>
       Pending Orders
       {ordersList.length ? ordersList : <p>No Orders</p>}
-      <PaymentForm userOrders={userOrders}/>
+      <PaymentForm userOrders={userOrders} />
     </div>
   );
 };

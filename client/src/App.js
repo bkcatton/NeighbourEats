@@ -1,7 +1,6 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
-import axiosConfig from './axiosConfig';
 import Browse from './Components/Browse';
 import BuyerOrders from './Components/BuyerOrders';
 import OrdersHistory from './Components/OrdersHistory';
