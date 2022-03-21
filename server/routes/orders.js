@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = db => {
-
-  
   router.get('/user/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -15,13 +13,30 @@ module.exports = db => {
           WHERE orders.confirmed = false AND orders.customer_id = $1;
         `,
         [id]
-        );
-        res.json(orders.rows);
-      } catch (error) {
-        res.status(500).json({ error: error.message });
-      }
-    });
+      );
+      res.json(orders.rows);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
 
+  router.get('/previous/:id', async (req, res) => {
+    console.log('this is the req.params', req.params);
+    const { id } = req.params;
+    try {
+      const orders = await db.query(
+        `SELECT dishes.id AS dish_id, title, order_items.paid_price_cents, dishes.image_link, quantity, country_style, orders.id AS order_id FROM orders
+          JOIN order_items ON orders.id = order_items.order_id
+          JOIN dishes ON order_items.dish_id = dishes.id
+          WHERE orders.confirmed = true AND orders.customer_id = $1;
+        `,
+        [id]
+      );
+      res.json(orders.rows);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
 
   router.delete('/delete', async (req, res) => {
     const { orderItemsId } = req.body;
@@ -38,7 +53,7 @@ module.exports = db => {
     }
   });
 
-  router.get('/current', async (req, res) => {
+  router.get('/current/:id', async (req, res) => {
     const { id } = req.params;
     try {
       const order = await db.query(
@@ -46,7 +61,8 @@ module.exports = db => {
           JOIN order_items ON dishes.id = order_items.dish_id
           JOIN orders ON order_items.order_id = orders.id
           WHERE orders.confirmed = true AND dishes.user_id = $1;
-        `, [id]
+        `,
+        [id]
       );
       res.json(order.rows);
     } catch (error) {

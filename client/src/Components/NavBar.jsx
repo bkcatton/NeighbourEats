@@ -2,9 +2,8 @@ import React, { Fragment, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from './UserProvider';
 
-
 const NavBar = () => {
-  const {user, login, logout} = useContext(UserContext);
+  const { user, login, logout } = useContext(UserContext);
   const { userId } = user;
   const [input, setInput] = useState('');
   return (
@@ -12,8 +11,8 @@ const NavBar = () => {
       <Link to="/">Browse</Link>
       {userId ? (
         <Fragment>
-          <Link to="/orders/buyer">Order</Link>
-          <Link to="/orders/history">Orders History</Link>
+          <Link to="/orders/cart">My Cart</Link>
+          <Link to="/orders/previous">Previous Orders</Link>
           <Link to="/orders/vendor">Current Orders</Link>
           <Link to="/dishes/new">New Dishes</Link>
           <button onClick={logout}>Log out</button>

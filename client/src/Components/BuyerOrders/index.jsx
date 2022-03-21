@@ -12,7 +12,9 @@ const BuyerOrders = () => {
     const fetchData = async () => {
       try {
         const { data } = await axiosConfig.get(`/orders/user/${userId}`);
-        setUserOrders(data);
+        if (data) {
+          setUserOrders(data);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -22,7 +24,6 @@ const BuyerOrders = () => {
       fetchData();
     }
   }, [userId]);
-
 
   const deleteFromOrder = orderItemsId => {
     axiosConfig
