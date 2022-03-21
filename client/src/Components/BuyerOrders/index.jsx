@@ -25,17 +25,16 @@ const BuyerOrders = () => {
     }
   }, [userId]);
 
-  const deleteFromOrder = orderItemsId => {
-    axiosConfig
-      .delete('/orders/delete', { orderItemsId })
-      .then(() => {
-        const remainingOrders = userOrders.filter(item => {
-          return item.order_items_id !== orderItemsId;
-        });
-
-        setUserOrders(remainingOrders);
-      })
-      .catch(error => console.log(error));
+  const deleteFromOrder = async orderItemsId => {
+    try {
+      await axiosConfig.delete('/orders/delete', { data: { orderItemsId }}) 
+      const remainingOrders = userOrders.filter(item => {
+        return item.order_items_id !== orderItemsId;
+      });
+      setUserOrders(remainingOrders);
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const ordersList = userOrders.map((item, i) => {
