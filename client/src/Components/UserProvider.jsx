@@ -4,29 +4,39 @@ import axiosConfig from '../axiosConfig';
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState({ userId: '', isVendor: false });
   
+  
   useEffect(() => {
-    function cleanUp() {
+    function setUserId() {
       const userId = localStorage.getItem('userId')
-      if (userId) setUser({ userId: userId, isVendor: true })
+      let isVendor = localStorage.getItem('isVendor')
+      if (isVendor === 'true') {
+        isVendor = true
+      }
+
+      if (userId) {
+        setUser({ userId, isVendor })
+      }
     }
-    cleanUp();
+
+    setUserId();
   }, [])
 
-  const login = async (e, input) => {
+  const login = async (e, userId) => {
     e.preventDefault();
-    localStorage.setItem('userId', input)
+    localStorage.setItem('userId', userId)
     
     try {
-      const { data } = await axiosConfig.get(`/users/${input}`);
-      console.log("this is after the post request", data)
-      // const {id, isVendor} = data
+      const { data } = await axiosConfig.get(`/users/${userId}`);
       setUser({userId: data.id, isVendor: data.is_vendor});
+      localStorage.setItem('isVendor', data.is_vendor)
     } catch (error) {
       console.log(error);
     }
   }
 
   const logout = () => {
+    localStorage.clear()
+    // localStorage.clear('isVendor')
     setUser(() => ({
       userId: '',
       isVendor: false,

@@ -21,7 +21,6 @@ module.exports = db => {
   });
 
   router.get('/previous/:id', async (req, res) => {
-    console.log('this is the req.params', req.params);
     const { id } = req.params;
     try {
       const orders = await db.query(
@@ -39,7 +38,7 @@ module.exports = db => {
   });
 
   router.delete('/delete', async (req, res) => {
-    const { orderItemsId } = req.body;
+    const { orderItemsId } = req.body.data;
     try {
       const orders = await db.query(
         `DELETE FROM order_items
@@ -73,13 +72,12 @@ module.exports = db => {
   router.post('/order_item', async (req, res) => {
     const { order_id, dish_id, quantity, paid_price_cents } = req.body;
     try {
-      const order = await db.query(
+      await db.query(
         `INSERT INTO order_items(order_id, dish_id, quantity, paid_price_cents)
           VALUES ($1, $2, $3, $4) RETURNING *;
         `,
         [order_id, dish_id, quantity, paid_price_cents]
       );
-      // res.json(order.rows[0]);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

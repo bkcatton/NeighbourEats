@@ -6,7 +6,7 @@ const NavBar = () => {
   const { user, login, logout } = useContext(UserContext);
   const { userId } = user;
   const [input, setInput] = useState('');
-  console.log(user)
+
   return (
     <nav>
       <Link to="/">Browse</Link>

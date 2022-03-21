@@ -16,6 +16,7 @@ const NewDish = () => {
   
   const onUpload = async e => {
     e.preventDefault();
+
     await axiosConfig.post('/dishes/new', {
       title,
       description,

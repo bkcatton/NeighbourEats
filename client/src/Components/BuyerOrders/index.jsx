@@ -55,6 +55,7 @@ const BuyerOrders = () => {
       </div>
     );
   });
+
   return (
     <div>
       Pending Orders

@@ -4,22 +4,24 @@ import axiosConfig from '../../axiosConfig';
 import { UserContext } from '../UserProvider';
 
 const Counter = props => {
- const [quantity, setQuantity] = useState(1);
- const { user } = useContext(UserContext);
+  const [quantity, setQuantity] = useState(1);
+  const { user } = useContext(UserContext);
   const { userId } = user;
 
 
  // create an order, use newly created order_id to add order with details to cart
   const onSubmit = () => {
-    axiosConfig.post('/orders', { userId }).then(data => {
-      const { id: order_id } = data.data;
-      const { id: dish_id } = props.dishDetails;
-      const paid_price_cents = quantity * Number(props.dishDetails.price_cents);
+    axiosConfig.post('/orders', { userId })
+      .then(data => {  
+        const { id: order_id } = data.data;
+        const { id: dish_id } = props.dishDetails;
+        const paid_price_cents = Number(props.dishDetails.price_cents);
 
-      axiosConfig.post(`/orders/order_item`, { order_id, dish_id, quantity, paid_price_cents })
-        .then(data => console.log(data))
-        .catch(error => console.log(error))
-    })
+        // create new order item using newly created order id
+        axiosConfig.post(`/orders/order_item`, { order_id, dish_id, quantity, paid_price_cents })
+          .catch(error => console.log(error))
+      })
+      .catch(error => console.log(error))
   }
 
   return (

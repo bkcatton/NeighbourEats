@@ -15,7 +15,6 @@ const PreviousOrders = () => {
     const fetchData = async () => {
       try {
         const { data } = await axiosConfig.get(`/orders/previous/${userId}`);
-        console.log(data);
         if (data) {
           setOrders(data);
         }

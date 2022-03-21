@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router';
 import axiosConfig from '../../axiosConfig';
-import AddToOrder from './AddToOrder';
 
+import AddToOrder from './AddToOrder';
 import DishDetails from "./DishDetails";
 import DishReviews from "./DishReviews";
 
@@ -24,10 +24,11 @@ const Dish = () => {
         console.log(error)
       }      
     }
+
     fetchData()
   }, [id])
 
-  console.log("this is the dish details", dishDetails);
+
   return (
     <div>Dish
       <DishDetails dishDetails={dishDetails} />
