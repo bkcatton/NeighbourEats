@@ -4,7 +4,6 @@ import axiosConfig from '../axiosConfig';
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState({ userId: '', isVendor: false });
   
-  
   useEffect(() => {
     function setUserId() {
       const userId = localStorage.getItem('userId')
@@ -36,7 +35,7 @@ const UserProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.clear()
-    // localStorage.clear('isVendor')
+
     setUser(() => ({
       userId: '',
       isVendor: false,
