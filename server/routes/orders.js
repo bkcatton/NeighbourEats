@@ -101,6 +101,22 @@ module.exports = db => {
     }
   });
 
+  router.post('/reviews', async (req, res) => {
+    const { reviewBody, userId, dishId } = req.body;
+
+    try {
+      await db.query(
+        `INSERT INTO reviews(content, star_rating, reviewer_id, dish_id)
+          VALUES ($1, $2, $3, $4);
+        `,
+        [reviewBody, 5, userId, dishId]
+      );
+      // res.json(data.rows[0]);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   router.post('/', async (req, res) => {
     const { userId } = req.body;
     try {

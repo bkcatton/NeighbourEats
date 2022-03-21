@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axiosConfig from '../../axiosConfig';
 import { UserContext } from '../UserProvider';
-import LeaveReview from './';
+import LeaveReview from './LeaveReview';
 
 const PreviousOrders = () => {
   const [orders, setOrders] = useState([]);
   const [showReviewInput, setShowReviewInput] = useState(false);
-  const [reviewId, setReviewId] = useState(null);
+  const [dishId, setDishId] = useState(null);
   const [reviewBody, setReviewBody] = useState('');
   const { user } = useContext(UserContext);
   const { userId } = user;
@@ -29,10 +29,23 @@ const PreviousOrders = () => {
     }
   }, [userId]);
 
-  const handleClick = id => {
-    setReviewId(id);
+  const toggleShow = id => {
+    setDishId(id);
     setShowReviewInput(true);
   };
+
+  const handleSubmit = async () => {
+    try {
+      await axiosConfig.post('/orders/reviews', {
+        userId,
+        dishId,
+        reviewBody
+      })
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const ordersList = orders.map(item => {
     const { dish_id, title, paid_price_cents, quantity, image_link } = item;
@@ -42,7 +55,7 @@ const PreviousOrders = () => {
         {quantity}
         {paid_price_cents}
         <img src={image_link} alt={title} style={{ maxWidth: '100px' }} />
-        <button onClick={() => handleClick(dish_id)}>Leave Review</button>
+        <button onClick={() => toggleShow(dish_id)}>Leave Review</button>
       </div>
     );
   });
@@ -51,7 +64,7 @@ const PreviousOrders = () => {
     <div>
       PreviousOrders
       <ul>{ordersList}</ul>
-      <LeaveReview reviewBody={reviewBody} setReviewBody={setReviewBody} />
+      {showReviewInput && <LeaveReview reviewBody={reviewBody} setReviewBody={setReviewBody} handleSubmit={handleSubmit} />}
     </div>
   );
 };

@@ -10,7 +10,7 @@ const LeaveReview = props => {
           value={props.reviewBody}
           onChange={e => props.setReviewBody(e.target.value)}
         />
-        <button>send review</button>
+        <button onClick={props.handleSubmit}>send review</button>
       </form>
     </div>
   );
