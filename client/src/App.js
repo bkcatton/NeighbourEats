@@ -1,20 +1,24 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 import axiosConfig from './axiosConfig';
 import Browse from './Components/Browse';
 import BuyerOrders from './Components/BuyerOrders';
 import OrdersHistory from './Components/OrdersHistory';
-import Reviews from './Components/Reviews';
 import Dish from './Components/Dish';
 import NewDish from './Components/NewDish';
-import Checkout from './Components/Checkout';
 import VendorOrders from "./Components/VendorOrders"
+import { UserContext } from './Components/UserProvider';
 
 const App = () => {
   const [isVendor, setIsVendor] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
   const [userId, setUserId] = useState('');
+
+  // CONTEXT
+  
+  const user = useContext(UserContext)
+  console.log(user);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +63,6 @@ const App = () => {
             {isVendor && <Link to="/orders/vendor">Current Orders</Link>}
             {/* for vendors only -
             will display all orders that have been confirmed */}
-            <Link to="/reviews">Reviews</Link>
             <Link to="/dishes/new">New Dishes</Link>
             <button onClick={handleLogout}>Log out</button>
           </Fragment>
@@ -82,10 +85,8 @@ const App = () => {
         {isAuth && isVendor && (
           <Route path="/orders/vendor" element={<VendorOrders />} />
         )}
-        {isAuth && <Route path="/reviews" element={<Reviews />} />}
         {isAuth && <Route path="/dishes/details/:id" element={<Dish />} />}
         {isAuth && <Route path="/dishes/new" element={<NewDish />} />}
-        {isAuth && <Route path="/checkout" element={<Checkout />} />}
       </Routes>
     </BrowserRouter>
   );

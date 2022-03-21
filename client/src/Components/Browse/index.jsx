@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import axiosConfig from '../../axiosConfig';
 import MapContainer from './MapContainer';
 import VendorsList from './VendorsList';
 import Search from './Search';
+import { UserContext } from '../UserProvider';
 
 const Browse = () => {
   const [dishesInfo, setDishesInfo] = useState([]);
@@ -11,6 +12,10 @@ const Browse = () => {
   const [dishesRatings, setDishesRatings] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [mapCoords, setMapCoords] = useState([]);
+  
+  // const UserContext = React.createContext({ name: '', auth: false });
+  const { user } = useContext(UserContext);
+  console.log(user)
 
   useEffect(() => {
     const fetchData = async () => {

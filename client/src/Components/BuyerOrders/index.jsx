@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosConfig from '../../axiosConfig';
 import { Link } from 'react-router-dom';
+import PaymentForm from './PaymentForm';
 
 const BuyerOrders = () => {
   const [userOrders, setUserOrders] = useState([]);
@@ -43,8 +44,7 @@ const BuyerOrders = () => {
         {item.paid_price_cents}
         {item.dish_description}
         <button onClick={() => deleteFromOrder(item.order_items_id)}>
-          {' '}
-          remove from order{' '}
+          remove from order
         </button>
       </div>
     );
@@ -57,6 +57,7 @@ const BuyerOrders = () => {
       <button>
         <Link to="/checkout">Stripe Checkout</Link>
       </button>
+      <PaymentForm />
     </div>
   );
 };
