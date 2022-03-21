@@ -7,15 +7,20 @@ const BuyerOrders = () => {
   const [userOrders, setUserOrders] = useState([]);
 
   useEffect(() => {
+    const userId = localStorage.getItem('userId');
+
     const fetchData = async () => {
       try {
-        const orders = await axiosConfig.get(`/orders/user/1`); // hardcoded logged in user
+        const orders = await axiosConfig.get(`/orders/user/${userId}`);
         setUserOrders(orders.data);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchData();
+
+    if (userId) {
+      fetchData();
+    }
   }, []);
 
   const deleteFromOrder = orderId => {
