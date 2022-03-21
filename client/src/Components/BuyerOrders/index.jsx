@@ -22,7 +22,9 @@ const BuyerOrders = () => {
       fetchData();
     }
   }, []);
+
   console.log(userOrders)
+  
   const deleteFromOrder = orderItemsId => {
     axiosConfig
       .delete('/orders/delete', { orderItemsId })
