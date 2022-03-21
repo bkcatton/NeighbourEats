@@ -23,7 +23,6 @@ const BuyerOrders = () => {
     }
   }, [userId]);
 
-  console.log(userOrders);
 
   const deleteFromOrder = orderItemsId => {
     axiosConfig
@@ -56,7 +55,6 @@ const BuyerOrders = () => {
       </div>
     );
   });
-  console.log(userOrders);
   return (
     <div>
       Pending Orders

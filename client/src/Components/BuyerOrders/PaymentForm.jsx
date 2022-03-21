@@ -1,7 +1,7 @@
 import React from 'react';
 // import { withRouter } from 'react-router';
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import axiosConfig from '../../axiosConfig';
+import { CardElement } from '@stripe/react-stripe-js';
+// import axiosConfig from '../../axiosConfig';
 // import { loadStripe } from '@stripe/stripe-js';
 // import { Elements } from '@stripe/react-stripe-js';
 

@@ -17,7 +17,7 @@ const VendorOrders = () => {
       }
     }
     fetchData();
-  }, []);
+  }, [userId]);
 
   const ordersList = orders.map((item, i) => {
     const { title, paid_price_cents, country_style, quantity, image_link } =
