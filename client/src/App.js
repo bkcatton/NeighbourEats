@@ -16,9 +16,7 @@ const App = () => {
   const [userId, setUserId] = useState('');
 
   // CONTEXT
-  
   const user = useContext(UserContext)
-  console.log(user);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -13,10 +13,9 @@ const Browse = () => {
   const [searchValue, setSearchValue] = useState('');
   const [mapCoords, setMapCoords] = useState([]);
   
-  // const UserContext = React.createContext({ name: '', auth: false });
-  const { user } = useContext(UserContext);
+  const user = useContext(UserContext);
   console.log(user)
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {

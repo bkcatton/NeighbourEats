@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 const UserProvider = ({ children }) => {
   
   // User is the name of the "data" that gets stored in context
-  const [user, setUser] = useState(UserContext);
+  const [user, setUser] = useState({ name: '', auth: false });
 
   // Login updates the user data with a name parameter
   const login = (name) => {
