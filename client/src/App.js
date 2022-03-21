@@ -9,11 +9,16 @@ import NewDish from './Components/NewDish';
 import VendorOrders from './Components/VendorOrders';
 import NavBar from './Components/NavBar';
 
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+
 const App = () => {
 
   return (
     <BrowserRouter>
+    <CssBaseline />
       <NavBar />
+      <Container maxWidth="sm">
       <Routes>
         <Route path="/" element={<Browse />} />
         <Route path="/orders/cart" element={<BuyerOrders />} />
@@ -22,6 +27,7 @@ const App = () => {
         <Route path="/dishes/details/:id" element={<Dish />} />
         <Route path="/dishes/new" element={<NewDish />} />
       </Routes>
+      </Container>
     </BrowserRouter>
   );
 };
