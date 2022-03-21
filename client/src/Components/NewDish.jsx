@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axiosConfig from '../axiosConfig';
+import { UserContext } from './UserProvider';
 
 const NewDish = () => {
   const [title, setTitle] = useState('');
@@ -10,6 +11,9 @@ const NewDish = () => {
   const [countryStyle, setCountryStyle] = useState('');
   const [availableStock, setAvailableStock] = useState(0);
 
+  const { user } = useContext(UserContext);
+  const { userId } = user;
+  
   const onUpload = async e => {
     e.preventDefault();
     const newDish = await axiosConfig.post('/dishes/new', {
@@ -20,8 +24,8 @@ const NewDish = () => {
       imageLink,
       countryStyle,
       availableStock,
+      userId
     });
-    console.log(newDish);
   };
 
   return (

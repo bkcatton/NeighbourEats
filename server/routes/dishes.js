@@ -3,7 +3,7 @@ const router = express.Router();
 
 module.exports = db => {
   router.post('/new', (req, res) => {
-    const { title, description, price, servingSize, imageLink, countryStyle, availableStock } = req.body
+    const { title, description, price, servingSize, imageLink, countryStyle, availableStock, userId } = req.body
     db.query(
       `INSERT INTO dishes (
           title, 
@@ -14,8 +14,8 @@ module.exports = db => {
           country_style, 
           available_stock, 
           user_id)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, 1);`,
-        [title, description, price, servingSize, imageLink, countryStyle, availableStock])
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`,
+        [title, description, price, servingSize, imageLink, countryStyle, availableStock, userId])
       .then(data => {
         db.query(
           `INSERT INTO addresses (
