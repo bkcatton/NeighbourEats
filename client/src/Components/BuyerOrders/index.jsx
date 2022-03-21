@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axiosConfig from '../../axiosConfig';
 import { Link } from 'react-router-dom';
 import PaymentForm from './PaymentForm';
+import { UserContext } from '../UserProvider';
 
 const BuyerOrders = () => {
   const [userOrders, setUserOrders] = useState([]);
+  const { user } = useContext(UserContext);
+  const { userId } = user;
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
 
     const fetchData = async () => {
       try {
-        const orders = await axiosConfig.get(`/orders/user/${userId}`);
-        setUserOrders(orders.data);
+        const { data } = await axiosConfig.get(`/orders/user/${userId}`);
+        setUserOrders(data);
       } catch (error) {
         console.log(error);
       }

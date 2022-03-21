@@ -1,14 +1,16 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axiosConfig from '../axiosConfig';
-
+import { UserContext } from './UserProvider';
 
 const VendorOrders = () => {
   const [orders, setOrders] = useState([]);
+  const { user } = useContext(UserContext);
+  const { userId } = user;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axiosConfig.get('/orders/current');
+        const { data } = await axiosConfig.get(`/orders/current/${userId}`);
         setOrders(data);
       } catch (error) {
         console.log(error);

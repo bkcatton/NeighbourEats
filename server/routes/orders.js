@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = db => {
+
   router.get('/user/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -52,7 +53,6 @@ module.exports = db => {
   });
 
   router.post('/order_item', async (req, res) => {
-    console.log('this is the req body', req.body);
     const { order_id, dish_id, quantity, paid_price_cents } = req.body;
     try {
       const order = await db.query(
@@ -68,12 +68,14 @@ module.exports = db => {
   });
 
   router.post('/', async (req, res) => {
+    const { userId } = req.body;
     try {
       const data = await db.query(
         `INSERT INTO orders(confirmed, customer_id)
-        VALUES (false, 1) RETURNING *
-          ;`
-      );
+        VALUES (false, $1) RETURNING *
+          ;`,
+          [userId]
+          );
       res.json(data.rows[0]);
     } catch (error) {
       res.status(500).json({ error: error.message });
