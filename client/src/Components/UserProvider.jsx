@@ -1,23 +1,35 @@
-import React, { useState } from 'react'
- 
+import React, { useState, useEffect } from 'react'
+import axiosConfig from '../axiosConfig';
+
 const UserProvider = ({ children }) => {
+  const [user, setUser] = useState({ userId: '', isVendor: false });
   
-  // User is the name of the "data" that gets stored in context
-  const [user, setUser] = useState({ name: '', auth: false });
+  useEffect(() => {
+    function cleanUp() {
+      const userId = localStorage.getItem('userId')
+      if (userId) setUser({ userId: userId, isVendor: true })
+    }
+    cleanUp();
+  }, [])
 
-  // Login updates the user data with a name parameter
-  const login = (name) => {
-    setUser((user) => ({
-      name: name,
-      auth: true,
-    }));
-  };
+  const login = async (e, input) => {
+    e.preventDefault();
+    localStorage.setItem('userId', input)
+    
+    try {
+      const { data } = await axiosConfig.get(`/users/${input}`);
+      console.log("this is after the post request", data)
+      // const {id, isVendor} = data
+      setUser({userId: data.id, isVendor: data.is_vendor});
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  // Logout updates the user data to default
   const logout = () => {
-    setUser((user) => ({
-      name: '',
-      auth: false,
+    setUser(() => ({
+      userId: '',
+      isVendor: false,
     }));
   };
 
@@ -29,4 +41,4 @@ const UserProvider = ({ children }) => {
 }
 
 export default UserProvider
-export const UserContext = React.createContext({ name: '', auth: false });
+export const UserContext = React.createContext({ userId: '', isVendor: false });

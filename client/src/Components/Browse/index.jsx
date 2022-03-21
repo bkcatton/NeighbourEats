@@ -14,7 +14,6 @@ const Browse = () => {
   const [mapCoords, setMapCoords] = useState([]);
   
   const user = useContext(UserContext);
-  console.log(user)
   
   useEffect(() => {
     const fetchData = async () => {
