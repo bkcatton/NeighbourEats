@@ -3,32 +3,34 @@ const router = express.Router();
 
 module.exports = db => {
 
+  
   router.get('/user/:id', async (req, res) => {
     const { id } = req.params;
     try {
       const orders = await db.query(
-        `SELECT order_items.id AS order_items_id, quantity, orders.customer_id, paid_price_cents, title, dish_description, country_style, image_link
+        `SELECT orders.id AS order_id, order_items.id AS order_items_id, quantity, orders.customer_id, paid_price_cents, title, dish_description, country_style, image_link
           FROM orders
           JOIN order_items ON orders.id = order_items.order_id
           JOIN dishes ON order_items.dish_id = dishes.id
           WHERE orders.confirmed = false AND orders.customer_id = $1;
         `,
         [id]
-      );
-      res.json(orders.rows);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  });
+        );
+        res.json(orders.rows);
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    });
 
-  router.delete('/delete/:id', async (req, res) => {
-    const { id } = req.params;
+
+  router.delete('/delete', async (req, res) => {
+    const { orderItemsId } = req.body;
     try {
       const orders = await db.query(
         `DELETE FROM order_items
           WHERE id = $1;
         `,
-        [id]
+        [orderItemsId]
       );
       res.json(orders.rows);
     } catch (error) {
@@ -67,15 +69,31 @@ module.exports = db => {
     }
   });
 
+  router.post('/confirm', async (req, res) => {
+    const { orderId } = req.body;
+    try {
+      const data = await db.query(
+        `UPDATE orders
+          SET confirmed = true
+          WHERE customer_id = $1;
+        `,
+        [orderId]
+      );
+      res.json(data.rows[0]);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   router.post('/', async (req, res) => {
     const { userId } = req.body;
     try {
       const data = await db.query(
-        `INSERT INTO orders(confirmed, customer_id)
-        VALUES (false, $1) RETURNING *
-          ;`,
-          [userId]
-          );
+        `INSERT INTO orders(customer_id)
+          VALUES ($1) RETURNING *;
+        `,
+        [userId]
+      );
       res.json(data.rows[0]);
     } catch (error) {
       res.status(500).json({ error: error.message });

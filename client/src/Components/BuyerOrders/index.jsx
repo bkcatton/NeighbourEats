@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axiosConfig from '../../axiosConfig';
-import { Link } from 'react-router-dom';
 import PaymentForm from './PaymentForm';
 import { UserContext } from '../UserProvider';
 
@@ -10,7 +9,6 @@ const BuyerOrders = () => {
   const { userId } = user;
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         const { data } = await axiosConfig.get(`/orders/user/${userId}`);
@@ -24,13 +22,13 @@ const BuyerOrders = () => {
       fetchData();
     }
   }, []);
-
-  const deleteFromOrder = orderId => {
+  console.log(userOrders)
+  const deleteFromOrder = orderItemsId => {
     axiosConfig
-      .delete(`/orders/delete/${orderId}`)
+      .delete('/orders/delete', { orderItemsId })
       .then(() => {
         const remainingOrders = userOrders.filter(item => {
-          return item.order_items_id !== orderId;
+          return item.order_items_id !== orderItemsId;
         });
 
         setUserOrders(remainingOrders);
@@ -56,15 +54,12 @@ const BuyerOrders = () => {
       </div>
     );
   });
-
+console.log(userOrders)
   return (
     <div>
       Pending Orders
       {ordersList.length ? ordersList : <p>No Orders</p>}
-      <button>
-        <Link to="/checkout">Stripe Checkout</Link>
-      </button>
-      <PaymentForm />
+      <PaymentForm userOrders={userOrders}/>
     </div>
   );
 };

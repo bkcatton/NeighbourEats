@@ -6,9 +6,7 @@ import './index.css';
 import App from './App';
 import UserProvider from './Components/UserProvider';
 
-const stripePromise = loadStripe(
-  `${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`
-);
+const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`);
 
 ReactDOM.render(
   <React.StrictMode>
