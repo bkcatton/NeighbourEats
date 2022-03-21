@@ -11,19 +11,15 @@ import VendorOrders from "./Components/VendorOrders"
 import { UserContext } from './Components/UserProvider';
 
 const App = () => {
-  // const [isVendor, setIsVendor] = useState(false);
-  // const [isAuth, setIsAuth] = useState(false);
-  const [input, setInput] = useState('');
-  // // CONTEXT
-  // const user = useContext(UserContext)
   const {user, login, logout} = useContext(UserContext);
-  console.log(user)
+  const { userId } = user;
+  const [input, setInput] = useState('');
 
   return (
     <BrowserRouter>
       <nav>
         <Link to="/">Browse</Link>
-          <Fragment>
+          {userId ? <Fragment>
             <Link to="/orders/buyer">Order</Link>
             <Link to="/orders/history">Orders History</Link>
             {/* this is for buyers -
@@ -34,6 +30,7 @@ const App = () => {
             <Link to="/dishes/new">New Dishes</Link>
             <button onClick={logout}>Log out</button>
           </Fragment>
+            :
           <form onSubmit={(e) => login(e, input)}>
             <input
               type="text"
@@ -43,48 +40,18 @@ const App = () => {
             />
             <button type="submit"> login </button>
           </form>
-        
+          }
       </nav>
       <Routes>
         <Route path="/" element={<Browse />} />
-        <Route path="/orders/buyer" element={<BuyerOrders />} />
-        <Route path="/orders/history" element={<OrdersHistory />} />
-        <Route path="/orders/vendor" element={<VendorOrders />} />
-        <Route path="/dishes/details/:id" element={<Dish />} />
-        <Route path="/dishes/new" element={<NewDish />} />
+        {userId && <Route path="/orders/buyer" element={<BuyerOrders />} />}
+        {userId && <Route path="/orders/history" element={<OrdersHistory />} />}
+        {userId && <Route path="/orders/vendor" element={<VendorOrders />} />}
+        {userId && <Route path="/dishes/details/:id" element={<Dish />} />}
+        {userId && <Route path="/dishes/new" element={<NewDish />} />}
       </Routes>
     </BrowserRouter>
   );
 };
 
 export default App;
-
- // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const userId = localStorage.getItem('userId');
-  //     if (userId) {
-  //       setIsAuth(true);
-  //       try {
-  //         const { data } = await axiosConfig.get(`/users/${userId}`);
-  //         if (data.length) {
-  //           setIsVendor(true);
-  //         }
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }
-  //   }
-  //   fetchData();
-  // }, [isAuth]);
-
-  // const setLoggedInUser = e => {
-  //   e.preventDefault();
-
-  //   setIsAuth(true);
-  //   localStorage.setItem('userId', userId);
-  // };
-
-  // const handleLogout = () => {
-  //   setIsAuth(false);
-  //   localStorage.clear();
-  // };
