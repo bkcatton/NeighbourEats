@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axiosConfig from '../axiosConfig';
-import { UserContext } from './UserProvider';
+import { UserContext } from '../Providers/UserProvider';
 
 const VendorOrders = () => {
   const [orders, setOrders] = useState([]);

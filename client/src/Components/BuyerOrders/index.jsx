@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axiosConfig from '../../axiosConfig';
 import PaymentForm from './PaymentForm';
-import { UserContext } from '../UserProvider';
+import { UserContext } from '../../Providers/UserProvider';
 
 const BuyerOrders = () => {
   const [userOrders, setUserOrders] = useState([]);

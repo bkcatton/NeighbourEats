@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import axiosConfig from '../axiosConfig';
-import { UserContext } from './UserProvider';
+import { UserContext } from '../Providers/UserProvider';
 
 const NewDish = () => {
   const [title, setTitle] = useState('');

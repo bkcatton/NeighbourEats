@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axiosConfig from '../../axiosConfig';
-import { UserContext } from '../UserProvider';
+import { UserContext } from '../../Providers/UserProvider';
 import LeaveReview from './LeaveReview';
 
 const PreviousOrders = () => {

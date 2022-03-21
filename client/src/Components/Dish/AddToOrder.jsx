@@ -1,13 +1,12 @@
 import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom';
 import axiosConfig from '../../axiosConfig';
-import { UserContext } from '../UserProvider';
+import {UserContext} from '../../Providers/UserProvider'
 
 const Counter = props => {
   const [quantity, setQuantity] = useState(1);
   const { user } = useContext(UserContext);
   const { userId } = user;
-
 
  // create an order, use newly created order_id to add order with details to cart
   const onSubmit = () => {

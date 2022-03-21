@@ -9,7 +9,7 @@ import '@fontsource/roboto/700.css';
 
 import './index.css';
 import App from './App';
-import UserProvider from './Components/UserProvider';
+import UserProvider from './Providers/UserProvider';
 
 const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`);
 

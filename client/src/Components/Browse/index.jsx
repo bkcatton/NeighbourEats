@@ -4,7 +4,7 @@ import axiosConfig from '../../axiosConfig';
 import MapContainer from './MapContainer';
 import VendorsList from './VendorsList';
 import Search from './Search';
-import { UserContext } from '../UserProvider';
+import { UserContext } from  '../../Providers/UserProvider';
 
 const Browse = () => {
   const [dishesInfo, setDishesInfo] = useState([]);
