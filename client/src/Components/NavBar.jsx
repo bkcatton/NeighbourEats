@@ -1,36 +1,252 @@
-import React, { Fragment, useContext, useState } from 'react';
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import InputBase from '@mui/material/InputBase';
+
 import { Link } from 'react-router-dom';
 import { UserContext } from '../Providers/UserProvider';
+import { styled, alpha } from '@mui/material/styles';
 
-const NavBar = () => {
-  const { user, login, logout } = useContext(UserContext);
-  const { userId } = user;
-  const [input, setInput] = useState('');
+  const Search = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '3rem',
+    [theme.breakpoints.up('md')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  }));
+
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    '& .MuiInputBase-input': {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      // paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      paddingLeft: `1em`, // CHANGED FROM ABOVE LINE
+      transition: theme.transitions.create('width'),
+      width: '3rem',
+      [theme.breakpoints.up('sm')]: {
+        width: '20ch',
+      },
+    },
+  }));
+
+  const pageLinks = [
+    {text: 'Browse', route: "/"}, 
+  ];
+
+  const authPageLinks = [
+    {text: "Cart", route : "/orders/cart"},
+    {text: "Previous Orders", route : "/orders/previous"},
+  ]
+
+  const vendorPageLinks = [
+    {text: "Current Orders", route : "/orders/vendor"},
+    {text: "Add New Dish", route : "/dishes/new"},
+  ]
+
+const ResponsiveAppBar = () => {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  // OUR IMPORTS
+  const { user, login, logout } = React.useContext(UserContext);
+  const { userId, isVendor } = user;
+  const [input, setInput] = React.useState('');
+  // OUR IMPORTS
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    handleCloseNavMenu();
+    handleCloseUserMenu();
+    logout();
+  }
 
   return (
-    <nav>
-      <Link to="/">Browse</Link>
-      {userId ? (
-        <Fragment>
-          <Link to="/orders/cart">My Cart</Link>
-          <Link to="/orders/previous">Previous Orders</Link>
-          {user.isVendor && <Link to="/orders/vendor">Current Orders</Link>}
-          {user.isVendor && <Link to="/dishes/new">New Dishes</Link>}
-          <button onClick={logout}>Log out</button>
-        </Fragment>
-      ) : (
-        <form onSubmit={e => login(e, input)}>
-          <input
-            type="text"
-            placeholder="login here"
-            value={input}
-            onChange={e => setInput(e.target.value)}
-          />
-          <button type="submit"> login </button>
-        </form>
-      )}
-    </nav>
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+          >
+            Neighborhood Eats
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+            
+              {pageLinks.map((page) => (
+                <Link key={page.text} onClick={handleCloseNavMenu} component={Typography} to={page.route} style={{ textDecoration: 'none', fontSize: 'larger', color: '#111' }}>
+                  <MenuItem onClick={handleCloseNavMenu} textAlign="center">
+                    {page.text}
+                  </MenuItem>
+                </Link>
+              ))}
+              {/* map over page routes to be shown if user is logged in */}
+              {userId && authPageLinks.map((page) => (
+                <Link key={page.text} onClick={handleCloseNavMenu} component={Typography} to={page.route} style={{ textDecoration: 'none', fontSize: 'larger', color: '#111' }}>
+                  <MenuItem onClick={handleCloseNavMenu} textAlign="center">
+                    {page.text}
+                  </MenuItem>
+                </Link>
+              ))}
+              {/* map over page routes to be shown if user is logged in and is a vendor */}
+              {isVendor && vendorPageLinks.map((page) => (
+                <Link key={page.text} onClick={handleCloseNavMenu} component={Typography} to={page.route} style={{ textDecoration: 'none', fontSize: 'larger', color: '#111' }}>
+                  <MenuItem onClick={handleCloseNavMenu} textAlign="center">
+                    {page.text}
+                  </MenuItem>
+                </Link>
+              ))}
+              
+            </Menu>
+          </Box>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+          >
+            Neighborhood Eats
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {pageLinks.map((page) => (
+              <Link key={page.text} onClick={handleCloseNavMenu} component={Typography} to={page.route} style={{ textDecoration: 'none', fontSize: 'larger', color: '#FFF' }}>
+                <MenuItem onClick={handleCloseNavMenu} textAlign="center">
+                  {page.text}
+                </MenuItem>
+              </Link>
+            ))}
+            {/* map over page routes to be shown if user is logged in */}
+            {userId && authPageLinks.map((page) => (
+              <Link key={page.text} onClick={handleCloseNavMenu} component={Typography} to={page.route} style={{ textDecoration: 'none', fontSize: 'larger', color: '#FFF' }}>
+                <MenuItem onClick={handleCloseNavMenu} textAlign="center">
+                  {page.text}
+                </MenuItem>
+              </Link>
+            ))}
+            {/* map over page routes to be shown if user is logged in and is a vendor */}
+            {isVendor && vendorPageLinks.map((page) => (
+              <Link key={page.text} onClick={handleCloseNavMenu} component={Typography} to={page.route} style={{ textDecoration: 'none', fontSize: 'larger', color: '#FFF' }}>
+                <MenuItem onClick={handleCloseNavMenu} textAlign="center">
+                  {page.text}
+                </MenuItem>
+              </Link>
+            ))}
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              
+            <Toolbar>
+            {!userId ? 
+              (<div>
+                <Search>
+                  <StyledInputBase
+                    placeholder="Log In"
+                    inputProps={{ 'aria-label': 'login' }}
+                    value={input}
+                    onChange={e => setInput(e.target.value)}
+                  />
+                </Search>
+                <Button
+                  size="large"
+                  color="inherit"
+                  onClick={e => login(e, input)}
+                >
+                  Log In
+                </Button>
+              </div>)
+              :
+             (<Button onClick={handleLogout}>Log out</Button>)}
+            </Toolbar>
+            
+            </Menu>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
 
-export default NavBar;
+export default ResponsiveAppBar;
