@@ -1,4 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
+import Typography from '@mui/material/Typography';
+
 import {
   GoogleMap,
   LoadScript,
@@ -19,6 +21,7 @@ const center = {
 function MapContainer(props) {
   let locations = [...props.mapCoords];
 
+  //filters the pins on the map when a search is run
   if (props.searchValue) {
     locations = props.mapCoords.filter(item => {
       const title = item.title.toLowerCase();
@@ -28,11 +31,18 @@ function MapContainer(props) {
   }
   
   const [selected, setSelected] = useState({});
-  const onSelect = item => {
-    setSelected(item);
-  };
+  
+  useEffect(() => {
+    setSelected({});
 
-  console.log(props.selectionModel)
+    if (locations.length && props.selectionModel) {
+      for (const location of locations) {
+        if (location.id === props.selectionModel) {
+          setSelected(location)
+        }
+      }
+    };
+  }, [props.selectionModel])
 
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_GMAPS_APIKEY}>
@@ -45,25 +55,26 @@ function MapContainer(props) {
               <Marker
                 icon={image}
                 key={i}
+                style={{margin: "20px", color: "pink"}}
                 position={item.location}
-                onClick={() => onSelect(item)}
+                onMouseOver={() => {
+                  setSelected(item)
+                }}
+                onMouseOut={() => setSelected({})}
               />
             );
           })}
           {selected.location && (
             <InfoWindow
               position={selected.location}
-              clickable={true}
-              onCloseClick={() => setSelected({})}
+              options={{pixelOffset: new window.google.maps.Size(0,-30)}}
+              // clickable={true}
+              // onMouseOut={() => setSelected({})}
             >
-              <p>
+              <Typography>
                 {selected.title}
-                <img
-                  src={selected.image_link}
-                  alt={selected.title}
-                  style={{ maxWidth: '100px' }}
-                />
-              </p>
+                
+              </Typography>
             </InfoWindow>
           )}
         </Fragment>

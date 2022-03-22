@@ -37,7 +37,11 @@ const VendorsList = props => {
       headerName: 'Dish', 
       minWidth: 200,
       renderCell: ({id}) => (
-        <Link component={Typography} style={{textDecoration: 'none'}} to={`dishes/details/${id}`}>{renderTitle(id, filteredList)}</Link>
+        <Link onMouseOver={()=> {
+          console.log("this is the hovered id", id)
+          props.setSelectionModel(id)
+        }} 
+        component={Typography} style={{textDecoration: 'none'}} to={`dishes/details/${id}`}>{renderTitle(id, filteredList)}</Link>
       )
       },
     { field: 'col2', flex: 1, headerName: 'Style', width: 100 },
@@ -47,13 +51,15 @@ const VendorsList = props => {
       headerName: 'Rating', 
       width: 150,
       renderCell: ({value}) => (
-        <HeartRating averageRating={value} />
+        <HeartRating 
+        averageRating={value} />
       ),}
   ];
 
   return (
     <Box sx={{display: 'flex'}}>
-      <DataGrid onSelectionModelChange={(newSelectionModel) => props.setSelectionModel(newSelectionModel)} 
+      <DataGrid
+      // onSelectionModelChange={(newSelectionModel) => props.setSelectionModel(newSelectionModel)} 
         rows={rows} columns={columns} style={{ minHeight: '50vh', width: 548 }}
         />
     </Box>
@@ -61,3 +67,4 @@ const VendorsList = props => {
 };
 
 export default VendorsList;
+// onSelectionModelChange={(newSelectionModel) => props.setSelectionModel(newSelectionModel)}

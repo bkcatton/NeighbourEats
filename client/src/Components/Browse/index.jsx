@@ -32,7 +32,6 @@ const Browse = () => {
     };
     fetchData();
   }, []);
-
   useEffect(() => {
     if (!dishesReviews.length || !dishesInfo.length) return;
     const getCoordinates = async dishItem => {
@@ -46,11 +45,11 @@ const Browse = () => {
           `https://maps.googleapis.com/maps/api/geocode/json?address=${parameter}&key=AIzaSyDhp8LqdW-X8POJhX8QFV-ERtVBLr0ujZo`
         );
         const location = response.data.results[0].geometry.location || {};
-        const { street_name, title, image_link } = dishItem;
+        const { id, street_name, title, image_link } = dishItem;
 
         setMapCoords(prev => [
           ...prev,
-          { street_name, title, image_link, location },
+          { id, street_name, title, image_link, location },
         ]);
       } catch (error) {
         console.log('this is the error', error);
@@ -72,10 +71,10 @@ const Browse = () => {
     dishItems.forEach(item => getCoordinates(item));
   }, [dishesReviews.length, dishesInfo.length]);
 
+  
+
   return (
     <Box >
-{/* spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} */}
-
       <Grid container spacing={2} columnSpacing={{md: 2}} rowSpacing={{md: 2}} sx={{ mb: 2, mx: 'auto' }}>
         <Grid item xs={12} >
           <SearchInput searchValue={searchValue} setSearchValue={setSearchValue}/>
@@ -88,7 +87,7 @@ const Browse = () => {
         </Grid>
       </Grid>
     </Box>
-     
+    
   );
 };
 
