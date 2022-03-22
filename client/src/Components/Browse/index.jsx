@@ -75,7 +75,7 @@ const Browse = () => {
     <Box >
 {/* spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} */}
 
-      <Grid container spacing={2} columnSpacing={{md: 0, lg: 5}} sx={{ mb: 2, mx: 'auto' }}>
+      <Grid container spacing={2} columnSpacing={{md: 0, lg: 5}} rowSpacing={{sm: 2, lg: 0}}sx={{ mb: 2, mx: 'auto' }}>
         <Grid item xs={12} >
           <SearchInput searchValue={searchValue} setSearchValue={setSearchValue}/>
         </Grid>
