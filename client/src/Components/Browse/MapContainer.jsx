@@ -32,6 +32,8 @@ function MapContainer(props) {
     setSelected(item);
   };
 
+  console.log(props.selectionModel)
+
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_GMAPS_APIKEY}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={14}>

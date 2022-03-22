@@ -16,7 +16,6 @@ const StyledRating = styled(Rating)({
 });
 
 export default function HeartRating(props) {
-  console.log("average ratings", props)
   return (
     <Box
       sx={{

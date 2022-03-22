@@ -152,7 +152,7 @@ const ResponsiveAppBar = () => {
             
               {pageLinks.map((page) => (
                 <Link key={page.text} onClick={handleCloseNavMenu} component={Typography} to={page.route} style={{ textDecoration: 'none', fontSize: 'larger', color: '#111' }}>
-                  <MenuItem onClick={handleCloseNavMenu} textAlign="center">
+                  <MenuItem onClick={handleCloseNavMenu}>
                     {page.text}
                   </MenuItem>
                 </Link>
@@ -160,7 +160,7 @@ const ResponsiveAppBar = () => {
               {/* map over page routes to be shown if user is logged in */}
               {userId && authPageLinks.map((page) => (
                 <Link key={page.text} onClick={handleCloseNavMenu} component={Typography} to={page.route} style={{ textDecoration: 'none', fontSize: 'larger', color: '#111' }}>
-                  <MenuItem onClick={handleCloseNavMenu} textAlign="center">
+                  <MenuItem onClick={handleCloseNavMenu}>
                     {page.text}
                   </MenuItem>
                 </Link>
@@ -168,7 +168,7 @@ const ResponsiveAppBar = () => {
               {/* map over page routes to be shown if user is logged in and is a vendor */}
               {isVendor && vendorPageLinks.map((page) => (
                 <Link key={page.text} onClick={handleCloseNavMenu} component={Typography} to={page.route} style={{ textDecoration: 'none', fontSize: 'larger', color: '#111' }}>
-                  <MenuItem onClick={handleCloseNavMenu} textAlign="center">
+                  <MenuItem onClick={handleCloseNavMenu}>
                     {page.text}
                   </MenuItem>
                 </Link>
@@ -187,7 +187,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pageLinks.map((page) => (
               <Link key={page.text} onClick={handleCloseNavMenu} component={Typography} to={page.route} style={{ textDecoration: 'none', fontSize: 'larger', color: '#FFF' }}>
-                <MenuItem onClick={handleCloseNavMenu} textAlign="center">
+                <MenuItem onClick={handleCloseNavMenu}>
                   {page.text}
                 </MenuItem>
               </Link>
@@ -195,7 +195,7 @@ const ResponsiveAppBar = () => {
             {/* map over page routes to be shown if user is logged in */}
             {userId && authPageLinks.map((page) => (
               <Link key={page.text} onClick={handleCloseNavMenu} component={Typography} to={page.route} style={{ textDecoration: 'none', fontSize: 'larger', color: '#FFF' }}>
-                <MenuItem onClick={handleCloseNavMenu} textAlign="center">
+                <MenuItem onClick={handleCloseNavMenu}>
                   {page.text}
                 </MenuItem>
               </Link>
@@ -203,7 +203,7 @@ const ResponsiveAppBar = () => {
             {/* map over page routes to be shown if user is logged in and is a vendor */}
             {isVendor && vendorPageLinks.map((page) => (
               <Link key={page.text} onClick={handleCloseNavMenu} component={Typography} to={page.route} style={{ textDecoration: 'none', fontSize: 'larger', color: '#FFF' }}>
-                <MenuItem onClick={handleCloseNavMenu} textAlign="center">
+                <MenuItem onClick={handleCloseNavMenu}>
                   {page.text}
                 </MenuItem>
               </Link>
