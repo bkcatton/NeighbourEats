@@ -26,9 +26,9 @@ import { styled, alpha } from '@mui/material/styles';
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
-    width: '3rem',
+    width: '5ch',
     [theme.breakpoints.up('md')]: {
-      marginLeft: theme.spacing(3),
+      // marginLeft: theme.spacing(3),
       width: 'auto',
     },
   }));
@@ -39,9 +39,9 @@ import { styled, alpha } from '@mui/material/styles';
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
       // paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      paddingLeft: `1em`, // CHANGED FROM ABOVE LINE
+      paddingLeft: `0.5em`, // CHANGED FROM ABOVE LINE
       transition: theme.transitions.create('width'),
-      width: '3rem',
+      width: '5ch',
       [theme.breakpoints.up('sm')]: {
         width: '20ch',
       },
@@ -87,15 +87,29 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
+  const handleLogin = (e, input) => {
+    setAnchorElNav(null);
+    setAnchorElUser(null);
+    
+    // delay login to allow for animation to catch up with state
+    setTimeout(() => {
+      login(e, input);
+    }, 500);
+  }
+
   const handleLogout = () => {
-    handleCloseNavMenu();
-    handleCloseUserMenu();
-    logout();
+    setAnchorElUser(null);
+    setAnchorElNav(null);
+    
+   // delay logout to allow for animation to catch up with state
+    setTimeout(() => {
+      logout()
+    }, 500);
   }
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
@@ -232,7 +246,7 @@ const ResponsiveAppBar = () => {
                 <Button
                   size="large"
                   color="inherit"
-                  onClick={e => login(e, input)}
+                  onClick={e => handleLogin(e, input)}
                 >
                   Log In
                 </Button>
