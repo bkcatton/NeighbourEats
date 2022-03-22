@@ -35,7 +35,10 @@ module.exports = db => {
   });
 
   router.get('/details/:id', (req, res) => {
-    db.query(`SELECT * FROM dishes WHERE id = $1;`, [req.params.id])
+    db.query(
+      `SELECT *
+        FROM dishes
+        WHERE id = $1;`, [req.params.id])
       .then(data => {
         res.json(data.rows[0]);
       })
