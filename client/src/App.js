@@ -18,7 +18,7 @@ const App = () => {
     <BrowserRouter>
       <CssBaseline />
       <NavBar />
-      <Container sx={{background: 'lightgrey'}}>
+      <Container maxWidth="xl">
         <Routes>
           <Route path="/" element={<Browse />} />
           <Route path="/orders/cart" element={<BuyerOrders />} />

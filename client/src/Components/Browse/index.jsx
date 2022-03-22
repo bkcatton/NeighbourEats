@@ -5,6 +5,7 @@ import MapContainer from './MapContainer';
 import VendorsList from './VendorsList';
 import SearchInput from './SearchInput';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 const Browse = () => {
   const [dishesInfo, setDishesInfo] = useState([]);
@@ -71,16 +72,21 @@ const Browse = () => {
   }, [dishesReviews.length, dishesInfo.length]);
 
   return (
-    
-      <div>
+    <Box >
+{/* spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} */}
 
-
-        <SearchInput searchValue={searchValue} setSearchValue={setSearchValue}/>
-     
-      <MapContainer mapCoords={mapCoords} searchValue={searchValue} />
-      
-        <VendorsList dishesRatings={dishesRatings} searchValue={searchValue} />
-      </div>
+      <Grid container spacing={2} columnSpacing={{md: 0, lg: 5}} sx={{ mb: 2, mx: 'auto' }}>
+        <Grid item xs={12} >
+          <SearchInput searchValue={searchValue} setSearchValue={setSearchValue}/>
+        </Grid>
+        <Grid item xs={12} md={6} sx={{ height: "50vh", width: "50vh" }}>
+          <MapContainer mapCoords={mapCoords} searchValue={searchValue} />
+        </Grid>
+        <Grid item={2} md={6} >
+          <VendorsList dishesRatings={dishesRatings} searchValue={searchValue} />
+        </Grid>
+      </Grid>
+    </Box>
      
   );
 };
