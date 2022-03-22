@@ -21,7 +21,7 @@ const center = {
 function MapContainer(props) {
   let locations = [...props.mapCoords];
 
-  //filters the pins on the map when a search is run
+  // filters the pins on the map when a search is run
   if (props.searchValue) {
     locations = props.mapCoords.filter(item => {
       const title = item.title.toLowerCase();

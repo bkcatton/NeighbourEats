@@ -76,13 +76,11 @@ const Browse = () => {
   return (
     <Box >
       <Grid container spacing={2} columnSpacing={{md: 2}} rowSpacing={{md: 2}} sx={{ mb: 2, mx: 'auto' }}>
-        <Grid item xs={12} >
-          <SearchInput searchValue={searchValue} setSearchValue={setSearchValue}/>
-        </Grid>
         <Grid item xs={12} md={6} sx={{ height: "52vh", width: "548" }}>
           <MapContainer selectionModel={selectionModel} setSelectionModel={setSelectionModel} mapCoords={mapCoords} searchValue={searchValue} />
         </Grid>
         <Grid item xs={12} md={6} >
+          <SearchInput searchValue={searchValue} setSearchValue={setSearchValue}/>
           <VendorsList selectionModel={selectionModel} setSelectionModel={setSelectionModel} dishesRatings={dishesRatings} searchValue={searchValue} />
         </Grid>
       </Grid>
