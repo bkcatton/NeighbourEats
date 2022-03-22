@@ -80,7 +80,7 @@ const Browse = () => {
         <Grid item xs={12} >
           <SearchInput searchValue={searchValue} setSearchValue={setSearchValue}/>
         </Grid>
-        <Grid item xs={12} md={6} sx={{ height: "50vh", width: "548" }}>
+        <Grid item xs={12} md={6} sx={{ height: "52vh", width: "548" }}>
           <MapContainer selectionModel={selectionModel} setSelectionModel={setSelectionModel} mapCoords={mapCoords} searchValue={searchValue} />
         </Grid>
         <Grid item xs={12} md={6} >

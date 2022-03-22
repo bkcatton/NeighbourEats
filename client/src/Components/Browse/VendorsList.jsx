@@ -34,7 +34,6 @@ const VendorsList = props => {
   
   const columns = [
     { field: 'col1', 
-      flex: 1,
       headerName: 'Dish', 
       minWidth: 200,
       renderCell: ({id}) => (
@@ -55,7 +54,7 @@ const VendorsList = props => {
   return (
     <Box sx={{display: 'flex'}}>
       <DataGrid onSelectionModelChange={(newSelectionModel) => props.setSelectionModel(newSelectionModel)} 
-        rows={rows} columns={columns} style={{ height: 300, width: 548 }}
+        rows={rows} columns={columns} style={{ minHeight: '50vh', width: 548 }}
         />
     </Box>
   );
