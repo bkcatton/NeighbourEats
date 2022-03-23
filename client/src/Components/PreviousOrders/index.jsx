@@ -52,7 +52,6 @@ const PreviousOrders = () => {
   };
 
   const ordersList = orders.map((item, i) => {
-    const { dish_id, title, paid_price_cents, quantity, image_link } = item;
 
     return (
       <Card key={i} variant="outlined">
