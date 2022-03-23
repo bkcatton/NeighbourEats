@@ -24,15 +24,13 @@ module.exports = db => {
           country_style, 
           available_stock, 
           user_id)
-        VALUES ($1, $2, $3, 5, $5, $6, 10, $8);`,
+        VALUES ($1, $2, $3, 5, $4, $5, 10, $6);`,
       [
         title,
         description,
         +price,
-        +servingSize,
         imageLink,
         countryStyle,
-        +availableStock,
         +userId,
       ]
     ).catch(error => {
