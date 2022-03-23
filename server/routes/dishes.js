@@ -3,6 +3,7 @@ const router = express.Router();
 
 module.exports = db => {
   router.post('/new', (req, res) => {
+    console.log('In add new dish', req.body);
     const {
       title,
       description,
@@ -27,15 +28,14 @@ module.exports = db => {
       [
         title,
         description,
-        price,
-        servingSize,
+        +price,
+        +servingSize,
         imageLink,
         countryStyle,
-        availableStock,
-        userId,
+        +availableStock,
+        +userId,
       ]
-    )
-    .catch(error => {
+    ).catch(error => {
       res.status(500).json({ error: error.message });
     });
   });
@@ -103,9 +103,9 @@ module.exports = db => {
 
   router.get('/ratings', (req, res) => {
     db.query(
-      `SELECT (ROUND( (AVG(star_rating)), 2)) as average_rating, dishes.id, title, dish_description, price_cents, country_style, user_id
+      `SELECT AVG(star_rating) as average_rating, dishes.id, title, dish_description, price_cents, country_style, user_id
         FROM dishes
-        JOIN reviews ON reviews.reviewer_id = dishes.user_id
+        LEFT JOIN reviews ON dishes.id = reviews.dish_id
         GROUP BY dishes.id
         ;`
     )

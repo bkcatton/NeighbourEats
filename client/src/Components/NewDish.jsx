@@ -1,19 +1,28 @@
 import React, { useState, useContext } from 'react';
 import axiosConfig from '../axiosConfig';
 import { UserContext } from '../Providers/UserProvider';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import FormControl from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import Input from '@mui/material/Input';
+import InputAdornment from '@mui/material/InputAdornment';
+import Button from '@mui/material/Button';
 
 const NewDish = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [price, setPrice] = useState(0);
-  const [servingSize, setServingSize] = useState(0);
+  const [price, setPrice] = useState('');
+  const [servingSize, setServingSize] = useState('');
   const [imageLink, setImageLink] = useState('');
   const [countryStyle, setCountryStyle] = useState('');
-  const [availableStock, setAvailableStock] = useState(0);
+  const [availableStock, setAvailableStock] = useState();
 
   const { user } = useContext(UserContext);
   const { userId } = user;
-  
+
   const onUpload = async e => {
     e.preventDefault();
 
@@ -25,59 +34,93 @@ const NewDish = () => {
       imageLink,
       countryStyle,
       availableStock,
-      userId
+      userId,
     });
   };
 
   return (
-    <div>
-      NewDish
-      <form>
-        <input
-          type="text"
-          placeholder="enter dish title here"
+    <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <Stack>
+        <TextField
+          id="outlined-name"
+          label="Dish Name"
           value={title}
           onChange={e => setTitle(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="standard"
         />
-        <input
-          type="text"
-          placeholder="enter dish description here"
+        <TextField
+          id="standard-textarea"
+          label="Description"
           value={description}
           onChange={e => setDescription(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          multiline
+          variant="standard"
         />
-        <input
+        <FormControl variant="standard">
+          <InputLabel htmlFor="standard-adornment-amount">Price</InputLabel>
+          <Input
+            id="standard-adornment-amount"
+            value={price}
+            onChange={e => setPrice(e.target.value)}
+            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+          />
+        </FormControl>
+        <TextField
+          label="Serving Size"
           type="number"
-          placeholder="enter dish price here"
-          value={price}
-          onChange={e => setPrice(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="enter serving size here"
           value={servingSize}
           onChange={e => setServingSize(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="standard"
         />
-        <input
+        <TextField
           type="text"
-          placeholder="enter dish country of origin here"
+          label="Country of Origin"
           value={countryStyle}
           onChange={e => setCountryStyle(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="standard"
         />
-        <input
+        <TextField
           type="text"
-          placeholder="enter image here"
+          label="Image"
           value={imageLink}
           onChange={e => setImageLink(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="standard"
         />
-        <input
+        <TextField
+          label="Available Stock"
           type="number"
-          placeholder="enter available stock here"
           value={availableStock}
           onChange={e => setAvailableStock(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="standard"
         />
-        <button onClick={e => onUpload(e)}> Upload New Dish </button>
-      </form>
-    </div>
+      </Stack>
+      <Button onClick={e => onUpload(e)}>Submit</Button>
+    </Box>
   );
 };
 
