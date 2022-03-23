@@ -8,7 +8,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack"
+import Stack from "@mui/material/Stack";
 
 const PreviousOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -54,12 +54,21 @@ const PreviousOrders = () => {
 
   const ordersList = orders.map((item, i) => {
     return (
-      <Card key={i} variant="outlined" sx={{ mb: 2 }}>
+      <Card
+        key={i}
+        variant="outlined"
+        sx={{ mb: 2, width: "50%", justifyContent: "center" }}
+      >
         <Stack direction="row" justifyContent="space-between">
           <CardContent
             sx={{ width: "100%", display: "flex", flexDirection: "column" }}
           >
-            <Typography variant="h6" color="text.primary" textAlign="left" sx={{mb:'1em'}}>
+            <Typography
+              variant="h6"
+              color="text.primary"
+              textAlign="left"
+              sx={{ mb: "1em" }}
+            >
               {item.title}
             </Typography>
             <Stack direction="row" justifyContent="space-between">
@@ -88,12 +97,20 @@ const PreviousOrders = () => {
 
   return (
     <Fragment>
-      <Box sx={{ minWidth: 275 }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <Typography
           variant="h4"
           gutterBottom
           component="div"
           textAlign="center"
+          sx={{ mb: 1 }}
         >
           Previous Orders
         </Typography>
