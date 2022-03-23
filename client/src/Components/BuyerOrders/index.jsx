@@ -10,50 +10,32 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
-
-// const card = (
-//   <Card variant="outlined">
-//     <CardContent>
-//       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-//         Word of the Day
-//       </Typography>
-//       <Typography variant="h5" component="div">
-//         be{bull}nev{bull}o{bull}lent
-//       </Typography>
-//       <Typography sx={{ mb: 1.5 }} color="text.secondary">
-//         adjective
-//       </Typography>
-//       <Typography variant="body2">
-//         well meaning and kindly.
-//         <br />
-//         {'"a benevolent smile"'}
-//       </Typography>
-//     </CardContent>
-//     <CardActions>
-//       <Button size="small">Learn More</Button>
-//     </CardActions>
-//   </Card>
-// );
-
 const BuyerOrders = () => {
   const [userOrders, setUserOrders] = useState([]);
+  const [orderId, setOrderId] = useState(null);
+  const [orderTotal, setOrderTotal] = useState(null);
   const { user } = useContext(UserContext);
   const { userId } = user;
+
+  const calculateOrderTotal = array => {
+    let runningTotal = 0;
+
+    for (const item of array) {
+      runningTotal += item.paid_price_cents;
+    }
+
+    setOrderTotal(runningTotal);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await axiosConfig.get(`/orders/user/${userId}`);
+
         if (data) {
           setUserOrders(data);
+          setOrderId(data[0].order_id);
+          calculateOrderTotal(data);
         }
       } catch (error) {
         console.log(error);
@@ -77,22 +59,16 @@ const BuyerOrders = () => {
     }
   };
 
+  const onCheckout = async () => {
+    try {
+      await axiosConfig.post('/orders/confirm', { orderId });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const ordersList = userOrders.map((item, i) => {
     return (
-      // <div key={i}>
-      //   {item.title}
-      //   <img
-      //     src={item.image_link}
-      //     alt={item.title}
-      //     style={{ maxWidth: '100px' }}
-      //   />
-      //   {item.quanity}
-      //   {item.paid_price_cents}
-      //   {item.dish_description}
-      //   <button onClick={() => deleteFromOrder(item.order_items_id)}>
-      //     remove from order
-      //   </button>
-      // </div>
       <Card key={i} variant="outlined">
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -101,8 +77,8 @@ const BuyerOrders = () => {
           <CardMedia
             component="img"
             src={item.image_link}
-                alt={item.title}
-                style={{width:'400px'}}
+            alt={item.title}
+            style={{ width: '400px' }}
           />
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
             {item.dish_description}
@@ -125,7 +101,12 @@ const BuyerOrders = () => {
     <Box sx={{ minWidth: 275 }}>
       Pending Orders
       {ordersList.length ? ordersList : <p>No Orders</p>}
-      <PaymentForm userOrders={userOrders} />
+      <Typography>TOTAL: {orderTotal}</Typography>
+      <PaymentForm
+        orderTotal={orderTotal}
+        userOrders={userOrders}
+        onCheckout={onCheckout}
+      />
     </Box>
   );
 };
