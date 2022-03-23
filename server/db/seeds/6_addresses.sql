@@ -9,6 +9,16 @@ INSERT INTO addresses (
     user_id
   )
 VALUES (
+    1,
+    'Wooster St',
+    '59',
+    'New York',
+    'NY',
+    '10012',
+    'USA',
+    1
+  ),
+  (
     2,
     'Wooster St',
     '59',
@@ -27,4 +37,14 @@ VALUES (
     '10013',
     'USA',
     3
-  );
+  ),
+  (
+    3,
+    'Bayard St',
+    '87',
+    'New York',
+    'NY',
+    '10013',
+    'USA',
+    3
+  ),

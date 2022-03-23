@@ -9,12 +9,12 @@ INSERT INTO dishes (
     user_id
   )
 VALUES (
-    'Chinese Sticky Rice Dumpling',
+    'Sticky Rice Dumpling',
     'Pieces of dough wrapped around a filling.',
     '3500',
     '1',
     'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-    'China',
+    'Taiwan',
     '90',
     1
   ),
