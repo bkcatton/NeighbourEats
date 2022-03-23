@@ -15,10 +15,8 @@ const NewDish = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
-  const [servingSize, setServingSize] = useState('');
-  const [imageLink, setImageLink] = useState('');
+  const [imageLink, setImageLink] = useState('https://www.grouphealth.ca/wp-content/uploads/2018/05/placeholder-image.png');
   const [countryStyle, setCountryStyle] = useState('');
-  const [availableStock, setAvailableStock] = useState();
 
   const { user } = useContext(UserContext);
   const { userId } = user;
@@ -30,10 +28,8 @@ const NewDish = () => {
       title,
       description,
       price,
-      servingSize,
       imageLink,
       countryStyle,
-      availableStock,
       userId,
     });
   };
@@ -51,6 +47,7 @@ const NewDish = () => {
         <TextField
           id="outlined-name"
           label="Dish Name"
+          margin="normal"
           value={title}
           onChange={e => setTitle(e.target.value)}
           InputLabelProps={{
@@ -61,6 +58,7 @@ const NewDish = () => {
         <TextField
           id="standard-textarea"
           label="Description"
+          margin="normal"
           value={description}
           onChange={e => setDescription(e.target.value)}
           InputLabelProps={{
@@ -69,7 +67,7 @@ const NewDish = () => {
           multiline
           variant="standard"
         />
-        <FormControl variant="standard">
+        <FormControl variant="standard" margin="normal">
           <InputLabel htmlFor="standard-adornment-amount">Price</InputLabel>
           <Input
             id="standard-adornment-amount"
@@ -79,18 +77,9 @@ const NewDish = () => {
           />
         </FormControl>
         <TextField
-          label="Serving Size"
-          type="number"
-          value={servingSize}
-          onChange={e => setServingSize(e.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="standard"
-        />
-        <TextField
           type="text"
           label="Country of Origin"
+          margin="normal"
           value={countryStyle}
           onChange={e => setCountryStyle(e.target.value)}
           InputLabelProps={{
@@ -101,6 +90,7 @@ const NewDish = () => {
         <TextField
           type="text"
           label="Image"
+          margin="normal"
           value={imageLink}
           onChange={e => setImageLink(e.target.value)}
           InputLabelProps={{
@@ -108,17 +98,8 @@ const NewDish = () => {
           }}
           variant="standard"
         />
-        <TextField
-          label="Available Stock"
-          type="number"
-          value={availableStock}
-          onChange={e => setAvailableStock(e.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="standard"
-        />
       </Stack>
+      <img src={imageLink} alt="" />
       <Button onClick={e => onUpload(e)}>Submit</Button>
     </Box>
   );
