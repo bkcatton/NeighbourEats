@@ -59,15 +59,8 @@ const PreviousOrders = () => {
           <CardContent
             sx={{ width: "100%", display: "flex", flexDirection: "column" }}
           >
-            <Typography variant="h6" color="text.primary" textAlign="left">
+            <Typography variant="h6" color="text.primary" textAlign="left" sx={{mb:'1em'}}>
               {item.title}
-            </Typography>
-            <Typography
-              sx={{ mb: 1.5 }}
-              color="text.secondary"
-              textAlign="left"
-            >
-              {item.dish_description}
             </Typography>
             <Stack direction="row" justifyContent="space-between">
               <LeaveReview
