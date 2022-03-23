@@ -9,6 +9,16 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+
+// const Item = styled(Paper)(({ theme }) => ({
+//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+//   ...theme.typography.body2,
+//   padding: theme.spacing(0),
+//   color: theme.palette.text.secondary,
+// }));
 
 const BuyerOrders = () => {
   const [userOrders, setUserOrders] = useState([]);
@@ -70,38 +80,52 @@ const BuyerOrders = () => {
   const ordersList = userOrders.map((item, i) => {
     return (
       <Card key={i} variant="outlined">
-        <CardContent>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {item.title}
-          </Typography>
-          <CardMedia
-            component="img"
-            src={item.image_link}
-            alt={item.title}
-            style={{ width: '400px' }}
-          />
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            {item.dish_description}
-          </Typography>
-          <Typography variant="body2">{`${item.paid_price_cents}`}</Typography>
-        </CardContent>
-        <CardActions>
-          <Button
-            size="small"
-            onClick={() => deleteFromOrder(item.order_items_id)}
-          >
-            Remove from order
-          </Button>
-        </CardActions>
+        <Stack direction="row" justifyContent="space-between">
+          <Box sx={{ width: '100%' }}>
+            <Stack direction="row" justifyContent="space-between">
+              <Typography variant="h6" color="text.primary" textAlign="left">
+                {item.title}
+              </Typography>
+              <Button
+                size="small"
+                variant="outlined"
+                color="error"
+                onClick={() => deleteFromOrder(item.order_items_id)}
+              >
+                Cancel Item
+              </Button>
+            </Stack>
+            <Typography
+              sx={{ mb: 1.5 }}
+              color="text.secondary"
+              textAlign="left"
+            >
+              {item.dish_description}
+            </Typography>
+            <Typography variant="body2" sx={{ mt: 'auto' }}>
+              {`${item.paid_price_cents}`}
+            </Typography>
+          </Box>
+          <Box>
+            <CardMedia
+              component="img"
+              src={item.image_link}
+              alt={item.title}
+              sx={{ width: '12rem', border: '0.5rem solid black' }}
+            />
+          </Box>
+        </Stack>
       </Card>
     );
   });
 
   return (
     <Box sx={{ minWidth: 275 }}>
-      Pending Orders
+      <Typography variant="h4" textAlign="center">
+        Pending Orders
+      </Typography>
       {ordersList.length ? ordersList : <p>No Orders</p>}
-      <Typography>TOTAL: {orderTotal}</Typography>
+      <Typography>Your Total: {orderTotal}</Typography>
       <PaymentForm
         orderTotal={orderTotal}
         userOrders={userOrders}
