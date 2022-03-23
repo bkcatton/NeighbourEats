@@ -29,50 +29,52 @@ function MapContainer(props) {
     locations = props.mapCoords.filter(item => {
       const title = item.title.toLowerCase();
       const searchValue = props.searchValue.toLowerCase();
-      return title.includes(searchValue)
-    })
+      return title.includes(searchValue);
+    });
   }
-  
- 
+
   // watch for dishId to change, set the selected value (for the info window) based on dish id
   useEffect(() => {
     setSelected({});
-    
+
     if (locations.length && props.dishId) {
       for (const location of locations) {
         if (location.id === props.dishId) {
-          setSelected(location)
+          setSelected(location);
         }
       }
-    };
-  }, [props.dishId])
-    
+    }
+  }, [props.dishId]);
+
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_GMAPS_APIKEY}>
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={14}>
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={14}
+        options={{ mapId: '2498605d98cd98cd' }}
+      >
         return (
         <Fragment>
           {locations.map((item, i) => {
-            const countryCode = getCountryCode(item.country_style)
+            const countryCode = getCountryCode(item.country_style);
             const flag = `https://flagcdn.com/28x21/${countryCode}.png`;
-            
+
             return (
               <Marker
                 icon={flag}
                 key={i}
                 position={item.location}
-
                 // highlight the corresponding row in the datagrid table
                 onMouseOver={() => {
-                  setSelected(item)
-                  props.setDishId(item.id)
+                  setSelected(item);
+                  props.setDishId(item.id);
                 }}
-
                 // open the modal window for each dish
                 onClick={() => props.dishDetails(item.id)}
-                onMouseOut={() =>  {
+                onMouseOut={() => {
                   setSelected({});
-                  props.setDishId(null)
+                  props.setDishId(null);
                 }}
               />
             );
@@ -80,12 +82,9 @@ function MapContainer(props) {
           {selected.location && (
             <InfoWindow
               position={selected.location}
-              options={{pixelOffset: new window.google.maps.Size(0,-30)}}
-            
+              options={{ pixelOffset: new window.google.maps.Size(0, -30) }}
             >
-              <Typography>
-                {selected.title}
-              </Typography>
+              <Typography>{selected.title}</Typography>
             </InfoWindow>
           )}
         </Fragment>
