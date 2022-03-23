@@ -4,21 +4,11 @@ import PaymentForm from './PaymentForm';
 import { UserContext } from '../../Providers/UserProvider';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
-
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-//   ...theme.typography.body2,
-//   padding: theme.spacing(0),
-//   color: theme.palette.text.secondary,
-// }));
 
 const BuyerOrders = () => {
   const [userOrders, setUserOrders] = useState([]);
@@ -30,7 +20,7 @@ const BuyerOrders = () => {
   const calculateOrderTotal = array => {
     let runningTotal = 0;
     if (array.length === 0) {
-      setOrderTotal(runningTotal)
+      setOrderTotal(runningTotal);
     }
     for (const item of array) {
       runningTotal += item.paid_price_cents;
@@ -66,7 +56,7 @@ const BuyerOrders = () => {
         return item.order_items_id !== orderItemsId;
       });
       setUserOrders(remainingOrders);
-      calculateOrderTotal(remainingOrders)
+      calculateOrderTotal(remainingOrders);
     } catch (error) {
       console.log(error);
     }
@@ -82,13 +72,22 @@ const BuyerOrders = () => {
 
   const ordersList = userOrders.map((item, i) => {
     return (
-      <Card key={i} variant="outlined">
+      <Card key={i} variant="outlined" sx={{ mb: 2 }}>
         <Stack direction="row" justifyContent="space-between">
-          <Box sx={{ width: '100%' }}>
+          <CardContent
+            sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}
+          >
+            <Typography variant="h6" color="text.primary" textAlign="left">
+              {item.title}
+            </Typography>
+            <Typography
+              sx={{ mb: 1.5 }}
+              color="text.secondary"
+              textAlign="left"
+            >
+              {item.dish_description}
+            </Typography>
             <Stack direction="row" justifyContent="space-between">
-              <Typography variant="h6" color="text.primary" textAlign="left">
-                {item.title}
-              </Typography>
               <Button
                 size="small"
                 variant="outlined"
@@ -97,18 +96,11 @@ const BuyerOrders = () => {
               >
                 Cancel Item
               </Button>
+              <Typography variant="body2" sx={{ mt: 'auto' }}>
+                {`${item.paid_price_cents}`}
+              </Typography>
             </Stack>
-            <Typography
-              sx={{ mb: 1.5 }}
-              color="text.secondary"
-              textAlign="left"
-            >
-              {item.dish_description}
-            </Typography>
-            <Typography variant="body2" sx={{ mt: 'auto' }}>
-              {`${item.paid_price_cents}`}
-            </Typography>
-          </Box>
+          </CardContent>
           <Box>
             <CardMedia
               component="img"
@@ -123,17 +115,26 @@ const BuyerOrders = () => {
   });
 
   return (
-    <Box sx={{ minWidth: 275 }}>
-      <Typography variant="h4" textAlign="center">
+    <Box sx={{ maxWidth: 800, mx: 'auto' }}>
+      <Typography variant="h4" textAlign="center" sx={{ mb: 2 }}>
         Pending Orders
       </Typography>
       {ordersList.length ? ordersList : <p>No Orders</p>}
-      <Typography>Your Total: {orderTotal}</Typography>
-      <PaymentForm
-        orderTotal={orderTotal}
-        userOrders={userOrders}
-        onCheckout={onCheckout}
-      />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography>Total: {orderTotal}</Typography>
+        <PaymentForm
+          orderTotal={orderTotal}
+          userOrders={userOrders}
+          onCheckout={onCheckout}
+        />
+      </Box>
     </Box>
   );
 };
