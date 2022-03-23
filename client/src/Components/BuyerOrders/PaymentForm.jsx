@@ -1,31 +1,11 @@
-// import React from 'react';
-// import { CardElement } from '@stripe/react-stripe-js';
-
-// const PaymentForm = () => {
-
-//   const handleSubmit = async e => {
-//     e.preventDefault();
-//   };
-
-//   return (
-//     <div>
-//       <form action="" >
-//         <CardElement />
-//         <button onClick={handleSubmit}> Pay </button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default PaymentForm;
-
-import * as React from 'react';
+import React, { useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 import { CardElement } from '@stripe/react-stripe-js';
 import LoadingButton from '@mui/lab/LoadingButton';
 
@@ -39,12 +19,13 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  pb: 2,
 };
 
 const PaymentForm = props => {
-  const [open, setOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
-  const [success, setSuccess] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -57,12 +38,14 @@ const PaymentForm = props => {
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
-    }, 2000);
+    }, 1500);
   };
 
   return (
-    <div>
-      <Button onClick={handleOpen}>Pay Now</Button>
+    <Box>
+      <Button onClick={handleOpen} variant="outlined">
+        Pay Now
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -81,28 +64,37 @@ const PaymentForm = props => {
               gutterBottom
               component="div"
               textAlign="center"
+              sx={{ mb: 2 }}
             >
-              Enter Credit Card Details
+              Checkout
             </Typography>
-            <Typography>
-              {`Order Total: ${props.orderTotal}`}
-              </Typography>
             <CardElement />
+            <Stack direction="column" alignItems="center" sx={{ mt: 2 }}>
+              <Typography
+                sx={{ mb: 1 }}
+              >{`Order Total: ${props.orderTotal}`}</Typography>
 
-            {!loading && !success && (
-              <Button onClick={handleClick}>Confirm Checkout</Button>
-            )}
+              {!loading && !success && (
+                <Button fullWidth onClick={handleClick} variant="outlined">
+                  Confirm Payment
+                </Button>
+              )}
 
-            {success && <Button>Success!</Button>}
-            {loading && (
-              <LoadingButton loading variant="outlined">
-                Submit
-              </LoadingButton>
-            )}
+              {success && (
+                <Button fullWidth variant="outlined" color="success">
+                  Thank You!
+                </Button>
+              )}
+              {loading && (
+                <LoadingButton fullWidth loading variant="outlined">
+                  Submit
+                </LoadingButton>
+              )}
+            </Stack>
           </Box>
         </Fade>
       </Modal>
-    </div>
+    </Box>
   );
 };
 

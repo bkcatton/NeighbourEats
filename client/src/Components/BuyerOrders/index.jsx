@@ -128,7 +128,7 @@ const BuyerOrders = () => {
           justifyContent: 'center',
         }}
       >
-        <Typography>Total: {orderTotal}</Typography>
+        <Typography sx={{ mb: 1 }}>Total: {orderTotal}</Typography>
         <PaymentForm
           orderTotal={orderTotal}
           userOrders={userOrders}
