@@ -57,9 +57,10 @@ module.exports = db => {
     const { id } = req.params;
     try {
       const order = await db.query(
-        `SELECT title, order_items.paid_price_cents, dishes.image_link, quantity, country_style, orders.id AS order_id FROM dishes
+        `SELECT title, order_items.paid_price_cents, dishes.image_link, quantity, country_style, orders.id AS order_id, users.full_name AS bought_by FROM dishes
           JOIN order_items ON dishes.id = order_items.dish_id
           JOIN orders ON order_items.order_id = orders.id
+          JOIN users ON users.id = orders.customer_id
           WHERE orders.confirmed = true AND dishes.id = $1;
         `,
         [id]
