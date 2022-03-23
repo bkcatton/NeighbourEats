@@ -8,6 +8,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack"
 
 const PreviousOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -52,28 +53,42 @@ const PreviousOrders = () => {
   };
 
   const ordersList = orders.map((item, i) => {
-
     return (
-      <Card key={i} variant="outlined">
-        <CardContent>
-          <Typography sx={{ fontSize: 20 }} gutterBottom>
-            {item.title}
-          </Typography>
-          <CardMedia
-            component="img"
-            src={item.image_link}
-            alt={item.title}
-            style={{ width: "200px" }}
-          />
-          <Typography variant="body2">{`${item.paid_price_cents}`}</Typography>
-        </CardContent>
-        <CardActions>
-          <LeaveReview
-            reviewBody={reviewBody}
-            setReviewBody={setReviewBody}
-            handleSubmit={handleSubmit}
-          />
-        </CardActions>
+      <Card key={i} variant="outlined" sx={{ mb: 2 }}>
+        <Stack direction="row" justifyContent="space-between">
+          <CardContent
+            sx={{ width: "100%", display: "flex", flexDirection: "column" }}
+          >
+            <Typography variant="h6" color="text.primary" textAlign="left">
+              {item.title}
+            </Typography>
+            <Typography
+              sx={{ mb: 1.5 }}
+              color="text.secondary"
+              textAlign="left"
+            >
+              {item.dish_description}
+            </Typography>
+            <Stack direction="row" justifyContent="space-between">
+              <LeaveReview
+                reviewBody={reviewBody}
+                setReviewBody={setReviewBody}
+                handleSubmit={handleSubmit}
+              />
+              <Typography variant="body2" sx={{ mt: "auto" }}>
+                {`${item.paid_price_cents}`}
+              </Typography>
+            </Stack>
+          </CardContent>
+          <Box>
+            <CardMedia
+              component="img"
+              src={item.image_link}
+              alt={item.title}
+              sx={{ width: "12rem", border: "0.5rem solid black" }}
+            />
+          </Box>
+        </Stack>
       </Card>
     );
   });
