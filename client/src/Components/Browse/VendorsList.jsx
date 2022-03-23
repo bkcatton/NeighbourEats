@@ -53,7 +53,7 @@ const VendorsList = props => {
       width: 150,
       renderCell: ({value}) => (
         <HeartRating 
-        averageRating={value} />
+          rating={value} />
       ),}
   ];
 
