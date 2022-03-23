@@ -19,7 +19,9 @@ const BuyerOrders = () => {
 
   const calculateOrderTotal = array => {
     let runningTotal = 0;
-
+    if (array.length === 0) {
+      setOrderTotal(runningTotal)
+    }
     for (const item of array) {
       runningTotal += item.paid_price_cents;
     }
@@ -54,6 +56,7 @@ const BuyerOrders = () => {
         return item.order_items_id !== orderItemsId;
       });
       setUserOrders(remainingOrders);
+      calculateOrderTotal(remainingOrders)
     } catch (error) {
       console.log(error);
     }

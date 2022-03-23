@@ -6,6 +6,7 @@ const VendorOrders = () => {
   const [orders, setOrders] = useState([]);
   const { user } = useContext(UserContext);
   const { userId } = user;
+  console.log("right component", userId)
 
   useEffect(() => {
     const fetchData = async () => {
