@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { DataGrid, GridSelectionModel  } from '@mui/x-data-grid';
 import Typography from '@mui/material/Typography';
@@ -6,6 +6,13 @@ import Box from '@mui/material/Box';
 import HeartRating from "./HeartRating"
 
 const VendorsList = props => {
+  const [selectionModel, setSelectionModel] = React.useState([]);
+  // console.log(setSelectionModel)
+  console.log(props.dishId)
+
+  useEffect(() => {
+    setSelectionModel([props.dishId])
+  }, [props.dishId])
 
   // filter search results only if user is actively searching
   let filteredList = [...props.dishesRatings]
@@ -38,7 +45,8 @@ const VendorsList = props => {
       minWidth: 200,
       renderCell: ({id}) => (
         <Typography
-          onMouseOver={()=> props.setSelectionModel(id)}
+          onMouseOver={()=> props.setDishId(id)}
+          onMouseOut={()=> props.setDishId(null)}
           onClick={() => props.dishDetails(id)}
           >
             {renderTitle(id, filteredList)}
@@ -60,7 +68,8 @@ const VendorsList = props => {
   return (
     <Box sx={{display: 'flex'}}>
       <DataGrid
-      // onSelectionModelChange={(newSelectionModel) => props.setSelectionModel(newSelectionModel)} 
+        // onSelectionModelChange={(newSelectionModel) => setSelectionModel(newSelectionModel)} 
+        selectionModel={selectionModel}
         rows={rows} columns={columns} style={{ minHeight: '50vh', width: 548 }}
         />
     </Box>
@@ -68,4 +77,4 @@ const VendorsList = props => {
 };
 
 export default VendorsList;
-// onSelectionModelChange={(newSelectionModel) => props.setSelectionModel(newSelectionModel)}
+// onSelectionModelChange={(newSelectionModel) => setSelectionModel(newSelectionModel)}

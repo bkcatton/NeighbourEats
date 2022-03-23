@@ -35,14 +35,14 @@ function MapContainer(props) {
   useEffect(() => {
     setSelected({});
 
-    if (locations.length && props.selectionModel) {
+    if (locations.length && props.dishId) {
       for (const location of locations) {
-        if (location.id === props.selectionModel) {
+        if (location.id === props.dishId) {
           setSelected(location)
         }
       }
     };
-  }, [props.selectionModel])
+  }, [props.dishId])
 
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_GMAPS_APIKEY}>
@@ -59,9 +59,13 @@ function MapContainer(props) {
                 position={item.location}
                 onMouseOver={() => {
                   setSelected(item)
+                  props.setDishId(item.id)
                 }}
                 onClick={() => props.dishDetails(item.id)}
-                onMouseOut={() => setSelected({})}
+                onMouseOut={() =>  {
+                  setSelected({});
+                  props.setDishId(null)
+                }}
               />
             );
           })}

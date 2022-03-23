@@ -14,29 +14,6 @@ import { useParams } from 'react-router';
 import axiosConfig from '../../axiosConfig';
 import { color } from '@mui/system';
 
-
-// const Dish = props => {
-//   const [dishDetails, setDishDetails] = useState({})
-//   const [dishReviews, setDishReviews] = useState([])
-  
-//   useEffect( () => {
-//     const fetchData = async () => {
-//       try {
-//         const all = await Promise.all([
-//           axiosConfig.get(`/dishes/details/${props.dishId}`),
-//           axiosConfig.get(`/dishes/reviews/${props.dishId}`)
-//         ]);
-//         setDishDetails(all[0].data)
-//         setDishReviews(all[1].data)
-//       } catch (error) {
-//         console.log(error)
-//       }      
-//     }
-
-//     fetchData()
-//   }, [props.dishId])
-// };
-
 const style = {
   position: 'absolute',
   top: '50%',

@@ -15,7 +15,6 @@ const Browse = () => {
   const [dishesRatings, setDishesRatings] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [mapCoords, setMapCoords] = useState([]);
-  const [selectionModel, setSelectionModel] = useState(null);
   const [open, setOpen] = useState(false);
   const [dishId, setDishId] = useState(null);
 
@@ -90,11 +89,11 @@ const Browse = () => {
     <Box >
       <Grid container spacing={2} columnSpacing={{ md: 2 }} rowSpacing={{ md: 2 }} sx={{ mb: 2, mx: 'auto' }}>
         <Grid item xs={12} md={6} sx={{ height: "52vh", width: "548" }}>
-          <MapContainer selectionModel={selectionModel} setSelectionModel={setSelectionModel} mapCoords={mapCoords} searchValue={searchValue} dishDetails={dishDetails} />
+          <MapContainer dishId={dishId} setDishId={setDishId} mapCoords={mapCoords} searchValue={searchValue} dishDetails={dishDetails} />
         </Grid>
         <Grid item xs={12} md={6} >
           <SearchInput searchValue={searchValue} setSearchValue={setSearchValue} />
-          <VendorsList dishDetails={dishDetails} selectionModel={selectionModel} setSelectionModel={setSelectionModel} dishesRatings={dishesRatings} searchValue={searchValue} />
+          <VendorsList dishDetails={dishDetails} dishId={dishId} setDishId={setDishId} dishesRatings={dishesRatings} searchValue={searchValue} />
         </Grid>
       </Grid>
       <DishDetailsModal dishId={dishId} open={open} setOpen={setOpen} />
