@@ -8,6 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 
 const VendorOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -31,36 +32,56 @@ const VendorOrders = () => {
     const { title, paid_price_cents, country_style, quantity, image_link, bought_by } =
       item;
     return (
-      <Card key={i} style={{ margin: 10 }}>
-        <CardContent>
-          <Typography>
-            {title}
-          </Typography>
-          <Typography>  
-          Quantity Purchased: {quantity}
-          </Typography>
-          <Typography>
-          Order Total: {paid_price_cents * quantity}
-          </Typography>
-          <Typography>  
-            Customer Name : {bought_by} 
-          </Typography>
-          <CardMedia 
-          component="img"
-          src={image_link} 
-          alt={title}
-          style={{height: 100, width: 100}}
-          />
-        </CardContent>
+      <Card key={i} variant="outlined" sx={{ mb: 2 }}>
+        <Stack direction="row" justifyContent="space-between">
+          <CardContent
+            sx={{ width: '100%', display: 'flex', flexDirection: 'column', mb: 0 }}
+          >
+            <Stack direction="row" justifyContent="space-between" >
+              <Typography variant="h6" color="text.primary" textAlign="left">
+                {item.title}
+              </Typography>
+              <Typography variant="body2" sx={{ mt: 'auto' }}>
+                Price: {`$${item.paid_price_cents}`}
+              </Typography>
+            </Stack>
+            <Stack direction="row" justifyContent="space-between">
+            </Stack>
+            <Stack direction="column" justifyContent="space-between" style={{ height: "100%" }}>
+              <Typography textAlign="right">
+                Quantity: {item.quantity}
+              </Typography>
+              <Stack direction="row" alignItems="baseline" justifyContent="space-between">
+                <Typography>
+                  Customer: {item.bought_by}
+                </Typography>
+                <Typography variant="h6">
+                  Total: ${item.quantity * item.paid_price_cents}
+                </Typography>
+              </Stack>
+            </Stack>
+          </CardContent>
+          <Box>
+            <CardMedia
+              component="img"
+              src={item.image_link}
+              alt={item.title}
+              sx={{ width: '9rem', border: '0.5rem solid black' }}
+            />
+          </Box>
+        </Stack>
       </Card>
     );
   });
 
   return (
-    <div>
-      CurrentOrders
-      <Box>{ordersList}</Box>
-    </div>
+    <Box>
+      <Typography variant="h4" textAlign="center" sx={{ mb: 2 }}>
+        Current Orders:
+      </Typography>
+      <Box sx={{ maxWidth: 800, mx: 'auto' }} >{ordersList}</Box>
+    </Box>
+
   );
 }
 
