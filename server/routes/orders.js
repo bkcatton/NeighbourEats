@@ -38,7 +38,8 @@ module.exports = db => {
   });
 
   router.delete('/delete', async (req, res) => {
-    const { orderItemsId } = req.body.data;
+    const { orderItemsId } = req.body;
+    console.log(orderItemsId)
     try {
       const orders = await db.query(
         `DELETE FROM order_items
@@ -59,7 +60,7 @@ module.exports = db => {
         `SELECT title, order_items.paid_price_cents, dishes.image_link, quantity, country_style, orders.id AS order_id FROM dishes
           JOIN order_items ON dishes.id = order_items.dish_id
           JOIN orders ON order_items.order_id = orders.id
-          WHERE orders.confirmed = true AND dishes.user_id = $1;
+          WHERE orders.confirmed = true AND dishes.id = $1;
         `,
         [id]
       );
