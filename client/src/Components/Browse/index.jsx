@@ -58,7 +58,7 @@ const Browse = () => {
 
       try {
         const response = await axios.get(
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${parameter}&key=AIzaSyDhp8LqdW-X8POJhX8QFV-ERtVBLr0ujZo`
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${parameter}&key=${process.env.REACT_APP_GMAPS_APIKEY}`
         );
         const { location } = response.data.results[0].geometry;
         const { id, street_name, title, image_link, country_style } = dishItem;
