@@ -6,8 +6,7 @@ import VendorsList from './VendorsList';
 import SearchInput from './SearchInput';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import DishDetailsModal from './DishDetailsModal'
+import DishModal from './DishModal'
 
 const Browse = () => {
   const [dishId, setDishId] = useState(null);
@@ -39,7 +38,6 @@ const Browse = () => {
   
   // setting the modal dish id and opening the modal
   const dishDetails = function (id) {
-    console.log(id)
     for (const item of dishesInfo) {
       if (item.id === id) {
         setDishId(id);
@@ -62,10 +60,8 @@ const Browse = () => {
         const response = await axios.get(
           `https://maps.googleapis.com/maps/api/geocode/json?address=${parameter}&key=AIzaSyDhp8LqdW-X8POJhX8QFV-ERtVBLr0ujZo`
         );
-        console.log(response)
         const { location } = response.data.results[0].geometry;
         const { id, street_name, title, image_link, country_style } = dishItem;
-        console.log("country for each dsh", country_style)
         setMapCoords(prev => [
           ...prev,
           { id, street_name, title, image_link, location, country_style },
@@ -103,7 +99,7 @@ const Browse = () => {
           <VendorsList dishDetails={dishDetails} dishId={dishId} setDishId={setDishId} dishesRatings={dishesRatings} searchValue={searchValue} />
         </Grid>
       </Grid>
-      <DishDetailsModal dishId={dishId} open={open} setOpen={setOpen} />
+      <DishModal dishId={dishId} open={open} setOpen={setOpen} />
     </Box>
 
   );

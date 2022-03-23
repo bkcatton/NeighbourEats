@@ -18,7 +18,6 @@ const AddToOrder = props => {
         const { id: order_id } = data.data;
         const { id: dish_id } = props.dishDetails;
         const paid_price_cents = Number(props.dishDetails.price_cents);
-        console.log("before sending query", props.dishDetails)
 
         // create new order item using newly created order id
         axiosConfig.post(`/orders/order_item`, { order_id, dish_id, quantity, paid_price_cents })

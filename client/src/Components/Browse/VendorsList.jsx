@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { DataGrid, GridSelectionModel  } from '@mui/x-data-grid';
+import React, { useState, useEffect } from 'react';
+import { DataGrid  } from '@mui/x-data-grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import HeartRating from "./HeartRating"
 
 const VendorsList = props => {
-  const [selectionModel, setSelectionModel] = React.useState([]);
-  // console.log(setSelectionModel)
-  console.log(props.dishId)
+  const [selectionModel, setSelectionModel] = useState([]);
 
   useEffect(() => {
     setSelectionModel([props.dishId])
@@ -23,7 +20,7 @@ const VendorsList = props => {
       return title.includes(searchValue)
     })
   }
-
+  
   const rows = filteredList.map(item => {
     const {average_rating, id, price_cents, country_style} = item;
     const formattedNumber = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'CAD' }).format(price_cents / 100);
@@ -31,6 +28,7 @@ const VendorsList = props => {
     return rowObj;
   })
 
+  // gets title into render cell for each item in the datagrid
   const renderTitle = (id, arr) => {
     for (const obj of arr) {
       if (obj.id === id) {
@@ -45,9 +43,9 @@ const VendorsList = props => {
       minWidth: 200,
       renderCell: ({id}) => (
         <Typography
+          onClick={() => props.dishDetails(id)}
           onMouseOver={()=> props.setDishId(id)}
           onMouseOut={()=> props.setDishId(null)}
-          onClick={() => props.dishDetails(id)}
           >
             {renderTitle(id, filteredList)}
         </Typography>
@@ -68,7 +66,6 @@ const VendorsList = props => {
   return (
     <Box sx={{display: 'flex'}}>
       <DataGrid
-        // onSelectionModelChange={(newSelectionModel) => setSelectionModel(newSelectionModel)} 
         selectionModel={selectionModel}
         rows={rows} columns={columns} style={{ minHeight: '50vh', width: 548 }}
         />
@@ -77,4 +74,3 @@ const VendorsList = props => {
 };
 
 export default VendorsList;
-// onSelectionModelChange={(newSelectionModel) => setSelectionModel(newSelectionModel)}

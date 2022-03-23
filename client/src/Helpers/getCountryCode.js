@@ -254,5 +254,5 @@ const countryList = {
 };
 
 export default function(countryName) {
-  return countryList[countryName].toLowerCase()
+  return countryList[countryName].toLowerCase();
 }

@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import AddToOrder from "./AddToOrder"
+import DishReviews from './DishReviews';
+import axiosConfig from '../../../axiosConfig';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import AddToOrder from "./Dish/AddToOrder"
-import DishDetails from "./Dish/DishDetails";
-import DishReviews from "./Dish/DishReviews";
-
-import { useParams } from 'react-router';
-import axiosConfig from '../../axiosConfig';
-import { color } from '@mui/system';
 
 const style = {
   position: 'absolute',
@@ -27,7 +22,7 @@ const style = {
 };
 
 const TransitionsModal = props => {
-  const handleOpen = () => props.setOpen(true);
+  // const handleOpen = () => props.setOpen(true);
   const handleClose = () => props.setOpen(false);
 
   const [dishDetails, setDishDetails] = useState({})
