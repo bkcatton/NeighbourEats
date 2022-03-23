@@ -14,7 +14,7 @@ VALUES (
     '3500',
     '1',
     'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-    'Chinese',
+    'China',
     '90',
     1
   ),
@@ -24,7 +24,7 @@ VALUES (
     '1800',
     '2',
     'https://images.unsplash.com/photo-1551892374-ecf8754cf8b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1364&q=80',
-    'Italian',
+    'Italy',
     '20',
     2
   ),
@@ -34,7 +34,7 @@ VALUES (
     '5600',
     '4',
     'https://images.unsplash.com/photo-1550317138-10000687a72b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2420&q=80',
-    'American',
+    'United States of America (the)',
     '5',
     3
   );

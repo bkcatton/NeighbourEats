@@ -10,13 +10,13 @@ import Button from '@mui/material/Button';
 import DishDetailsModal from './DishDetailsModal'
 
 const Browse = () => {
+  const [dishId, setDishId] = useState(null);
   const [dishesInfo, setDishesInfo] = useState([]);
   const [dishesReviews, setDishesReviews] = useState([]);
   const [dishesRatings, setDishesRatings] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [mapCoords, setMapCoords] = useState([]);
   const [open, setOpen] = useState(false);
-  const [dishId, setDishId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,9 +33,11 @@ const Browse = () => {
         console.log(error);
       }
     };
+    
     fetchData();
   }, []);
   
+  // setting the modal dish id and opening the modal
   const dishDetails = function (id) {
     console.log(id)
     for (const item of dishesInfo) {
@@ -48,6 +50,8 @@ const Browse = () => {
 
   useEffect(() => {
     if (!dishesReviews.length || !dishesInfo.length) return;
+
+    // getting the geocoordinates back based on an inputed address
     const getCoordinates = async dishItem => {
       const { street_number, street_name, city, state_code } = dishItem;
       const parameter = encodeURIComponent(
@@ -58,12 +62,13 @@ const Browse = () => {
         const response = await axios.get(
           `https://maps.googleapis.com/maps/api/geocode/json?address=${parameter}&key=AIzaSyDhp8LqdW-X8POJhX8QFV-ERtVBLr0ujZo`
         );
-        const location = response.data.results[0].geometry.location || {};
-        const { id, street_name, title, image_link } = dishItem;
-
+        console.log(response)
+        const { location } = response.data.results[0].geometry;
+        const { id, street_name, title, image_link, country_style } = dishItem;
+        console.log("country for each dsh", country_style)
         setMapCoords(prev => [
           ...prev,
-          { id, street_name, title, image_link, location },
+          { id, street_name, title, image_link, location, country_style },
         ]);
       } catch (error) {
         console.log('this is the error', error);
@@ -73,11 +78,13 @@ const Browse = () => {
     // adding the reviews array to each dish
     const dishItems = dishesInfo.map(item => {
       item.reviews = [];
+      
       for (const review of dishesReviews) {
         if (review.dish_id === item.id) {
           item.reviews.push(review);
         }
       }
+
       return item;
     });
 
