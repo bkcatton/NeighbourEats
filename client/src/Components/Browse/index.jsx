@@ -6,6 +6,8 @@ import VendorsList from './VendorsList';
 import SearchInput from './SearchInput';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import DishDetailsModal from './DishDetailsModal'
 
 const Browse = () => {
   const [dishesInfo, setDishesInfo] = useState([]);
@@ -13,7 +15,9 @@ const Browse = () => {
   const [dishesRatings, setDishesRatings] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [mapCoords, setMapCoords] = useState([]);
-  const [selectionModel, setSelectionModel] = React.useState([]);
+  const [selectionModel, setSelectionModel] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [dishId, setDishId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +36,16 @@ const Browse = () => {
     };
     fetchData();
   }, []);
+  
+  const dishDetails = function (id) {
+    for (const item of dishesInfo) {
+      if (item.id === id) {
+        setDishId(id);
+        setOpen(true)
+      }
+    }
+  }
+
   useEffect(() => {
     if (!dishesReviews.length || !dishesInfo.length) return;
     const getCoordinates = async dishItem => {
@@ -71,21 +85,20 @@ const Browse = () => {
     dishItems.forEach(item => getCoordinates(item));
   }, [dishesReviews.length, dishesInfo.length]);
 
-  
-
   return (
     <Box >
-      <Grid container spacing={2} columnSpacing={{md: 2}} rowSpacing={{md: 2}} sx={{ mb: 2, mx: 'auto' }}>
+      <Grid container spacing={2} columnSpacing={{ md: 2 }} rowSpacing={{ md: 2 }} sx={{ mb: 2, mx: 'auto' }}>
         <Grid item xs={12} md={6} sx={{ height: "52vh", width: "548" }}>
           <MapContainer selectionModel={selectionModel} setSelectionModel={setSelectionModel} mapCoords={mapCoords} searchValue={searchValue} />
         </Grid>
         <Grid item xs={12} md={6} >
-          <SearchInput searchValue={searchValue} setSearchValue={setSearchValue}/>
-          <VendorsList selectionModel={selectionModel} setSelectionModel={setSelectionModel} dishesRatings={dishesRatings} searchValue={searchValue} />
+          <SearchInput searchValue={searchValue} setSearchValue={setSearchValue} />
+          <VendorsList dishDetails={dishDetails} selectionModel={selectionModel} setSelectionModel={setSelectionModel} dishesRatings={dishesRatings} searchValue={searchValue} />
         </Grid>
       </Grid>
+      <DishDetailsModal dishId={dishId} open={open} setOpen={setOpen} />
     </Box>
-    
+
   );
 };
 

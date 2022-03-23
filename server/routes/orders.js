@@ -71,6 +71,7 @@ module.exports = db => {
 
   router.post('/order_item', async (req, res) => {
     const { order_id, dish_id, quantity, paid_price_cents } = req.body;
+    console.log("in /order_item", req.body)
     try {
       await db.query(
         `INSERT INTO order_items(order_id, dish_id, quantity, paid_price_cents)

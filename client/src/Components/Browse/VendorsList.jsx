@@ -37,11 +37,12 @@ const VendorsList = props => {
       headerName: 'Dish', 
       minWidth: 200,
       renderCell: ({id}) => (
-        <Link onMouseOver={()=> {
-          console.log("this is the hovered id", id)
-          props.setSelectionModel(id)
-        }} 
-        component={Typography} style={{textDecoration: 'none'}} to={`dishes/details/${id}`}>{renderTitle(id, filteredList)}</Link>
+        <Typography
+          onMouseOver={()=> props.setSelectionModel(id)}
+          onClick={() => props.dishDetails(id)}
+          component={Typography}>
+            {renderTitle(id, filteredList)}
+        </Typography>
       )
       },
     { field: 'col2', flex: 1, headerName: 'Style', width: 100 },
