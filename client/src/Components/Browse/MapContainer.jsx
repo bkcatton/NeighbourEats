@@ -54,7 +54,6 @@ function MapContainer(props) {
         zoom={14}
         options={{ mapId: '2498605d98cd98cd' }}
       >
-        return (
         <Fragment>
           {locations.map((item, i) => {
             const countryCode = getCountryCode(item.country_style);
@@ -88,7 +87,6 @@ function MapContainer(props) {
             </InfoWindow>
           )}
         </Fragment>
-        )
       </GoogleMap>
     </LoadScript>
   );

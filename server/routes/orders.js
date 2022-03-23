@@ -71,7 +71,7 @@ module.exports = db => {
 
   router.post('/order_item', async (req, res) => {
     const { order_id, dish_id, quantity, paid_price_cents } = req.body;
-    console.log("in /order_item", req.body)
+    console.log('in /order_item', req.body);
     try {
       await db.query(
         `INSERT INTO order_items(order_id, dish_id, quantity, paid_price_cents)
@@ -90,7 +90,7 @@ module.exports = db => {
       const data = await db.query(
         `UPDATE orders
           SET confirmed = true
-          WHERE customer_id = $1;
+          WHERE id = $1;
         `,
         [orderId]
       );

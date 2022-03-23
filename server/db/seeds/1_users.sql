@@ -4,7 +4,7 @@ VALUES ('Ben Catton', 'ben@ben.com', true),
   (
     'Christian Girling',
     'christian@christian.com',
-    true
+    false
   ),
   ('Ty Blackwell', 'ty@ty.com', true),
   ('John Roberts', 'john@john.com', true),
