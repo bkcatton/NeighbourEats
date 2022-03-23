@@ -60,6 +60,7 @@ function MapContainer(props) {
                 onMouseOver={() => {
                   setSelected(item)
                 }}
+                onClick={() => props.dishDetails(item.id)}
                 onMouseOut={() => setSelected({})}
               />
             );

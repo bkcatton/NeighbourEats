@@ -38,10 +38,11 @@ const Browse = () => {
   }, []);
   
   const dishDetails = function (id) {
+    console.log(id)
     for (const item of dishesInfo) {
       if (item.id === id) {
         setDishId(id);
-        setOpen(true)
+        setOpen(true);
       }
     }
   }
@@ -89,7 +90,7 @@ const Browse = () => {
     <Box >
       <Grid container spacing={2} columnSpacing={{ md: 2 }} rowSpacing={{ md: 2 }} sx={{ mb: 2, mx: 'auto' }}>
         <Grid item xs={12} md={6} sx={{ height: "52vh", width: "548" }}>
-          <MapContainer selectionModel={selectionModel} setSelectionModel={setSelectionModel} mapCoords={mapCoords} searchValue={searchValue} />
+          <MapContainer selectionModel={selectionModel} setSelectionModel={setSelectionModel} mapCoords={mapCoords} searchValue={searchValue} dishDetails={dishDetails} />
         </Grid>
         <Grid item xs={12} md={6} >
           <SearchInput searchValue={searchValue} setSearchValue={setSearchValue} />

@@ -40,7 +40,7 @@ const VendorsList = props => {
         <Typography
           onMouseOver={()=> props.setSelectionModel(id)}
           onClick={() => props.dishDetails(id)}
-          component={Typography}>
+          >
             {renderTitle(id, filteredList)}
         </Typography>
       )

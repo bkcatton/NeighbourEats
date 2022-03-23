@@ -31,9 +31,7 @@ const DishReviews = props => {
         <Typography variant="body2">
           {item.content}
         </Typography>
-        <Typography variant="body2">
-          <HeartRating rating={item.star_rating}/>
-        </Typography>
+        <HeartRating rating={item.star_rating}/>
       </CardContent>
     </Card>
     )

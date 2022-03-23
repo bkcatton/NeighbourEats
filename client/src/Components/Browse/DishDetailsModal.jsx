@@ -70,7 +70,9 @@ const TransitionsModal = props => {
       }      
     }
 
-    fetchData()
+    if (props.dishId) {
+      fetchData()
+    }
   }, [props.dishId])
  
   return (
