@@ -23,15 +23,15 @@ const VendorsList = props => {
 
   const rows = filteredList.map(item => {
     const { average_rating, title, id, price_cents, country_style } = item;
-    const formattedNumber = new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'CAD',
-    }).format(price_cents / 100);
+    // const formattedNumber = new Intl.NumberFormat('en-IN', {
+    //   style: 'currency',
+    //   currency: 'CAD',
+    // }).format(price_cents / 100);
     const rowObj = {
       id: id,
       col1: title,
       col2: country_style,
-      col3: formattedNumber,
+      col3: price_cents,
       col4: average_rating || 0,
     };
     return rowObj;
@@ -46,13 +46,23 @@ const VendorsList = props => {
     }
   };
 
+  // return formatted number in datagrid
+  const getFormattedCurrency = (priceCents) => {
+    const formattedCurrency = new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'CAD',
+    }).format(priceCents / 100);
+
+    return formattedCurrency
+  };
+
+
   const columns = [
     {
       field: 'col1',
       headerName: 'Dish',
       minWidth: 200,
       renderCell: ({ value }) => (
-        // console.log(title)
         <Typography
           onClick={() => props.dishDetails(getId(value, filteredList))}
           onMouseOver={() => props.setDishId(getId(value, filteredList))}
@@ -63,7 +73,17 @@ const VendorsList = props => {
       ),
     },
     { field: 'col2', flex: 1, headerName: 'Style', width: 100 },
-    { field: 'col3', flex: 1, headerName: 'Price', width: 100 },
+    { field: 'col3', 
+      flex: 1, 
+      headerName: 'Price', 
+      width: 100,
+      renderCell: ({value}) => (
+        <Typography> 
+          {getFormattedCurrency(value)}
+        </Typography>
+
+      ),
+    },
     {
       field: 'col4',
       flex: 1,
