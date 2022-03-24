@@ -2,18 +2,20 @@ import React, { useState, useEffect } from 'react'
 import axiosConfig from '../axiosConfig';
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({ userId: '', isVendor: false });
+  const [user, setUser] = useState({ userId: '', name: '', isVendor: false, avatar: '' });
   
   useEffect(() => {
     function setUserId() {
       const userId = localStorage.getItem('userId')
+      const name = localStorage.getItem('name')
+      const avatar = localStorage.getItem('avatar')
       let isVendor = localStorage.getItem('isVendor')
       if (isVendor === 'true') {
         isVendor = true
       }
 
       if (userId) {
-        setUser({ userId, isVendor })
+        setUser({ userId, name, isVendor, avatar })
       }
     }
 
@@ -26,8 +28,10 @@ const UserProvider = ({ children }) => {
     
     try {
       const { data } = await axiosConfig.get(`/users/${userId}`);
-      setUser({userId: data.id, isVendor: data.is_vendor});
+      setUser({ userId: data.id, name: data.full_name, isVendor: data.is_vendor, avatar: data.avatar });
       localStorage.setItem('isVendor', data.is_vendor)
+      localStorage.setItem('avatar', data.avatar)
+      localStorage.setItem('name', data.full_name)
     } catch (error) {
       console.log(error);
     }
@@ -39,6 +43,7 @@ const UserProvider = ({ children }) => {
     setUser(() => ({
       userId: '',
       isVendor: false,
+      avatar: ''
     }));
   };
 
@@ -50,4 +55,4 @@ const UserProvider = ({ children }) => {
 }
 
 export default UserProvider
-export const UserContext = React.createContext({ userId: '', isVendor: false });
+export const UserContext = React.createContext({ userId: '', name: '', isVendor: false, avatar: '' });

@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS addresses CASCADE;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   full_name VARCHAR(255) NOT NULL,
+  avatar TEXT,
   email VARCHAR(255) NOT NULL,
   is_vendor BOOLEAN DEFAULT FALSE NOT NULL
 );
@@ -15,10 +16,8 @@ CREATE TABLE dishes (
   title VARCHAR(100) NOT NULL,
   dish_description VARCHAR(255) NOT NULL,
   price_cents INTEGER NOT NULL,
-  serving_size SMALLINT NOT NULL,
   image_link TEXT NOT NULL,
   country_style VARCHAR(255) NOT NULL,
-  available_stock SMALLINT NOT NULL,
   user_id INTEGER REFERENCES users (id) ON DELETE CASCADE
 );
 CREATE TABLE reviews (

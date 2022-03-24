@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import InputBase from '@mui/material/InputBase';
+import Stack from '@mui/material/Stack'
 
 import { Link } from 'react-router-dom';
 import { UserContext } from '../Providers/UserProvider';
@@ -68,7 +69,7 @@ const ResponsiveAppBar = () => {
 
   // OUR IMPORTS
   const { user, login, logout } = React.useContext(UserContext);
-  const { userId, isVendor } = user;
+  const { userId, name, isVendor, avatar } = user;
   const [input, setInput] = React.useState('');
   // OUR IMPORTS
 
@@ -210,11 +211,14 @@ const ResponsiveAppBar = () => {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
+            <Stack direction='row' alignItems='center'>
+            {name && <Typography sx={{mr: 2}}>{name}</Typography>}
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" />
+                <Avatar alt="Remy Sharp" src={avatar} />
               </IconButton>
             </Tooltip>
+            </Stack>
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
