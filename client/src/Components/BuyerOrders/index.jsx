@@ -33,7 +33,7 @@ const BuyerOrders = () => {
     const fetchData = async () => {
       try {
         const { data } = await axiosConfig.get(`/orders/user/${userId}`);
-
+        console.log(data)
         if (data) {
           setUserOrders(data);
           setOrderId(data[0].order_id);
@@ -69,6 +69,7 @@ const BuyerOrders = () => {
       console.log(error);
     }
   };
+console.log("from cart", userOrders);
 
   const ordersList = userOrders.map((item, i) => {
     return (

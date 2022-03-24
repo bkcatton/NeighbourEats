@@ -118,19 +118,28 @@ module.exports = db => {
     }
   });
 
-  router.post('/', async (req, res) => {
+  router.post('/', (req, res) => {
     const { userId } = req.body;
-    try {
-      const data = await db.query(
+
+    db.query(
+      `SELECT id FROM orders
+        WHERE customer_id = $1 AND confirmed = false;
+      `, [userId]
+    ).then((existingId) => {
+      if (existingId.rows.length) {
+        console.log("this check worked", existingId)
+        return res.json(existingId.rows[0])
+      }
+
+      db.query(
         `INSERT INTO orders(customer_id)
           VALUES ($1) RETURNING *;
         `,
         [userId]
-      );
-      res.json(data.rows[0]);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
+      ).then((newlyCreatedId) => {
+        res.json(newlyCreatedId.rows[0]);
+      })
+    })
   });
 
   return router;

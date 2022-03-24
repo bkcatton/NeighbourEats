@@ -5,7 +5,6 @@ import { UserContext } from '../../../Providers/UserProvider'
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Typography } from '@mui/material';
 
 const AddToOrder = props => {
   const [quantity, setQuantity] = useState(1);
