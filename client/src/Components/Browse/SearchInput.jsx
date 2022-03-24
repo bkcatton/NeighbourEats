@@ -1,9 +1,19 @@
 import React from 'react'
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
-import {  TextField, IconButton } from '@material-ui/core';
-import { SearchOutlined } from '@material-ui/icons';
+// import { SearchOutlined } from '@material-ui/icons';
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginLeft: 'auto'
+}));
 
 const SearchInput = (props) => {
 
@@ -17,9 +27,9 @@ const SearchInput = (props) => {
       onChange={(e) => props.setSearchValue(e.target.value)}
       InputProps={{
         endAdornment: (
-          <IconButton>
-            <SearchOutlined />
-          </IconButton>
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
         ),
       }}
     />

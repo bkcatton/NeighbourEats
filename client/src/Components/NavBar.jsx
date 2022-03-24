@@ -18,6 +18,7 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../Providers/UserProvider';
 import { styled, alpha } from '@mui/material/styles';
 
+// login styling
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -29,7 +30,6 @@ import { styled, alpha } from '@mui/material/styles';
     marginLeft: 0,
     width: '5ch',
     [theme.breakpoints.up('md')]: {
-      // marginLeft: theme.spacing(3),
       width: 'auto',
     },
   }));
@@ -38,7 +38,7 @@ import { styled, alpha } from '@mui/material/styles';
     color: 'inherit',
     '& .MuiInputBase-input': {
       padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
+      // vertical padding + font size from searchIcon,
       // paddingLeft: `calc(1em + ${theme.spacing(4)})`,
       paddingLeft: `0.5em`, // CHANGED FROM ABOVE LINE
       transition: theme.transitions.create('width'),
@@ -62,7 +62,8 @@ import { styled, alpha } from '@mui/material/styles';
     {text: "Current Orders", route : "/orders/vendor"},
     {text: "Add New Dish", route : "/dishes/new"},
   ]
-
+  // "@material-ui/core": "^4.12.3",
+  // "@material-ui/icons": "^4.11.2",
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -109,9 +110,9 @@ const ResponsiveAppBar = () => {
   }
 
   return (
-    <AppBar position="sticky" sx={{ mb: 2 }}>
+    <AppBar position="static" sx={{ mb: 2, }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters >
           <Typography
             variant="h6"
             noWrap
@@ -210,7 +211,7 @@ const ResponsiveAppBar = () => {
               </Link>
             ))}
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, justifyContent: 'flex-end' }}>
             <Stack direction='row' alignItems='center'>
             {name && <Typography sx={{mr: 2}}>{name}</Typography>}
             <Tooltip title="Open settings">
