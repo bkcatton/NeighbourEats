@@ -62,17 +62,14 @@ import { styled, alpha } from '@mui/material/styles';
     {text: "Current Orders", route : "/orders/vendor"},
     {text: "Add New Dish", route : "/dishes/new"},
   ]
-  // "@material-ui/core": "^4.12.3",
-  // "@material-ui/icons": "^4.11.2",
+
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  // OUR IMPORTS
   const { user, login, logout } = React.useContext(UserContext);
   const { userId, name, isVendor, avatar } = user;
   const [input, setInput] = React.useState('');
-  // OUR IMPORTS
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

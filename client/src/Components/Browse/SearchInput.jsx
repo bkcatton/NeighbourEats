@@ -1,9 +1,7 @@
 import React from 'react'
 import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { styled, alpha } from '@mui/material/styles';
-// import { SearchOutlined } from '@material-ui/icons';
+import { styled } from '@mui/material/styles';
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
