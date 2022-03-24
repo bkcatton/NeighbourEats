@@ -85,7 +85,7 @@ useEffect(() => {
   }, 1000)
 
   return () => clearTimeout(delayDebounceFn)
-}, [props.mapCoords])
+}, [props.mapCoords.length])
 
 // console.log("this is all of the returned distances", setTimeout(() =>  {
 //   return getAllDistances(props.mapCoords)

@@ -60,6 +60,7 @@ function MapContainer(props) {
       }
     }
   }, [props.dishId]);
+  
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_GMAPS_APIKEY}>
       <GoogleMap

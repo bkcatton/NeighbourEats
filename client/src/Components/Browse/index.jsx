@@ -94,7 +94,8 @@ const Browse = () => {
     // calling the function to get the geocoords for each address
     dishItems.forEach(item => getCoordinates(item));
   }, [dishesReviews.length, dishesInfo.length]);
-
+console.log("current map coords", mapCoords);
+console.log("dishes Ratings", dishesRatings);
   return (
     <Box >
       <Grid container spacing={2} columnSpacing={{ md: 2 }} rowSpacing={{ md: 2 }} sx={{ mb: 2, mx: 'auto' }}>
