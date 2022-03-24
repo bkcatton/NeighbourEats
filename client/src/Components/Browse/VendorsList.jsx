@@ -22,14 +22,14 @@ const VendorsList = props => {
   }
 
   const rows = filteredList.map(item => {
-    const { average_rating, id, price_cents, country_style } = item;
+    const { average_rating, title, id, price_cents, country_style } = item;
     const formattedNumber = new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'CAD',
     }).format(price_cents / 100);
     const rowObj = {
       id: id,
-      col1: id,
+      col1: title,
       col2: country_style,
       col3: formattedNumber,
       col4: average_rating || 0,
@@ -38,10 +38,10 @@ const VendorsList = props => {
   });
 
   // gets title into render cell for each item in the datagrid
-  const renderTitle = (id, arr) => {
+  const getId = (title, arr) => {
     for (const obj of arr) {
-      if (obj.id === id) {
-        return obj.title;
+      if (obj.title === title) {
+        return obj.id;
       }
     }
   };
@@ -51,13 +51,14 @@ const VendorsList = props => {
       field: 'col1',
       headerName: 'Dish',
       minWidth: 200,
-      renderCell: ({ id }) => (
+      renderCell: ({ value }) => (
+        // console.log(title)
         <Typography
-          onClick={() => props.dishDetails(id)}
-          onMouseOver={() => props.setDishId(id)}
+          onClick={() => props.dishDetails(getId(value, filteredList))}
+          onMouseOver={() => props.setDishId(getId(value, filteredList))}
           onMouseOut={() => props.setDishId(null)}
         >
-          {renderTitle(id, filteredList)}
+          { value }
         </Typography>
       ),
     },
