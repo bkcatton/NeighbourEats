@@ -3,6 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import HeartRating from './HeartRating';
+import getFormattedCurrency from '../../Helpers/getFormattedCurrency';
 
 const VendorsList = props => {
   const [selectionModel, setSelectionModel] = useState([]);
@@ -23,10 +24,6 @@ const VendorsList = props => {
 
   const rows = filteredList.map(item => {
     const { average_rating, title, id, price_cents, country_style } = item;
-    // const formattedNumber = new Intl.NumberFormat('en-IN', {
-    //   style: 'currency',
-    //   currency: 'CAD',
-    // }).format(price_cents / 100);
     const rowObj = {
       id: id,
       col1: title,
@@ -44,16 +41,6 @@ const VendorsList = props => {
         return obj.id;
       }
     }
-  };
-
-  // return formatted number in datagrid
-  const getFormattedCurrency = (priceCents) => {
-    const formattedCurrency = new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'CAD',
-    }).format(priceCents / 100);
-
-    return formattedCurrency
   };
 
 
