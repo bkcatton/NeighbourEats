@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import getCountryCode from '../../Helpers/getCountryCode';
+import { UserContext } from '../../Providers/UserProvider';
 
 import {
   GoogleMap,
@@ -14,15 +15,29 @@ const containerStyle = {
   height: '100%',
 };
 
-const center = {
-  lat: 40.712776,
-  lng: -74.005974,
-};
 
 function MapContainer(props) {
+  // const c = {
+  //   lat: 40.712776,
+  //   lng: -74.005974,
+  // };
   // state to open the corresponding info window
   const [selected, setSelected] = useState({});
+  
+
+  // useEffect(() => {
+  //   const setUserCenter = () => {
+  //     props.setCenter(props.userLocation)
+  //   }
+
+  //   if (props.userLocation) {
+  //     setUserCenter()
+  //   }
+  // }, [props.userLocation])
   let locations = [...props.mapCoords];
+
+  const { user } = React.useContext(UserContext);
+  // const { avatar } = user;
 
   // filters the pins on the map only when search input field is not empty
   if (props.searchValue) {
@@ -45,12 +60,11 @@ function MapContainer(props) {
       }
     }
   }, [props.dishId]);
-
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_GMAPS_APIKEY}>
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
+        center={props.center}
         zoom={14}
         options={{ mapId: '2498605d98cd98cd' }}
       >
@@ -78,6 +92,8 @@ function MapContainer(props) {
               />
             );
           })}
+          {/* {props.userLocation && <Marker position={props.userLocation}/>} */}
+          {props.center && <Marker position={props.center}/>}
           {selected.location && (
             <InfoWindow
               position={selected.location}

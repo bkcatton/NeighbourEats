@@ -7,6 +7,7 @@ import SearchInput from './SearchInput';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import DishModal from './DishModal'
+import SearchByDistance from './SearchByDistance';
 
 const Browse = () => {
   const [dishId, setDishId] = useState(null);
@@ -16,6 +17,12 @@ const Browse = () => {
   const [searchValue, setSearchValue] = useState('');
   const [mapCoords, setMapCoords] = useState([]);
   const [open, setOpen] = useState(false);
+  // const [userLocation, setUserLocation] = useState({});
+  const [distance, setDistance] = useState(100);
+  const [center, setCenter] = useState({
+    lat: 40.712776,
+    lng: -74.005974,
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,10 +99,11 @@ const Browse = () => {
     <Box >
       <Grid container spacing={2} columnSpacing={{ md: 2 }} rowSpacing={{ md: 2 }} sx={{ mb: 2, mx: 'auto' }}>
         <Grid item xs={12} md={6} sx={{ height: "52vh", width: "548" }}>
-          <MapContainer dishId={dishId} setDishId={setDishId} mapCoords={mapCoords} searchValue={searchValue} dishDetails={dishDetails} />
+          <MapContainer center={center} setCenter={setCenter} dishId={dishId} setDishId={setDishId} mapCoords={mapCoords} searchValue={searchValue} dishDetails={dishDetails} />
         </Grid>
         <Grid item xs={12} md={6} >
           <SearchInput searchValue={searchValue} setSearchValue={setSearchValue} />
+          <SearchByDistance mapCoords={mapCoords} setMapCoords={setMapCoords} setCenter={setCenter} distance={distance} setDistance={setDistance} />
           <VendorsList dishDetails={dishDetails} dishId={dishId} setDishId={setDishId} dishesRatings={dishesRatings} searchValue={searchValue} />
         </Grid>
       </Grid>
