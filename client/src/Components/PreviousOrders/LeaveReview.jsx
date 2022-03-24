@@ -14,7 +14,11 @@ const LeaveReview = (props) => {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+    props.setDishId(props.dishId);
+  }
+
   const handleClose = () => setOpen(false);
 
   const handleClick = () => {
@@ -25,7 +29,7 @@ const LeaveReview = (props) => {
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
-    }, 2000);
+    }, 1000);
   };
 
   const style = {
@@ -83,14 +87,14 @@ const LeaveReview = (props) => {
               }}
               variant="standard"
             />
-            <HeartRating />
+            <HeartRating starRating={props.starRating} setStarRating={props.setStarRating} />
             {!loading && !success && (
-              <Button onClick={handleClick}>Post review</Button>
+              <Button fullWidth onClick={handleClick}>Post review</Button>
             )}
 
-            {success && <Button>Review Posted!</Button>}
+            {success && <Button fullWidth color="success">Review Posted!</Button>}
             {loading && (
-              <LoadingButton loading variant="outlined">
+              <LoadingButton fullWidth loading variant="outlined">
                 Submit
               </LoadingButton>
             )}

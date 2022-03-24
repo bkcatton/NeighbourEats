@@ -5,14 +5,13 @@ import LeaveReview from "./LeaveReview";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
 const PreviousOrders = () => {
   const [orders, setOrders] = useState([]);
-  const [showReviewInput, setShowReviewInput] = useState(false);
+  const [starRating, setStarRating] = useState(1);
   const [dishId, setDishId] = useState(null);
   const [reviewBody, setReviewBody] = useState("");
   const { user } = useContext(UserContext);
@@ -35,16 +34,12 @@ const PreviousOrders = () => {
     }
   }, [userId]);
 
-  const toggleShow = (id) => {
-    setDishId(id);
-    setShowReviewInput(true);
-  };
-
   const handleSubmit = async () => {
     try {
       await axiosConfig.post("/orders/reviews", {
         userId,
         dishId,
+        starRating,
         reviewBody,
       });
     } catch (error) {
@@ -76,6 +71,10 @@ const PreviousOrders = () => {
                 reviewBody={reviewBody}
                 setReviewBody={setReviewBody}
                 handleSubmit={handleSubmit}
+                starRating={starRating}
+                setStarRating={setStarRating}
+                setDishId={setDishId}
+                dishId={item.dish_id}
               />
               <Typography variant="body2" sx={{ mt: "auto" }}>
                 {`${item.paid_price_cents}`}

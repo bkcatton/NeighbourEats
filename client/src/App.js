@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Browse from './Components/Browse';
-import BuyerOrders from './Components/BuyerOrders';
+import Cart from './Components/Cart';
 import PreviousOrders from './Components/PreviousOrders';
 import NewDish from './Components/NewDish';
 import VendorOrders from './Components/VendorOrders';
@@ -20,7 +20,7 @@ const App = () => {
       <Container maxWidth="xl">
         <Routes>
           <Route path="/" element={<Browse />} />
-          <Route path="/orders/cart" element={<BuyerOrders />} />
+          <Route path="/orders/cart" element={<Cart />} />
           <Route path="/orders/previous" element={<PreviousOrders />} />
           <Route path="/orders/vendor" element={<VendorOrders />} />
           <Route path="/dishes/new" element={<NewDish />} />

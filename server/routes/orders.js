@@ -103,14 +103,14 @@ module.exports = db => {
   });
 
   router.post('/reviews', async (req, res) => {
-    const { reviewBody, userId, dishId } = req.body;
-
+    const { reviewBody, starRating, userId, dishId } = req.body;
+console.log("in backed query", req.body)
     try {
       await db.query(
         `INSERT INTO reviews(content, star_rating, reviewer_id, dish_id)
           VALUES ($1, $2, $3, $4);
         `,
-        [reviewBody, 5, userId, dishId]
+        [reviewBody, starRating, userId, dishId]
       );
       // res.json(data.rows[0]);
     } catch (error) {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import axiosConfig from '../../axiosConfig';
 import PaymentForm from './PaymentForm';
 import { UserContext } from '../../Providers/UserProvider';
@@ -10,7 +11,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
-const BuyerOrders = () => {
+const Cart = () => {
   const [userOrders, setUserOrders] = useState([]);
   const [orderId, setOrderId] = useState(null);
   const [orderTotal, setOrderTotal] = useState(null);
@@ -69,8 +70,6 @@ const BuyerOrders = () => {
       console.log(error);
     }
   };
-console.log("from cart", userOrders);
-
   const ordersList = userOrders.map((item, i) => {
     return (
       <Card key={i} variant="outlined" sx={{ mb: 2 }}>
@@ -117,10 +116,10 @@ console.log("from cart", userOrders);
 
   return (
     <Box sx={{ maxWidth: 800, mx: 'auto' }}>
-      <Typography variant="h4" textAlign="center" sx={{ mb: 2 }}>
-        Pending Orders
+      <Typography variant="h4" sx={{ mb: 2 }}>
+        My Cart
       </Typography>
-      {ordersList.length ? ordersList : <p>No Orders</p>}
+      {ordersList.length ? ordersList : <Typography >You currently have no orders. Back to <Link to='/'>Browse</Link>?</Typography>}
       <Box
         sx={{
           display: 'flex',
@@ -129,15 +128,15 @@ console.log("from cart", userOrders);
           justifyContent: 'center',
         }}
       >
-        <Typography sx={{ mb: 1 }}>Total: {orderTotal}</Typography>
-        <PaymentForm
+       {!!ordersList.length && <Typography sx={{ mb: 1 }}>Total: {orderTotal}</Typography> }
+       {!!ordersList.length && <PaymentForm
           orderTotal={orderTotal}
           userOrders={userOrders}
           onCheckout={onCheckout}
-        />
+        />}
       </Box>
     </Box>
   );
 };
 
-export default BuyerOrders;
+export default Cart;
