@@ -5,13 +5,14 @@ import {
   Card,
   CardContent,
   CardMedia,
+  CardActionArea,
   Button,
   Typography,
   Stack,
-  Icon
+  Icon,
 } from "@mui/material";
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import { UserContext } from "../../Providers/UserProvider";
 import axiosConfig from "../../axiosConfig";
@@ -28,7 +29,7 @@ const Cart = () => {
   const getOrderTotal = (array) => {
     let runningTotal = 0;
     for (const item of array) {
-      runningTotal += (item.paid_price_cents * item.quantity);
+      runningTotal += item.paid_price_cents * item.quantity;
     }
     return runningTotal;
   };
@@ -88,10 +89,9 @@ const Cart = () => {
       dish_description,
     } = item;
     return (
-        <Card
-          key={i}
-          variant="outlined"
-          sx={{ mb: 2, display: "flex", justifyContent: "space-between" }}
+      <Card key={i} elevation={2} sx={{ mb: 2 }}>
+        <CardActionArea
+          sx={{ display: "flex", justifyContent: "space-between" }}
         >
           <CardContent
             sx={{
@@ -104,13 +104,11 @@ const Cart = () => {
               <Typography variant="h6" color="text.primary" textAlign="left">
                 {title}
               </Typography>
-              <Typography style={{ width: "75%" }}>{dish_description}</Typography>
+              <Typography style={{ width: "75%" }}>
+                {dish_description}
+              </Typography>
             </Stack>
-            <Stack
-              direction="row"
-              spacing={2}
-              mt="auto"
-            >
+            <Stack direction="row" spacing={2} mt="auto">
               <Box>
                 <Typography color="text.secondary">Quantity:</Typography>
                 <Typography color="text.secondary">Price:</Typography>
@@ -134,7 +132,7 @@ const Cart = () => {
             alt={title}
             sx={{ width: "9rem" }}
           />
-          <Stack direction="column" justifyContent="center" backgroundColor="pink">
+          <Stack direction="column" justifyContent="center">
             <IconButton
               size="md"
               variant="outlined"
@@ -143,12 +141,12 @@ const Cart = () => {
               onClick={() => deleteFromOrder(item.order_items_id)}
               position="absolute"
               left="50"
-              >
+            >
               <DeleteIcon fontSize="inherit" />
             </IconButton>
-            </Stack>
-        </Card>
-        
+          </Stack>
+        </CardActionArea>
+      </Card>
     );
   });
 
@@ -164,13 +162,10 @@ const Cart = () => {
           You currently have no orders. Back to <Link to="/">Browse</Link>?
         </Typography>
       )}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+      <Stack
+        direction="row"
+        alignItems="baseline"
+        justifyContent="space-between"
       >
         {!!ordersList.length && (
           <Typography sx={{ mb: 1 }}>
@@ -184,7 +179,7 @@ const Cart = () => {
             onCheckout={onCheckout}
           />
         )}
-      </Box>
+      </Stack>
     </Box>
   );
 };

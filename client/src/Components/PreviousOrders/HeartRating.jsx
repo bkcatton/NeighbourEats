@@ -18,6 +18,7 @@ export default function CustomizedRating(props) {
     <Box
       sx={{
         "& > legend": { mt: 2 },
+        my: 1,
       }}
     >
       <StyledRating

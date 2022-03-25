@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Backdrop, Box, Modal, Fade, Typography, Grid } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  Modal,
+  Card,
+  Fade,
+  Typography,
+  Grid,
+} from "@mui/material";
 
 import AddToOrder from "./AddToOrder";
 import DishReviews from "./DishReviews";
@@ -15,6 +23,7 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  borderRadius: "10px",
 };
 
 const TransitionsModal = (props) => {
@@ -55,7 +64,7 @@ const TransitionsModal = (props) => {
         }}
       >
         <Fade in={props.open}>
-          <Box sx={style}>
+          <Card sx={style}>
             <Grid container>
               <Grid item xs={12} md={6}>
                 <Typography
@@ -88,7 +97,7 @@ const TransitionsModal = (props) => {
                 <DishReviews dishReviews={dishReviews} />
               </Grid>
             </Grid>
-          </Box>
+          </Card>
         </Fade>
       </Modal>
     </div>

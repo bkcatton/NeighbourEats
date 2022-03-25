@@ -2,6 +2,7 @@ import React, { useState, Fragment } from "react";
 import {
   Backdrop,
   Box,
+  Card,
   Modal,
   Fade,
   Button,
@@ -22,6 +23,10 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  borderRadius: "10px",
 };
 
 const LeaveReview = (props) => {
@@ -69,7 +74,7 @@ const LeaveReview = (props) => {
         }}
       >
         <Fade in={open}>
-          <Box sx={style}>
+          <Card sx={style}>
             <Typography
               variant="h5"
               gutterBottom
@@ -110,7 +115,7 @@ const LeaveReview = (props) => {
                 Submit
               </LoadingButton>
             )}
-          </Box>
+          </Card>
         </Fade>
       </Modal>
     </Fragment>

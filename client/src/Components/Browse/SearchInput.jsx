@@ -18,7 +18,6 @@ const SearchInput = (props) => {
     <TextField
       fullWidth
       id="standard-bare"
-      variant="outlined"
       placeholder="Find a dish!"
       value={props.searchValue}
       onChange={(e) => props.setSearchValue(e.target.value)}

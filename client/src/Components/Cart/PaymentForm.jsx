@@ -24,6 +24,7 @@ const style = {
   boxShadow: 24,
   p: 4,
   pb: 2,
+  borderRadius: "10px",
 };
 
 const PaymentForm = (props) => {
@@ -34,10 +35,10 @@ const PaymentForm = (props) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     if (success) {
-      window.location.reload(false)
-    };
+      window.location.reload(false);
+    }
 
-    setOpen(false)
+    setOpen(false);
   };
 
   const handleClick = () => {
@@ -80,9 +81,7 @@ const PaymentForm = (props) => {
             </Typography>
             <CardElement />
             <Stack direction="column" alignItems="center" sx={{ mt: 2 }}>
-              <Typography
-                sx={{ mb: 1 }}
-              >
+              <Typography sx={{ mb: 1 }}>
                 {`Order Total: ${getFormattedCurrency(props.orderTotal)}`}
               </Typography>
               {!loading && !success && (

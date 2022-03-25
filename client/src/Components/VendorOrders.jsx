@@ -7,7 +7,8 @@ import {
   Typography,
   Stack,
   CardActionArea,
-  Divider
+  Divider,
+  Grid,
 } from "@mui/material";
 
 import getFormattedCurrency from "../Helpers/getFormattedCurrency";
@@ -41,48 +42,59 @@ const VendorOrders = () => {
     const { title, paid_price_cents, quantity, image_link, bought_by } = item;
 
     return (
-      <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            height="140"
-            src={image_link}
-            alt={title}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {title}
-            </Typography>
-            <Typography>Ordered by: {bought_by}</Typography>
-            <Divider sx={{my: 1}} />
-            <Stack direction='row' spacing={2}>
-              <Box>
-                <Typography color="text.secondary">Quantity:</Typography>
-                <Typography color="text.secondary">Price:</Typography>
-                <Typography>Total:</Typography>
-              </Box>
-              <Box>
-                <Typography color="text.secondary">{quantity}</Typography>
-                <Typography color="text.secondary">
-                  {`${getFormattedCurrency(paid_price_cents)}`}
-                </Typography>
-                <Typography>
-                  {getFormattedCurrency(quantity * paid_price_cents)}
-                </Typography>
-              </Box>
-            </Stack>
-          </CardContent>
-        </CardActionArea>
-      </Card>
+      <Grid item xs={12} sm={6} md={4}>
+        <Card sx={{ maxWidth: 345 }}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height="140"
+              src={image_link}
+              alt={title}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {title}
+              </Typography>
+              <Typography>Ordered by: {bought_by}</Typography>
+              <Divider sx={{ my: 1 }} />
+              <Stack direction="row" spacing={2}>
+                <Box>
+                  <Typography color="text.secondary">Quantity:</Typography>
+                  <Typography color="text.secondary">Price:</Typography>
+                  <Typography>Total:</Typography>
+                </Box>
+                <Box>
+                  <Typography color="text.secondary">{quantity}</Typography>
+                  <Typography color="text.secondary">
+                    {`${getFormattedCurrency(paid_price_cents)}`}
+                  </Typography>
+                  <Typography>
+                    {getFormattedCurrency(quantity * paid_price_cents)}
+                  </Typography>
+                </Box>
+              </Stack>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Grid>
     );
   });
 
   return (
-    <Box>
-      <Typography variant="h4" textAlign="center" sx={{ mb: 2 }}>
-        Current Orders:
-      </Typography>
-      <Box sx={{ maxWidth: 800, mx: "auto" }}>{ordersList}</Box>
+    <Box
+      sx={{ width: "100%" }}
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+    >
+      <Box>
+        <Typography variant="h4" sx={{ mb: 2 }}>
+          Current Orders:
+        </Typography>
+        <Grid sx={{ flexGrow: 1 }} container spacing={4}>
+          {ordersList}
+        </Grid>
+      </Box>
     </Box>
   );
 };
