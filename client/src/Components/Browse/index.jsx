@@ -70,7 +70,6 @@ const Browse = () => {
     // getting the geocoordinates back based on an inputed address
     const getCoordinates = async dishItem => {
       
-      const dishy = dishItem
       const { street_number, street_name, city, state_code } = dishItem;
       const parameter = encodeURIComponent(
         `${street_number} ${street_name} ${city} ${state_code}`
@@ -80,7 +79,7 @@ const Browse = () => {
         const response = await axios.get(
           `https://maps.googleapis.com/maps/api/geocode/json?address=${parameter}&key=${process.env.REACT_APP_GMAPS_APIKEY}`
         );
-        console.log('RESPONSE', response)
+    
         const { location } = response.data.results[0].geometry;
         const { id } = dishItem;
 
@@ -90,7 +89,7 @@ const Browse = () => {
             dish.location = location
           }
         }
-        console.log("dishes Clone", dishesInfoClone)
+        
         setDishesInfo(dishesInfoClone)
 
 
