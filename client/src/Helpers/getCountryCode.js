@@ -257,4 +257,7 @@ const getCountryCode = countryName => {
   return countryList[countryName].toLowerCase();
 };
 
-export default getCountryCode;
+const getCountryNames = Object.keys(countryList)
+
+export { getCountryCode, getCountryNames };
+

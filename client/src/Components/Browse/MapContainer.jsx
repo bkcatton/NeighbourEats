@@ -7,7 +7,7 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 
-import getCountryCode from "../../Helpers/getCountryCode";
+import { getCountryCode } from "../../Helpers/getCountryCode";
 
 const containerStyle = {
   width: "100%",

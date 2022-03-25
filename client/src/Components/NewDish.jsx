@@ -82,7 +82,6 @@ const NewDish = () => {
       >
         <Item sx={{ width: "50%" }}>
           <TextField
-            id="outlined-name"
             fullWidth
             label="Dish Name"
             margin="normal"
@@ -94,7 +93,6 @@ const NewDish = () => {
             variant="standard"
           />
           <TextField
-            id="standard-textarea"
             fullWidth
             label="Description"
             margin="normal"
@@ -109,7 +107,6 @@ const NewDish = () => {
           <FormControl variant="standard" margin="normal" fullWidth>
             <InputLabel htmlFor="standard-adornment-amount">Price</InputLabel>
             <Input
-              id="standard-adornment-amount"
               fullWidth
               value={price}
               onChange={(e) => setPrice(e.target.value)}
