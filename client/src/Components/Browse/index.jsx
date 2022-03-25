@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Grid, Box } from "@mui/material";
+
 import axiosConfig from "../../axiosConfig";
+import getFilteredTitlesBySearch from "../../Helpers/getFilteredTitles";
+import getFilteredTitlesByDistance from "../../Helpers/getFilteredTitlesByDistance";
 import MapContainer from "./MapContainer";
 import VendorsList from "./VendorsList";
 import SearchInput from "./SearchInput";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import DishModal from "./DishModal";
 import SearchByDistance from "./SearchByDistance";
 
@@ -16,10 +18,13 @@ const Browse = () => {
   const [searchValue, setSearchValue] = useState("");
   const [distance, setDistance] = useState(60);
   const [open, setOpen] = useState(false);
-  const [center, setCenter] = useState({
+
+  // get map to start centered at this location
+  const initialCenter = {
     lat: 40.712776,
     lng: -74.005974,
-  });
+  };
+  const [center, setCenter] = useState(initialCenter);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +44,7 @@ const Browse = () => {
   }, []);
 
   // setting the modal dish id and opening the modal
-  const dishDetails = function (id) {
+  const dishDetails = (id) => {
     for (const item of dishesInfo) {
       if (item.id === id) {
         setDishId(id);
@@ -51,21 +56,38 @@ const Browse = () => {
   useEffect(() => {
     if (!dishesReviews.length || !dishesInfo.length) return;
 
+    // adding the reviews array and average rating to each dish
+    const dishItemsWithReview = dishesInfo.map((item) => {
+      item.reviews = [];
+      let runningTotal = 0;
+
+      for (const review of dishesReviews) {
+        if (review.dish_id === item.id) {
+          item.reviews.push(review);
+          runningTotal += review.star_rating;
+        }
+      }
+
+      let averageRating = runningTotal / item.reviews.length;
+      item.average_rating = averageRating;
+
+      return item;
+    });
+
     // getting the geocoordinates back based on an inputed address
-    const getCoordinates = async (dishItem) => {
-      const { street_number, street_name, city, state_code } = dishItem;
+    const getCoordinatesForDishItem = async (dishItem) => {
+      const { id, street_number, street_name, city, state_code } = dishItem;
       const parameter = encodeURIComponent(
         `${street_number} ${street_name} ${city} ${state_code}`
       );
 
+      // adding the geocoordinates to each item in dishesInfo. Set dishesInfo = to the new object with all dish info and coords
       try {
         const response = await axios.get(
           `https://maps.googleapis.com/maps/api/geocode/json?address=${parameter}&key=${process.env.REACT_APP_GMAPS_APIKEY}`
         );
 
         const { location } = response.data.results[0].geometry;
-        const { id } = dishItem;
-
         const dishesInfoClone = [...dishesInfo];
         for (const dish of dishesInfoClone) {
           if (dish.id === id) {
@@ -79,47 +101,21 @@ const Browse = () => {
       }
     };
 
-    // adding the reviews array to each dish
-    const dishItems = dishesInfo.map((item) => {
-      item.reviews = [];
-      let runningTotal = 0;
-
-      for (const review of dishesReviews) {
-        if (review.dish_id === item.id) {
-          item.reviews.push(review);
-
-          runningTotal += review.star_rating;
-        }
-      }
-
-      let averageRating = runningTotal / item.reviews.length;
-      item.average_rating = averageRating;
-
-      return item;
-    });
-
     // calling the function to get the geocoords for each address
-    dishItems.forEach((item) => getCoordinates(item));
+    dishItemsWithReview.forEach((item) => {
+      getCoordinatesForDishItem(item)
+    });
   }, [dishesReviews.length, dishesInfo.length]);
 
-  // filter search results only if user is actively searching
+  // filter search results
   let filteredList = [...dishesInfo];
+
   if (searchValue) {
-    filteredList = filteredList.filter((item) => {
-      const title = item.title.toLowerCase();
-      const searchedValue = searchValue.toLowerCase();
-      return title.includes(searchedValue);
-    });
+    filteredList = getFilteredTitlesBySearch(searchValue, filteredList)
   }
-
+  
   if (distance < 60) {
-    filteredList = filteredList.filter((item) => {
-      const minutes = item.duration.value / 60;
-
-      if (minutes <= distance) {
-        return item.title;
-      }
-    });
+    filteredList = getFilteredTitlesByDistance(distance, filteredList)
   }
 
   return (

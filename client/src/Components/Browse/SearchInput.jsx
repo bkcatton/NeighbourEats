@@ -1,20 +1,19 @@
-import React from 'react'
-import TextField from '@mui/material/TextField';
-import SearchIcon from '@mui/icons-material/Search';
-import { styled } from '@mui/material/styles';
+import React from "react";
+import TextField from "@mui/material/TextField";
+import SearchIcon from "@mui/icons-material/Search";
+import { styled } from "@mui/material/styles";
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
-  height: '100%',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  marginLeft: 'auto'
+  height: "100%",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  marginLeft: "auto",
 }));
 
 const SearchInput = (props) => {
-
   return (
     <TextField
       fullWidth
@@ -31,7 +30,7 @@ const SearchInput = (props) => {
         ),
       }}
     />
-  )
-}
+  );
+};
 
-export default SearchInput
+export default SearchInput;

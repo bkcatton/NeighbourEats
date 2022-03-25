@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Button } from "@mui/material";
-import Slider from "@mui/material/Slider";
+import { Typography, Box, Button, Slider } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
 
@@ -60,9 +59,7 @@ const SearchByDistance = (props) => {
       const coordsString = encodeMapCoord(newMapCoordsObj[obj]);
       axios
         .get(
-          `
-      https://maps.googleapis.com/maps/api/distancematrix/json?origins=${userLocation.lat}%2C${userLocation.lng}&destinations=${coordsString}&key=${process.env.REACT_APP_GMAPS_APIKEY}
-      `
+          `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${userLocation.lat}%2C${userLocation.lng}&destinations=${coordsString}&key=${process.env.REACT_APP_GMAPS_APIKEY}`
         )
         .then(({ data }) => {
           newMapCoordsObj[obj].duration = data.rows[0].elements[0].duration;
@@ -87,11 +84,10 @@ const SearchByDistance = (props) => {
       >
         Find My Location
       </Button>
-      <input
-        type="number"
-        value={props.distance}
-        onChange={(e) => props.setDistance(e.target.value)}
-      />
+      <Typography gutterBottom>
+        How far are you willing to travel?{" "}
+        <strong>{`${props.distance} minutes`}</strong>
+      </Typography>
       <PrettoSlider
         valueLabelDisplay="auto"
         aria-label="pretto slider"

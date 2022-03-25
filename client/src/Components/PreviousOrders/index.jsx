@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useContext, Fragment } from "react";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
+  Stack,
+} from "@mui/material";
+
 import axiosConfig from "../../axiosConfig";
 import { UserContext } from "../../Providers/UserProvider";
 import LeaveReview from "./LeaveReview";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 
 const PreviousOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -21,9 +24,10 @@ const PreviousOrders = () => {
     const fetchData = async () => {
       try {
         const { data } = await axiosConfig.get(`/orders/previous/${userId}`);
+        
         if (data) {
           setOrders(data);
-        }
+        }        
       } catch (error) {
         console.log(error);
       }
@@ -35,13 +39,17 @@ const PreviousOrders = () => {
   }, [userId]);
 
   const handleSubmit = async () => {
+    if (!userId || !dishId || !starRating || !reviewBody) {
+      return;
+    }
+
     try {
-      await axiosConfig.post("/orders/reviews", {
-        userId,
-        dishId,
-        starRating,
-        reviewBody,
-      });
+        await axiosConfig.post("/orders/reviews", {
+          userId,
+          dishId,
+          starRating,
+          reviewBody,
+        });
     } catch (error) {
       console.log(error);
     }

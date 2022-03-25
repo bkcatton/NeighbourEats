@@ -1,7 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Rating from "@mui/material/Rating";
+import { Box, Rating } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
@@ -15,8 +14,6 @@ const StyledRating = styled(Rating)({
 });
 
 export default function CustomizedRating(props) {
-
-  
   return (
     <Box
       sx={{
@@ -25,9 +22,8 @@ export default function CustomizedRating(props) {
     >
       <StyledRating
         name="customized-color"
-        getLabelText={(value) =>`${value} Heart${value !== 1 ? "s" : ""}`}
+        getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
         value={props.starRating}
-        
         // set minimum value
         onChange={(event, starRating) => {
           props.setStarRating(starRating ? starRating : 1);

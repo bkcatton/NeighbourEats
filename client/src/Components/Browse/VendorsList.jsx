@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import { Typography, Box } from "@mui/material";
+
 import HeartRating from "./HeartRating";
 import getFormattedCurrency from "../../Helpers/getFormattedCurrency";
 

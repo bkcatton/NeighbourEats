@@ -1,56 +1,72 @@
-import React, { useState, useContext } from 'react';
-import axiosConfig from '../axiosConfig';
-import { UserContext } from '../Providers/UserProvider';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import FormControl from '@mui/material/FormControl';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import Input from '@mui/material/Input';
-import InputAdornment from '@mui/material/InputAdornment';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
-import { Typography } from '@mui/material';
+import React, { useState, useContext } from "react";
+import {
+  Box,
+  TextField,
+  Stack,
+  FormControl,
+  InputLabel,
+  Input,
+  InputAdornment,
+  Button,
+  Paper,
+  Typography,
+  styled,
+} from "@mui/material/";
+
+import { UserContext } from "../Providers/UserProvider";
+import axiosConfig from "../axiosConfig";
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(6),
-  textAlign: 'center',
+  textAlign: "center",
   color: theme.palette.text.secondary,
 }));
 
 const NewDish = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [imageLink, setImageLink] = useState('');
-  const [countryStyle, setCountryStyle] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [imageLink, setImageLink] = useState("");
+  const [countryStyle, setCountryStyle] = useState("");
 
   const { user } = useContext(UserContext);
   const { userId } = user;
 
-  const onUpload = async e => {
+  const onUpload = async (e) => {
     e.preventDefault();
 
-    await axiosConfig.post('/dishes/new', {
-      title,
-      description,
-      price,
-      imageLink,
-      countryStyle,
-      userId,
-    });
+    if (
+      !title ||
+      !description ||
+      !price ||
+      !imageLink ||
+      !countryStyle ||
+      !userId
+    ) {
+      return;
+    }
+
+    try {
+      await axiosConfig.post("/dishes/new", {
+        title,
+        description,
+        price,
+        imageLink,
+        countryStyle,
+        userId,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <Box
       component="form"
       sx={{
-        '& > :not(style)': { m: 1, width: '100%' },
+        "& > :not(style)": { m: 1, width: "100%" },
       }}
       noValidate
       autoComplete="off"
@@ -64,14 +80,14 @@ const NewDish = () => {
         alignItems="center"
         spacing={2}
       >
-        <Item sx={{ width: '50%' }}>
+        <Item sx={{ width: "50%" }}>
           <TextField
             id="outlined-name"
             fullWidth
             label="Dish Name"
             margin="normal"
             value={title}
-            onChange={e => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
             InputLabelProps={{
               shrink: true,
             }}
@@ -83,7 +99,7 @@ const NewDish = () => {
             label="Description"
             margin="normal"
             value={description}
-            onChange={e => setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
             InputLabelProps={{
               shrink: true,
             }}
@@ -96,7 +112,7 @@ const NewDish = () => {
               id="standard-adornment-amount"
               fullWidth
               value={price}
-              onChange={e => setPrice(e.target.value)}
+              onChange={(e) => setPrice(e.target.value)}
               startAdornment={
                 <InputAdornment position="start">$</InputAdornment>
               }
@@ -108,7 +124,7 @@ const NewDish = () => {
             label="Country of Origin"
             margin="normal"
             value={countryStyle}
-            onChange={e => setCountryStyle(e.target.value)}
+            onChange={(e) => setCountryStyle(e.target.value)}
             InputLabelProps={{
               shrink: true,
             }}
@@ -120,18 +136,18 @@ const NewDish = () => {
             label="Image"
             margin="normal"
             value={imageLink}
-            onChange={e => setImageLink(e.target.value)}
+            onChange={(e) => setImageLink(e.target.value)}
             InputLabelProps={{
               shrink: true,
             }}
             variant="standard"
           />
-          <Button sx={{ mt: 2 }} onClick={e => onUpload(e)}>
+          <Button sx={{ mt: 2 }} onClick={(e) => onUpload(e)}>
             Submit
           </Button>
         </Item>
-        <Item sx={{ width: '50%' }}>
-          <img src={imageLink} style={{ width: '100%' }} alt="" />
+        <Item sx={{ width: "50%" }}>
+          <img src={imageLink} style={{ width: "100%" }} alt="" />
         </Item>
       </Stack>
     </Box>

@@ -1,20 +1,20 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import Typography from '@mui/material/Typography';
-import getCountryCode from '../../Helpers/getCountryCode';
-
+import React, { Fragment, useState, useEffect } from "react";
+import { Typography } from "@mui/material";
 import {
   GoogleMap,
   LoadScript,
   Marker,
   InfoWindow,
-} from '@react-google-maps/api';
+} from "@react-google-maps/api";
+
+import getCountryCode from "../../Helpers/getCountryCode";
 
 const containerStyle = {
-  width: '100%',
-  height: '100%',
+  width: "100%",
+  height: "100%",
 };
 
-function MapContainer(props) {
+const MapContainer = (props) => {
   const [selected, setSelected] = useState({});
   let locations = [...props.filteredList];
 
@@ -30,14 +30,14 @@ function MapContainer(props) {
       }
     }
   }, [props.dishId]);
-  
+
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_GMAPS_APIKEY}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={props.center}
         zoom={14}
-        options={{ mapId: '2498605d98cd98cd' }}
+        options={{ mapId: "2498605d98cd98cd" }}
       >
         <Fragment>
           {locations.map((item, i) => {
@@ -63,7 +63,7 @@ function MapContainer(props) {
               />
             );
           })}
-          {props.center && <Marker position={props.center}/>}
+          {props.center && <Marker position={props.center} />}
           {selected.location && (
             <InfoWindow
               position={selected.location}
@@ -76,6 +76,6 @@ function MapContainer(props) {
       </GoogleMap>
     </LoadScript>
   );
-}
+};
 
 export default React.memo(MapContainer);

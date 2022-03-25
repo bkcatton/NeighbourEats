@@ -1,14 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Box, Card, CardContent, CardMedia, Typography, Stack } from '@mui/material/';
+
+import getFormattedCurrency from '../Helpers/getFormattedCurrency';
 import axiosConfig from '../axiosConfig';
 import { UserContext } from '../Providers/UserProvider';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
 
 const VendorOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -20,12 +15,18 @@ const VendorOrders = () => {
     const fetchData = async () => {
       try {
         const { data } = await axiosConfig.get(`/orders/current/${userId}`);
-        setOrders(data);
+
+        if (data) {
+          setOrders(data);
+        }
       } catch (error) {
         console.log(error);
       }
     }
-    fetchData();
+
+    if (userId) {
+      fetchData();
+    }
   }, [userId]);
 
   const ordersList = orders.map((item, i) => {
@@ -39,24 +40,24 @@ const VendorOrders = () => {
           >
             <Stack direction="row" justifyContent="space-between" >
               <Typography variant="h6" color="text.primary" textAlign="left">
-                {item.title}
+                {title}
               </Typography>
               <Typography variant="body2" sx={{ mt: 'auto' }}>
-                Price: {`$${item.paid_price_cents}`}
+                Price: {`${getFormattedCurrency(paid_price_cents)}`}
               </Typography>
             </Stack>
             <Stack direction="row" justifyContent="space-between">
             </Stack>
             <Stack direction="column" justifyContent="space-between" style={{ height: "100%" }}>
               <Typography textAlign="right">
-                Quantity: {item.quantity}
+                Quantity: {quantity}
               </Typography>
               <Stack direction="row" alignItems="baseline" justifyContent="space-between">
                 <Typography>
-                  Customer: {item.bought_by}
+                  Customer: {bought_by}
                 </Typography>
                 <Typography variant="h6">
-                  Total: ${item.quantity * item.paid_price_cents}
+                  Total: {getFormattedCurrency(quantity * paid_price_cents)}
                 </Typography>
               </Stack>
             </Stack>
@@ -64,8 +65,8 @@ const VendorOrders = () => {
           <Box>
             <CardMedia
               component="img"
-              src={item.image_link}
-              alt={item.title}
+              src={image_link}
+              alt={title}
               sx={{ width: '9rem', border: '0.5rem solid black' }}
             />
           </Box>

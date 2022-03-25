@@ -1,23 +1,38 @@
-import * as React from "react";
-import Backdrop from "@mui/material/Backdrop";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import React, { useState, Fragment } from "react";
+import {
+  Backdrop,
+  Box,
+  Modal,
+  Fade,
+  Button,
+  Typography,
+  TextField,
+} from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import TextField from "@mui/material/TextField";
+
 import HeartRating from "./HeartRating";
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 const LeaveReview = (props) => {
-  const [open, setOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
-  const [success, setSuccess] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
     props.setDishId(props.dishId);
-  }
+  };
 
   const handleClose = () => setOpen(false);
 
@@ -32,20 +47,8 @@ const LeaveReview = (props) => {
     }, 1000);
   };
 
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
-
   return (
-    <React.Fragment>
+    <Fragment>
       <Button
         onClick={handleOpen}
         size="small"
@@ -87,12 +90,21 @@ const LeaveReview = (props) => {
               }}
               variant="standard"
             />
-            <HeartRating starRating={props.starRating} setStarRating={props.setStarRating} />
+            <HeartRating
+              starRating={props.starRating}
+              setStarRating={props.setStarRating}
+            />
             {!loading && !success && (
-              <Button fullWidth onClick={handleClick}>Post review</Button>
+              <Button fullWidth onClick={handleClick}>
+                Post review
+              </Button>
             )}
 
-            {success && <Button fullWidth color="success">Review Posted!</Button>}
+            {success && (
+              <Button fullWidth color="success">
+                Review Posted!
+              </Button>
+            )}
             {loading && (
               <LoadingButton fullWidth loading variant="outlined">
                 Submit
@@ -101,7 +113,7 @@ const LeaveReview = (props) => {
           </Box>
         </Fade>
       </Modal>
-    </React.Fragment>
+    </Fragment>
   );
 };
 
