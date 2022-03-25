@@ -8,11 +8,15 @@ import {
   Button,
   Typography,
   Stack,
+  Icon
 } from "@mui/material";
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { UserContext } from "../../Providers/UserProvider";
 import axiosConfig from "../../axiosConfig";
 import PaymentForm from "./PaymentForm";
+import getFormattedCurrency from "../../Helpers/getFormattedCurrency";
 
 const Cart = () => {
   const [userOrders, setUserOrders] = useState([]);
@@ -23,11 +27,9 @@ const Cart = () => {
 
   const getOrderTotal = (array) => {
     let runningTotal = 0;
-    
     for (const item of array) {
-      runningTotal += item.paid_price_cents;
+      runningTotal += (item.paid_price_cents * item.quantity);
     }
-
     return runningTotal;
   };
 
@@ -35,12 +37,12 @@ const Cart = () => {
     const fetchData = async () => {
       try {
         const { data } = await axiosConfig.get(`/orders/user/${userId}`);
-        console.log(data);
+
         if (data) {
           setUserOrders(data);
           setOrderId(data[0].order_id);
-          const orderTotal = getOrderTotal(data);
-          setOrderTotal(orderTotal);
+          const newOrderTotal = getOrderTotal(data);
+          setOrderTotal(newOrderTotal);
         }
       } catch (error) {
         console.log(error);
@@ -60,8 +62,8 @@ const Cart = () => {
       });
 
       setUserOrders(remainingOrders);
-      const orderTotal = getOrderTotal(remainingOrders);
-      setOrderTotal(orderTotal);
+      const newOrderTotal = getOrderTotal(remainingOrders);
+      setOrderTotal(newOrderTotal);
     } catch (error) {
       console.log(error);
     }
@@ -76,46 +78,77 @@ const Cart = () => {
   };
 
   const ordersList = userOrders.map((item, i) => {
+    const {
+      title,
+      paid_price_cents,
+      country_style,
+      quantity,
+      image_link,
+      bought_by,
+      dish_description,
+    } = item;
     return (
-      <Card key={i} variant="outlined" sx={{ mb: 2 }}>
-        <Stack direction="row" justifyContent="space-between">
+        <Card
+          key={i}
+          variant="outlined"
+          sx={{ mb: 2, display: "flex", justifyContent: "space-between" }}
+        >
           <CardContent
-            sx={{ width: "100%", display: "flex", flexDirection: "column" }}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
           >
-            <Typography variant="h6" color="text.primary" textAlign="left">
-              {item.title}
-            </Typography>
-            <Typography
-              sx={{ mb: 1.5 }}
-              color="text.secondary"
-              textAlign="left"
-            >
-              {item.dish_description}
-            </Typography>
-            <Stack direction="row" justifyContent="space-between">
-              <Button
-                size="small"
-                variant="outlined"
-                color="error"
-                onClick={() => deleteFromOrder(item.order_items_id)}
-              >
-                Cancel Item
-              </Button>
-              <Typography variant="body2" sx={{ mt: "auto" }}>
-                {`${item.paid_price_cents}`}
+            <Stack direction="column" justifyContent="space-between">
+              <Typography variant="h6" color="text.primary" textAlign="left">
+                {title}
               </Typography>
+              <Typography style={{ width: "75%" }}>{dish_description}</Typography>
+            </Stack>
+            <Stack
+              direction="row"
+              spacing={2}
+              mt="auto"
+            >
+              <Box>
+                <Typography color="text.secondary">Quantity:</Typography>
+                <Typography color="text.secondary">Price:</Typography>
+                <Typography>Total:</Typography>
+              </Box>
+              <Box>
+                <Typography color="text.secondary">{quantity}</Typography>
+                <Typography color="text.secondary">
+                  {`${getFormattedCurrency(paid_price_cents)}`}
+                </Typography>
+                <Typography>
+                  {getFormattedCurrency(paid_price_cents * quantity)}
+                </Typography>
+              </Box>
             </Stack>
           </CardContent>
-          <Box>
-            <CardMedia
-              component="img"
-              src={item.image_link}
-              alt={item.title}
-              sx={{ width: "12rem", border: "0.5rem solid black" }}
-            />
-          </Box>
-        </Stack>
-      </Card>
+
+          <CardMedia
+            component="img"
+            src={image_link}
+            alt={title}
+            sx={{ width: "9rem" }}
+          />
+          <Stack direction="column" justifyContent="center" backgroundColor="pink">
+            <IconButton
+              size="md"
+              variant="outlined"
+              // color="error"
+              sx={{ m: 1, color: "gray" }}
+              onClick={() => deleteFromOrder(item.order_items_id)}
+              position="absolute"
+              left="50"
+              >
+              <DeleteIcon fontSize="inherit" />
+            </IconButton>
+            </Stack>
+        </Card>
+        
     );
   });
 
@@ -140,7 +173,9 @@ const Cart = () => {
         }}
       >
         {!!ordersList.length && (
-          <Typography sx={{ mb: 1 }}>Total: {orderTotal}</Typography>
+          <Typography sx={{ mb: 1 }}>
+            Cart Total: <strong>{getFormattedCurrency(orderTotal)}</strong>
+          </Typography>
         )}
         {!!ordersList.length && (
           <PaymentForm
