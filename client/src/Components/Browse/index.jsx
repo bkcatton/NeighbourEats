@@ -32,6 +32,13 @@ const Browse = () => {
           axiosConfig.get('/dishes/reviews'),
           axiosConfig.get('/dishes/ratings'),
         ]);
+
+        // loop through temp
+        // add reviews array
+        // add ratings array
+        // add mapcoords from google api request
+        // add durations as another api request
+        // setDishes()
         setDishesInfo(all[0].data);
         setDishesReviews(all[1].data);
         setDishesRatings(all[2].data);
@@ -52,12 +59,18 @@ const Browse = () => {
       }
     }
   }
+  // console.log("dishesInfo", dishesInfo)
 
   useEffect(() => {
     if (!dishesReviews.length || !dishesInfo.length) return;
-
+    
+    // create temporary clone of dishesRatings
+    // const dishesRatingsUpdatedWithLocation = [...dishesRatings]
+    
     // getting the geocoordinates back based on an inputed address
     const getCoordinates = async dishItem => {
+      
+      const dishy = dishItem
       const { street_number, street_name, city, state_code } = dishItem;
       const parameter = encodeURIComponent(
         `${street_number} ${street_name} ${city} ${state_code}`
@@ -67,12 +80,20 @@ const Browse = () => {
         const response = await axios.get(
           `https://maps.googleapis.com/maps/api/geocode/json?address=${parameter}&key=${process.env.REACT_APP_GMAPS_APIKEY}`
         );
+        console.log('RESPONSE', response)
         const { location } = response.data.results[0].geometry;
-        const { id, street_name, title, image_link, country_style } = dishItem;
-        setMapCoords(prev => [
-          ...prev,
-          { id, street_name, title, image_link, location, country_style },
-        ]);
+        const { id } = dishItem;
+
+        const dishesInfoClone = [...dishesInfo];
+        for (const dish of dishesInfoClone) {
+          if (dish.id === id) {
+            dish.location = location
+          }
+        }
+        console.log("dishes Clone", dishesInfoClone)
+        setDishesInfo(dishesInfoClone)
+
+
       } catch (error) {
         console.log('this is the error', error);
       }
@@ -92,10 +113,11 @@ const Browse = () => {
     });
 
     // calling the function to get the geocoords for each address
-    dishItems.forEach(item => getCoordinates(item));
+    dishItems.forEach((item) => getCoordinates(item));
   }, [dishesReviews.length, dishesInfo.length]);
-console.log("current map coords", mapCoords);
-console.log("dishes Ratings", dishesRatings);
+  
+  console.log("dishesInfo::: ===> ", dishesInfo);
+
   return (
     <Box >
       <Grid container spacing={2} columnSpacing={{ md: 2 }} rowSpacing={{ md: 2 }} sx={{ mb: 2, mx: 'auto' }}>
