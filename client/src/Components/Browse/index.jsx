@@ -15,7 +15,6 @@ const Browse = () => {
   const [dishesReviews, setDishesReviews] = useState([]);
   const [dishesRatings, setDishesRatings] = useState([]);
   const [searchValue, setSearchValue] = useState('');
-  const [mapCoords, setMapCoords] = useState([]);
   const [open, setOpen] = useState(false);
   // const [userLocation, setUserLocation] = useState({});
   const [distance, setDistance] = useState(100);
@@ -32,13 +31,6 @@ const Browse = () => {
           axiosConfig.get('/dishes/reviews'),
           axiosConfig.get('/dishes/ratings'),
         ]);
-
-        // loop through temp
-        // add reviews array
-        // add ratings array
-        // add mapcoords from google api request
-        // add durations as another api request
-        // setDishes()
         setDishesInfo(all[0].data);
         setDishesReviews(all[1].data);
         setDishesRatings(all[2].data);
@@ -86,27 +78,36 @@ const Browse = () => {
         const dishesInfoClone = [...dishesInfo];
         for (const dish of dishesInfoClone) {
           if (dish.id === id) {
-            dish.location = location
+            dish.location = location;
           }
         }
         
-        setDishesInfo(dishesInfoClone)
+        setDishesInfo(dishesInfoClone);
 
 
       } catch (error) {
         console.log('this is the error', error);
       }
     };
-
+console.log("dishes reviews --->", dishesReviews)
     // adding the reviews array to each dish
     const dishItems = dishesInfo.map(item => {
       item.reviews = [];
-      
+      let runningTotal = 0;
+
       for (const review of dishesReviews) {
+        console.log("review.dish_id", review.dish_id, "item id", item.id )
         if (review.dish_id === item.id) {
           item.reviews.push(review);
+          console.log(review)
+          
+          runningTotal += review.star_rating
         }
       }
+
+      let averageRating = runningTotal / item.reviews.length;
+      // console.log("this is the RUNNING TOTAL AND ITEM REVIEWS", runningTotal, item.reviews)
+      item.average_rating = averageRating
 
       return item;
     });
@@ -115,18 +116,16 @@ const Browse = () => {
     dishItems.forEach((item) => getCoordinates(item));
   }, [dishesReviews.length, dishesInfo.length]);
   
-  console.log("dishesInfo::: ===> ", dishesInfo);
-
   return (
     <Box >
       <Grid container spacing={2} columnSpacing={{ md: 2 }} rowSpacing={{ md: 2 }} sx={{ mb: 2, mx: 'auto' }}>
         <Grid item xs={12} md={6} sx={{ height: "52vh", width: "548" }}>
-          <MapContainer center={center} setCenter={setCenter} dishId={dishId} setDishId={setDishId} mapCoords={mapCoords} searchValue={searchValue} dishDetails={dishDetails} />
+          <MapContainer center={center} setCenter={setCenter} dishId={dishId} setDishId={setDishId} dishesInfo={dishesInfo} searchValue={searchValue} dishDetails={dishDetails} />
         </Grid>
         <Grid item xs={12} md={6} >
           <SearchInput searchValue={searchValue} setSearchValue={setSearchValue} />
-          <SearchByDistance mapCoords={mapCoords} setMapCoords={setMapCoords} setCenter={setCenter} distance={distance} setDistance={setDistance} />
-          <VendorsList dishDetails={dishDetails} dishId={dishId} setDishId={setDishId} dishesRatings={dishesRatings} searchValue={searchValue} />
+          <SearchByDistance dishesInfo={dishesInfo} setDishesInfo={setDishesInfo} setCenter={setCenter} distance={distance} setDistance={setDistance} />
+          <VendorsList dishId={dishId} setDishId={setDishId} dishesInfo={dishesInfo} dishDetails={dishDetails} searchValue={searchValue} />
         </Grid>
       </Grid>
       <DishModal dishId={dishId} open={open} setOpen={setOpen} />

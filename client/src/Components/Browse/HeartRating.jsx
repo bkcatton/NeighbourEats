@@ -24,7 +24,7 @@ export default function HeartRating(props) {
     
       <StyledRating
         name="customized-color"
-        defaultValue={+props.rating}
+        value={+props.rating}
         getLabelText={(value) => `${value} Heart${value !== 1 ? 's' : ''}`}
         precision={0.5}
         icon={<FavoriteIcon fontSize="inherit" />}

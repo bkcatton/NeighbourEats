@@ -12,27 +12,33 @@ const VendorsList = props => {
     setSelectionModel([props.dishId]);
   }, [props.dishId]);
 
+  console.log(props.dishesInfo)
+
   // filter search results only if user is actively searching
-  let filteredList = [...props.dishesRatings];
+  let filteredList = [...props.dishesInfo];
   if (props.searchValue) {
-    filteredList = props.dishesRatings.filter(item => {
+    filteredList = props.dishesInfo.filter(item => {
       const title = item.title.toLowerCase();
       const searchValue = props.searchValue.toLowerCase();
       return title.includes(searchValue);
     });
   }
 
-  const rows = filteredList.map(item => {
-    const { average_rating, title, id, price_cents, country_style } = item;
-    const rowObj = {
-      id: id,
-      col1: title,
-      col2: country_style,
-      col3: price_cents,
-      col4: average_rating || 0,
-    };
-    return rowObj;
-  });
+  let rows = [...filteredList]
+  if (filteredList.length && filteredList[0].reviews) {
+    rows = filteredList.map(item => {
+      const { average_rating, title, id, price_cents, country_style } = item;  
+      const rowObj = {
+        id: id,
+        col1: title,
+        col2: country_style,
+        col3: price_cents,
+        col4: average_rating,
+      };
+
+      return rowObj;
+    });
+  }
 
   // gets title into render cell for each item in the datagrid
   const getId = (title, arr) => {
@@ -42,7 +48,6 @@ const VendorsList = props => {
       }
     }
   };
-
 
   const columns = [
     {

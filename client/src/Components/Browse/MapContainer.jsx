@@ -34,14 +34,14 @@ function MapContainer(props) {
   //     setUserCenter()
   //   }
   // }, [props.userLocation])
-  let locations = [...props.mapCoords];
+  let locations = [...props.dishesInfo];
 
   const { user } = React.useContext(UserContext);
   // const { avatar } = user;
 
   // filters the pins on the map only when search input field is not empty
   if (props.searchValue) {
-    locations = props.mapCoords.filter(item => {
+    locations = props.dishesInfo.filter(item => {
       const title = item.title.toLowerCase();
       const searchValue = props.searchValue.toLowerCase();
       return title.includes(searchValue);

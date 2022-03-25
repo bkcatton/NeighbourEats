@@ -80,18 +80,16 @@ const getAllDistances = (mapCoords) => {
 
 useEffect(() => {
   const delayDebounceFn = setTimeout(() => {
-    const newMapCoordsWithDuration = getAllDistances(props.mapCoords);
-    props.setMapCoords(newMapCoordsWithDuration)
+    const newMapCoordsWithDuration = getAllDistances(props.dishesInfo);
   }, 1000)
 
   return () => clearTimeout(delayDebounceFn)
-}, [props.mapCoords.length])
+}, [props.dishesInfo.length])
 
 // console.log("this is all of the returned distances", setTimeout(() =>  {
 //   return getAllDistances(props.mapCoords)
 // }, 4000));
 // console.log("this is the map coords being sent into function", props.mapCoords);
-  
   return (
     <Box>
       <Button onClick={() => props.setCenter(userLocation)}>Find My Location</Button>
