@@ -18,7 +18,7 @@ VALUES (
     'Spaghetti al Pomodoro',
     'Take a quintessential Italian dish and keep two ingredients –  spaghetti and tomatoes – before adding some unlikely ingredients.',
     '1800',
-    'https://images.unsplash.com/photo-1551892374-ecf8754cf8b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1364&q=80',
+    'https://images.unsplash.com/photo-1595295333158-4742f28fbd85?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3BhZ2hldHRpfGVufDB8MnwwfHw%3D&auto=format&fit=crop&w=500&q=60',
     'Italy',
     2
   ),

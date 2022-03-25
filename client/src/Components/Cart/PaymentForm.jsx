@@ -11,6 +11,8 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { CardElement } from "@stripe/react-stripe-js";
 
+import getFormattedCurrency from "../../Helpers/getFormattedCurrency";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -30,7 +32,13 @@ const PaymentForm = (props) => {
   const [success, setSuccess] = useState(false);
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    if (success) {
+      window.location.reload(false)
+    };
+
+    setOpen(false)
+  };
 
   const handleClick = () => {
     props.onCheckout();
@@ -40,7 +48,7 @@ const PaymentForm = (props) => {
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
-    }, 1500);
+    }, 1000);
   };
 
   return (
@@ -74,14 +82,14 @@ const PaymentForm = (props) => {
             <Stack direction="column" alignItems="center" sx={{ mt: 2 }}>
               <Typography
                 sx={{ mb: 1 }}
-              >{`Order Total: ${props.orderTotal}`}</Typography>
-
+              >
+                {`Order Total: ${getFormattedCurrency(props.orderTotal)}`}
+              </Typography>
               {!loading && !success && (
                 <Button fullWidth onClick={handleClick} variant="outlined">
                   Confirm Payment
                 </Button>
               )}
-
               {success && (
                 <Button fullWidth variant="outlined" color="success">
                   Thank You!
