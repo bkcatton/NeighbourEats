@@ -1,33 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import HeartRating from './HeartRating';
-import getFormattedCurrency from '../../Helpers/getFormattedCurrency';
+import React, { useState, useEffect } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import HeartRating from "./HeartRating";
+import getFormattedCurrency from "../../Helpers/getFormattedCurrency";
 
-const VendorsList = props => {
+const VendorsList = (props) => {
   const [selectionModel, setSelectionModel] = useState([]);
 
   useEffect(() => {
     setSelectionModel([props.dishId]);
   }, [props.dishId]);
 
-  console.log(props.dishesInfo)
+  let rows = [...props.filteredList];
 
-  // filter search results only if user is actively searching
-  let filteredList = [...props.dishesInfo];
-  if (props.searchValue) {
-    filteredList = props.dishesInfo.filter(item => {
-      const title = item.title.toLowerCase();
-      const searchValue = props.searchValue.toLowerCase();
-      return title.includes(searchValue);
-    });
-  }
-
-  let rows = [...filteredList]
-  if (filteredList.length && filteredList[0].reviews) {
-    rows = filteredList.map(item => {
-      const { average_rating, title, id, price_cents, country_style } = item;  
+  if (props.filteredList.length && props.filteredList[0].reviews) {
+    rows = props.filteredList.map((item) => {
+      const { average_rating, title, id, price_cents, country_style } = item;
       const rowObj = {
         id: id,
         col1: title,
@@ -51,47 +40,45 @@ const VendorsList = props => {
 
   const columns = [
     {
-      field: 'col1',
-      headerName: 'Dish',
+      field: "col1",
+      headerName: "Dish",
       minWidth: 200,
       renderCell: ({ value }) => (
         <Typography
-          onClick={() => props.dishDetails(getId(value, filteredList))}
-          onMouseOver={() => props.setDishId(getId(value, filteredList))}
+          onClick={() => props.dishDetails(getId(value, props.filteredList))}
+          onMouseOver={() => props.setDishId(getId(value, props.filteredList))}
           onMouseOut={() => props.setDishId(null)}
         >
-          { value }
+          {value}
         </Typography>
       ),
     },
-    { field: 'col2', flex: 1, headerName: 'Style', width: 100 },
-    { field: 'col3', 
-      flex: 1, 
-      headerName: 'Price', 
+    { field: "col2", flex: 1, headerName: "Style", width: 100 },
+    {
+      field: "col3",
+      flex: 1,
+      headerName: "Price",
       width: 100,
-      renderCell: ({value}) => (
-        <Typography> 
-          {getFormattedCurrency(value)}
-        </Typography>
-
+      renderCell: ({ value }) => (
+        <Typography>{getFormattedCurrency(value)}</Typography>
       ),
     },
     {
-      field: 'col4',
+      field: "col4",
       flex: 1,
-      headerName: 'Rating',
+      headerName: "Rating",
       width: 150,
       renderCell: ({ value }) => <HeartRating rating={value} />,
     },
   ];
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <DataGrid
         selectionModel={selectionModel}
         rows={rows}
         columns={columns}
-        style={{ minHeight: '50vh', width: 548 }}
+        style={{ minHeight: "50vh", width: 548 }}
       />
     </Box>
   );

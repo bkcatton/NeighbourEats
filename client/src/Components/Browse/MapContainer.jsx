@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import getCountryCode from '../../Helpers/getCountryCode';
-import { UserContext } from '../../Providers/UserProvider';
 
 import {
   GoogleMap,
@@ -15,38 +14,9 @@ const containerStyle = {
   height: '100%',
 };
 
-
 function MapContainer(props) {
-  // const c = {
-  //   lat: 40.712776,
-  //   lng: -74.005974,
-  // };
-  // state to open the corresponding info window
   const [selected, setSelected] = useState({});
-  
-
-  // useEffect(() => {
-  //   const setUserCenter = () => {
-  //     props.setCenter(props.userLocation)
-  //   }
-
-  //   if (props.userLocation) {
-  //     setUserCenter()
-  //   }
-  // }, [props.userLocation])
-  let locations = [...props.dishesInfo];
-
-  const { user } = React.useContext(UserContext);
-  // const { avatar } = user;
-
-  // filters the pins on the map only when search input field is not empty
-  if (props.searchValue) {
-    locations = props.dishesInfo.filter(item => {
-      const title = item.title.toLowerCase();
-      const searchValue = props.searchValue.toLowerCase();
-      return title.includes(searchValue);
-    });
-  }
+  let locations = [...props.filteredList];
 
   // watch for dishId to change, set the selected value (for the info window) based on dish id
   useEffect(() => {
@@ -93,7 +63,6 @@ function MapContainer(props) {
               />
             );
           })}
-          {/* {props.userLocation && <Marker position={props.userLocation}/>} */}
           {props.center && <Marker position={props.center}/>}
           {selected.location && (
             <InfoWindow

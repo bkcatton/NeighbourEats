@@ -1,17 +1,11 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-module.exports = db => {
-  router.post('/new', (req, res) => {
-    console.log('In add new dish', req.body);
-    const {
-      title,
-      description,
-      price,
-      imageLink,
-      countryStyle,
-      userId,
-    } = req.body;
+module.exports = (db) => {
+  router.post("/new", (req, res) => {
+    console.log("In add new dish", req.body);
+    const { title, description, price, imageLink, countryStyle, userId } =
+      req.body;
     db.query(
       `INSERT INTO dishes (
           title, 
@@ -21,63 +15,56 @@ module.exports = db => {
           country_style, 
           user_id)
         VALUES ($1, $2, $3, $4, $5, $6);`,
-      [
-        title,
-        description,
-        +price,
-        imageLink,
-        countryStyle,
-        +userId,
-      ]
-    ).catch(error => {
+      [title, description, +price, imageLink, countryStyle, +userId]
+    ).catch((error) => {
       res.status(500).json({ error: error.message });
     });
   });
 
-  router.get('/details/:id', (req, res) => {
+  router.get("/details/:id", (req, res) => {
     db.query(
       `SELECT *
         FROM dishes
         WHERE id = $1;`,
       [req.params.id]
     )
-      .then(data => {
+      .then((data) => {
         res.json(data.rows[0]);
       })
-      .catch(error => {
+      .catch((error) => {
         res.status(500).json({ error: error.message });
       });
   });
 
-  router.get('/information', (req, res) => {
+  router.get("/information", (req, res) => {
     db.query(
       `SELECT *
       FROM dishes
       JOIN users ON users.id = dishes.user_id
       JOIN addresses ON users.id = addresses.user_id;`
     )
-      .then(data => {
+      .then((data) => {
         res.json(data.rows);
       })
-      .catch(err => {
+      .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
 
-  router.get('/reviews', (req, res) => {
+  router.get("/reviews", (req, res) => {
     db.query(
       `SELECT *
         FROM reviews;`
     )
-      .then(data => {
+      .then((data) => {
         res.json(data.rows);
       })
-      .catch(error => {
+      .catch((error) => {
         res.status(500).json({ error: error.message });
       });
   });
 
-  router.get('/reviews/:id', async (req, res) => {
+  router.get("/reviews/:id", async (req, res) => {
     try {
       const data = await db.query(
         `SELECT content, star_rating, full_name, reviews.id
@@ -90,21 +77,6 @@ module.exports = db => {
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  });
-
-  router.get('/ratings', (req, res) => {
-    db.query(
-      `SELECT AVG(star_rating) as average_rating, dishes.id, title, dish_description, price_cents, country_style, user_id
-        FROM dishes
-        LEFT JOIN reviews ON dishes.id = reviews.dish_id
-        GROUP BY dishes.id;`
-    )
-      .then(data => {
-        res.json(data.rows);
-      })
-      .catch(error => {
-        res.status(500).json({ error: error.message });
-      });
   });
 
   return router;
