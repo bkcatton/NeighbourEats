@@ -101,10 +101,10 @@ const vendorPageLinks = [
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const { user, login, logout, setVendorModeFromStorage, vendorMode } = useContext(UserContext);
+  const { user, login, logout, setVendorModeFromStorage, vendorMode } =
+    useContext(UserContext);
   const { userId, name, isVendor, avatar } = user;
   const [input, setInput] = useState("");
-
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -140,12 +140,6 @@ const ResponsiveAppBar = () => {
       logout();
     }, 500);
   };
-
-  
-  
-
-  console.log("vendor Mode state", vendorMode);
-  //checkVendorModeFromStorage();
 
   return (
     <AppBar position="static" sx={{ mb: 2 }}>
@@ -320,8 +314,7 @@ const ResponsiveAppBar = () => {
                       checked={vendorMode}
                       onChange={() => {
                         setVendorModeFromStorage();
-                      }
-                    }
+                      }}
                     />
                   }
                 />

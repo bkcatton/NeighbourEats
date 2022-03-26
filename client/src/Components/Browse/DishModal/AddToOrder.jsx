@@ -74,12 +74,21 @@ const AddToOrder = (props) => {
         </Button>
       )}
       {loading && (
-        <LoadingButton fullWidth loading variant="outlined">
+        <LoadingButton
+          fullWidth
+          loading
+          variant="outlined"
+          sx={{ color: "primary.main" }}
+        >
           Submit
         </LoadingButton>
       )}
       {checkout && (
-        <Button fullWidth color="success">
+        <Button
+          fullWidth
+          variant="outlined"
+          sx={{ color: "success.main", borderColor: "success.main" }}
+        >
           Added!
         </Button>
       )}

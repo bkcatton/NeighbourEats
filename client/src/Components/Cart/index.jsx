@@ -9,7 +9,6 @@ import {
   Container,
   Typography,
   Stack,
-  Icon,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -79,15 +78,8 @@ const Cart = () => {
   };
 
   const ordersList = userOrders.map((item, i) => {
-    const {
-      title,
-      paid_price_cents,
-      country_style,
-      quantity,
-      image_link,
-      bought_by,
-      dish_description,
-    } = item;
+    const { title, paid_price_cents, quantity, image_link, dish_description } =
+      item;
     return (
       <Card key={i} elevation={2} sx={{ mb: 2 }}>
         <CardActionArea
@@ -152,13 +144,16 @@ const Cart = () => {
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h3" sx={{ my: 4 }}>My Cart</Typography>
+      <Typography variant="h3" sx={{ my: 4 }}>
+        My Cart
+      </Typography>
       {ordersList.length ? (
         <Box>{ordersList}</Box>
       ) : (
         <Box>
           <Typography>
-            You currently have no new orders! Back to <Link to="/">Browse</Link>?
+            You currently have no new orders! Back to <Link to="/">Browse</Link>
+            ?
           </Typography>
           <CardMedia
             component="img"

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import {
   Typography,
-  Box,
   Card,
   CardContent,
   Button,
@@ -49,15 +48,10 @@ const SearchByDistance = (props) => {
 
   return (
     <Card
-      backgroundColor="info.main"
-      sx={{ borderColor: "primary.main", mt: 2 }}
+      sx={{ borderColor: "primary.main", mb: 2, backgroundColor: "info.main" }}
     >
       <CardContent>
-        <Stack
-          direction="row"
-          alignItems="center"
-          sx={{ px: 2 }}
-        >
+        <Stack direction="row" alignItems="center" sx={{ px: 2 }}>
           <Button
             onClick={() =>
               props.setCenter({ lat: 50.102214, lng: -119.397488 })
@@ -67,10 +61,17 @@ const SearchByDistance = (props) => {
           >
             Find My Location
           </Button>
-          <Stack direction="column" justifyContent="space-between" flexGrow={1} sx={{px: 2}}>
+          <Stack
+            direction="column"
+            justifyContent="space-between"
+            flexGrow={1}
+            sx={{ px: 2 }}
+          >
             <Stack direction="row" justifyContent="space-evenly">
-            <Typography sx={{ mb: 1 }}>How far are you willing to travel? </Typography>
-            <strong>{`${props.distance}${sliderString}`}</strong>
+              <Typography sx={{ mb: 1 }}>
+                How far are you willing to travel?{" "}
+              </Typography>
+              <strong>{`${props.distance}${sliderString}`}</strong>
             </Stack>
             <Slider
               value={props.distance}

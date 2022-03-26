@@ -16,7 +16,10 @@ module.exports = (db) => {
           user_id)
         VALUES ($1, $2, $3, $4, $5, $6);`,
       [title, description, +price, imageLink, countryStyle, +userId]
-    ).catch((error) => {
+    ).then((data) => {
+      res.json(data.rows[0]);
+    })
+    .catch((error) => {
       res.status(500).json({ error: error.message });
     });
   });

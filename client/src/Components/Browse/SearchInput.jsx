@@ -11,7 +11,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   marginLeft: "auto",
-  color: 'info.main'
+  color: "info.main",
 }));
 
 const SearchInput = (props) => {

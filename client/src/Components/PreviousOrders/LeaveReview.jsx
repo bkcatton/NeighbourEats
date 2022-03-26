@@ -1,13 +1,13 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import {
   Backdrop,
-  Box,
   Card,
   Modal,
   Fade,
   Button,
   Typography,
   TextField,
+  Box,
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 
@@ -53,7 +53,7 @@ const LeaveReview = (props) => {
   };
 
   return (
-    <Fragment>
+    <Box>
       <Button
         onClick={handleOpen}
         size="small"
@@ -100,25 +100,33 @@ const LeaveReview = (props) => {
               setStarRating={props.setStarRating}
             />
             {!loading && !success && (
-              <Button fullWidth onClick={handleClick}>
+              <Button
+                fullWidth
+                onClick={handleClick}
+                sx={{ color: "primary.main", borderColor: "primary.main" }}
+              >
                 Post review
               </Button>
             )}
 
             {success && (
-              <Button fullWidth sx={{color: "success.main"}}>
+              <Button
+                fullWidth
+                variant="outlined"
+                sx={{ color: "success.main", borderColor: "success.main" }}
+              >
                 Review Posted!
               </Button>
             )}
             {loading && (
               <LoadingButton fullWidth loading variant="outlined">
-                Submit
+                Loading
               </LoadingButton>
             )}
           </Card>
         </Fade>
       </Modal>
-    </Fragment>
+    </Box>
   );
 };
 

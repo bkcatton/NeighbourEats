@@ -5,7 +5,6 @@ import {
   CardContent,
   CardActionArea,
   Typography,
-  Box,
   Stack,
 } from "@mui/material";
 
@@ -102,7 +101,9 @@ const PreviousOrders = () => {
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h3" sx={{ my: 4 }}>Previous Orders</Typography>
+      <Typography variant="h3" sx={{ my: 4 }}>
+        Previous Orders
+      </Typography>
       <Stack>
         {ordersList.length ? ordersList : <Typography>No Orders</Typography>}
       </Stack>

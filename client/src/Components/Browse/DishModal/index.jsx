@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Backdrop,
-  Box,
-  Modal,
-  Card,
-  Fade,
-  Typography,
-  Grid,
-} from "@mui/material";
+import { Backdrop, Modal, Card, Fade, Typography, Grid } from "@mui/material";
 
 import AddToOrder from "./AddToOrder";
 import DishReviews from "./DishReviews";

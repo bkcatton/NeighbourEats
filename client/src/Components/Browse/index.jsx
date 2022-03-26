@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
-import { Grid, Box, Typography, Card, Divider } from "@mui/material";
+import { Grid, Box, Typography, Divider, Skeleton } from "@mui/material";
 
 import axiosConfig from "../../axiosConfig";
 import getFilteredTitlesBySearch from "../../Helpers/getFilteredTitlesBySearch";
@@ -18,6 +18,7 @@ const Browse = () => {
   const [searchValue, setSearchValue] = useState("");
   const [distance, setDistance] = useState(60);
   const [open, setOpen] = useState(false);
+  const [loadingMap, setLoadingMap] = useState(true)
   
   // get map to start centered at this location
   const initialCenter = {
@@ -86,7 +87,7 @@ const Browse = () => {
         const response = await axios.get(
           `https://maps.googleapis.com/maps/api/geocode/json?address=${parameter}&key=${process.env.REACT_APP_GMAPS_APIKEY}`
         );
-
+        
         const { location } = response.data.results[0].geometry;
         const dishesInfoClone = [...dishesInfo];
         for (const dish of dishesInfoClone) {
@@ -96,6 +97,10 @@ const Browse = () => {
         }
 
         setDishesInfo(dishesInfoClone);
+        setTimeout(() => {
+          
+          setLoadingMap(false)
+        }, 2000);
       } catch (error) {
         console.log("this is the error", error);
       }
@@ -121,12 +126,34 @@ const Browse = () => {
   return (
     <Box>
       <Typography variant="h3" sx={{ my: 4 }} textAlign="center">What are you feeling today?</Typography>
-      <Typography variant="h5" textAlign="center" sx={{ my: 2 }}>
+      <Typography variant="h5" textAlign="center" sx={{ mb: 2 }}>
         Search for find it right here on the map!
       </Typography>
       <Divider sx={{ my: 2, borderBottomWidth: 8 }} color="#123C69" />
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
+          {loadingMap ?
+          <Fragment>
+            <Skeleton />
+            <Skeleton height="80px" />
+            <Skeleton />
+            <Skeleton height="80px" />
+            <Skeleton />
+            <Skeleton height="80px" />
+            <Skeleton />
+            <Skeleton height="80px" />
+            <Skeleton />
+            <Skeleton height="80px" />
+            <Skeleton />
+            <Skeleton height="80px" />
+            <Skeleton />
+            <Skeleton height="80px" />
+            <Skeleton />
+            <Skeleton height="80px" />
+            <Skeleton />
+            <Skeleton height="80px" />
+          </Fragment>
+          :
           <MapContainer
             center={center}
             setCenter={setCenter}
@@ -134,27 +161,28 @@ const Browse = () => {
             setDishId={setDishId}
             filteredList={filteredList}
             dishDetails={dishDetails}
-          />
+          />}
         </Grid>
         <Grid item xs={12} md={6}>
-          <SearchInput
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-          />
-          <VendorsList
-            dishId={dishId}
-            setDishId={setDishId}
-            filteredList={filteredList}
-            dishDetails={dishDetails}
-            searchValue={searchValue}
-          />
-          <SearchByDistance
+        <SearchByDistance
             dishesInfo={dishesInfo}
             setDishesInfo={setDishesInfo}
             setCenter={setCenter}
             center={center}
             distance={distance}
             setDistance={setDistance}
+          />
+          <SearchInput
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
+          
+          <VendorsList
+            dishId={dishId}
+            setDishId={setDishId}
+            filteredList={filteredList}
+            dishDetails={dishDetails}
+            searchValue={searchValue}
           />
         </Grid>
       </Grid>

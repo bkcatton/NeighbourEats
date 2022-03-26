@@ -10,7 +10,6 @@ import '@fontsource/roboto/700.css';
 import './index.css';
 import App from './App';
 import UserProvider from './Providers/UserProvider';
-import { blue, orange } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -22,10 +21,10 @@ const theme = createTheme({
       main: '#eee2dc', // BACKGROUND
     },
     error: {
-      main: '#edf2ff', // RED BUTTONS
+      main: '#f00', // RED BUTTONS
     },
     success: {
-      main: '#edf2ff', // success BUTTONS
+      main: '#0f0', // success BUTTONS
     },
     info: {
       main: '#fff', // CARDS

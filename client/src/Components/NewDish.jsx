@@ -10,8 +10,11 @@ import {
   Button,
   Paper,
   Typography,
+  CardMedia,
+  FormHelperText,
   styled,
 } from "@mui/material/";
+import { LoadingButton } from "@mui/lab";
 
 import { UserContext } from "../Providers/UserProvider";
 import axiosConfig from "../axiosConfig";
@@ -30,6 +33,9 @@ const NewDish = () => {
   const [price, setPrice] = useState("");
   const [imageLink, setImageLink] = useState("");
   const [countryStyle, setCountryStyle] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   const { user } = useContext(UserContext);
   const { userId } = user;
@@ -45,18 +51,39 @@ const NewDish = () => {
       !countryStyle ||
       !userId
     ) {
+      setFailed(true);
       return;
     }
 
+    setLoading(true);
+
     try {
-      await axiosConfig.post("/dishes/new", {
+      const data = await axiosConfig.post("/dishes/new", {
         title,
         description,
-        price,
+        price: price * 100,
         imageLink,
         countryStyle,
         userId,
       });
+
+      if (!data) {
+        return;
+      }
+      // simulate form submission loading and success states
+      setTimeout(() => {
+        setLoading(false);
+
+        setTimeout(() => {
+          setSuccess(true);
+
+          setTitle("");
+          setDescription("");
+          setPrice("");
+          setImageLink("");
+          setCountryStyle("");
+        }, 1000);
+      }, 1000);
     } catch (error) {
       console.log(error);
     }
@@ -64,18 +91,14 @@ const NewDish = () => {
 
   return (
     <Box>
-        <Typography variant="h3" sx={{ m: 4 }} textAlign="center">
-          What are you making today?
-        </Typography>
-      <Stack
-        direction="row"
-        justifyContent="space-around"
-        spacing={2}
-      >
+      <Typography variant="h3" sx={{ m: 4 }} textAlign="center">
+        What are you making today?
+      </Typography>
+      <Stack direction="row" justifyContent="space-around" spacing={2}>
         <Item sx={{ width: "50%" }}>
-        <Typography variant="h4" color="black" sx={{ mb: 2 }}>
-          Create a New Dish!
-        </Typography>
+          <Typography variant="h4" color="black" sx={{ mb: 2 }}>
+            Create a New Dish!
+          </Typography>
           <TextField
             fullWidth
             label="Dish Name"
@@ -86,6 +109,8 @@ const NewDish = () => {
               shrink: true,
             }}
             variant="standard"
+            error={failed && !title}
+            helperText={failed && !title ? "Title is required" : " "}
           />
           <TextField
             fullWidth
@@ -98,8 +123,17 @@ const NewDish = () => {
             }}
             multiline
             variant="standard"
+            error={failed && !description}
+            helperText={
+              failed && !description ? "Description is required" : " "
+            }
           />
-          <FormControl variant="standard" margin="normal" fullWidth>
+          <FormControl
+            variant="standard"
+            error={failed && !price}
+            margin="normal"
+            fullWidth
+          >
             <InputLabel htmlFor="standard-adornment-amount">Price</InputLabel>
             <Input
               fullWidth
@@ -109,6 +143,11 @@ const NewDish = () => {
                 <InputAdornment position="start">$</InputAdornment>
               }
             />
+            {failed && !price ? (
+              <FormHelperText>Price is required</FormHelperText>
+            ) : (
+              <FormHelperText> </FormHelperText>
+            )}
           </FormControl>
           <TextField
             type="text"
@@ -121,6 +160,8 @@ const NewDish = () => {
               shrink: true,
             }}
             variant="standard"
+            error={failed && !countryStyle}
+            helperText={failed && !countryStyle ? "Country is required" : " "}
           />
           <TextField
             type="text"
@@ -133,14 +174,40 @@ const NewDish = () => {
               shrink: true,
             }}
             variant="standard"
+            error={failed && !imageLink}
+            helperText={failed && !imageLink ? "Image is required" : " "}
           />
-          <Button sx={{ mt: 2 }} onClick={(e) => onUpload(e)}>
-            Submit
-          </Button>
+          {!loading && !success && (
+            <Button
+              sx={{ mt: 2 }}
+              onClick={(e) => onUpload(e)}
+              fullWidth
+              variant="contained"
+            >
+              Upload New Dish
+            </Button>
+          )}
+          {loading && (
+            <LoadingButton sx={{ mt: 2 }} variant="outlined" fullWidth>
+              Uploading...
+            </LoadingButton>
+          )}
+          {success && (
+            <Button sx={{ mt: 2 }} variant="contained" fullWidth>
+              Successfully Uploaded!
+            </Button>
+          )}
         </Item>
-        <Item sx={{ width: "50%" }}>
-          {/* https://images.unsplash.com/photo-1598134493136-7b63ebbd7b64?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80 */}
-          <img src={imageLink} style={{ width: "100%" }} alt="" />
+        <Item sx={{ width: "50%", display: "flex" }}>
+          {!imageLink ? (
+            <CardMedia
+              component="img"
+              image="https://images.unsplash.com/photo-1598134493136-7b63ebbd7b64?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
+              alt="dog"
+            />
+          ) : (
+            <CardMedia component="img" image={imageLink} alt="dog" />
+          )}
         </Item>
       </Stack>
     </Box>
