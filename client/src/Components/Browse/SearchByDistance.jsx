@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography, Box, Button, Slider } from "@mui/material";
+import { Typography, Box, Card, CardContent, Button, Slider, Stack } from "@mui/material";
 import axios from "axios";
 
 const SearchByDistance = (props) => {
@@ -38,23 +38,28 @@ const SearchByDistance = (props) => {
   }, [props.dishesInfo.length, props.center]);
 
   return (
-    <Box>
-      <Button
-        onClick={() => props.setCenter({ lat: 50.102214, lng: -119.397488 })}
-      >
-        Find My Location
-      </Button>
-      <Typography gutterBottom>
-        How far are you willing to travel?{" "}
-        <strong>{`${props.distance} minutes`}</strong>
-      </Typography>
-      <Slider
-        aria-label="custom thumb label"
-        value={props.distance}
-        onChange={(e) => props.setDistance(e.target.value)}
-        max={60}
-      />
-    </Box>
+    <Card backgroundColor="info.main" sx={{ borderColor: 'primary.main', mt: 2 }}>
+      <CardContent>
+        <Stack direction="row" alignItems="center" justifyContent="space-around" sx={{ px: 2 }}>
+          <Button
+            onClick={() => props.setCenter({ lat: 50.102214, lng: -119.397488 })}
+            variant="contained"
+          >
+            Find My Location
+          </Button>
+          <Stack direction='column' justifyContent='space-between'>
+            <Typography>
+              How far are you willing to travel? <strong>{`${props.distance} minutes`}</strong>
+            </Typography>
+            <Slider
+              value={props.distance}
+              onChange={(e) => props.setDistance(e.target.value)}
+              max={60}
+              />
+          </Stack>
+        </Stack>
+      </CardContent>
+    </Card>
   );
 };
 

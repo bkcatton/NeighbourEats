@@ -11,6 +11,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   marginLeft: "auto",
+  color: 'info.main'
 }));
 
 const SearchInput = (props) => {
@@ -21,6 +22,7 @@ const SearchInput = (props) => {
       placeholder="Find a dish!"
       value={props.searchValue}
       onChange={(e) => props.setSearchValue(e.target.value)}
+      sx={{ backgroundColor: "info.main", borderColor: "primary.main" }}
       InputProps={{
         endAdornment: (
           <SearchIconWrapper>

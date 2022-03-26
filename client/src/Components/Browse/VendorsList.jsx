@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Card, CardActionArea } from "@mui/material";
 
 import HeartRating from "./HeartRating";
 import getFormattedCurrency from "../../Helpers/getFormattedCurrency";
@@ -73,11 +73,12 @@ const VendorsList = (props) => {
   ];
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: 'flex' }}>
       <DataGrid
         selectionModel={selectionModel}
         rows={rows}
         columns={columns}
+        sx={{ borderColor: "primary.main", backgroundColor: "info.main" }}
         style={{ minHeight: "50vh", width: 548 }}
       />
     </Box>

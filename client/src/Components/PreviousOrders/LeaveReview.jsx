@@ -106,7 +106,7 @@ const LeaveReview = (props) => {
             )}
 
             {success && (
-              <Button fullWidth color="success">
+              <Button fullWidth sx={{color: "success.main"}}>
                 Review Posted!
               </Button>
             )}

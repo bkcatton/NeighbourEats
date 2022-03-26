@@ -1,21 +1,22 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Browse from './Components/Browse';
-import Cart from './Components/Cart';
-import PreviousOrders from './Components/PreviousOrders';
-import NewDish from './Components/NewDish';
-import VendorOrders from './Components/VendorOrders';
+import Browse from "./Components/Browse";
+import Cart from "./Components/Cart";
+import PreviousOrders from "./Components/PreviousOrders";
+import NewDish from "./Components/NewDish";
+import VendorOrders from "./Components/VendorOrders";
 
-import CssBaseline from '@mui/material/CssBaseline';
-import Container from '@mui/material/Container';
-import NavBar from './Components/NavBar'
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import NavBar from "./Components/NavBar";
 
 const App = () => {
-
   return (
     <BrowserRouter>
       <CssBaseline />
+      <Box backgroundColor="secondary.main" minHeight="100vh">
       <NavBar />
       <Container maxWidth="xl">
         <Routes>
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/dishes/new" element={<NewDish />} />
         </Routes>
       </Container>
+      </Box>
     </BrowserRouter>
   );
 };

@@ -127,28 +127,30 @@ const Browse = () => {
         rowSpacing={{ md: 2 }}
         sx={{ mb: 2, mx: "auto" }}
       >
-        <Grid item xs={12} md={6} sx={{ height: "52vh", width: "548" }}>
-          <MapContainer
-            center={center}
-            setCenter={setCenter}
-            dishId={dishId}
-            setDishId={setDishId}
-            filteredList={filteredList}
-            dishDetails={dishDetails}
-          />
+        <Grid item xs={12} md={6} sx={{ height: "50vh", width: "548" }}>
+          
+            <MapContainer
+              center={center}
+              setCenter={setCenter}
+              dishId={dishId}
+              setDishId={setDishId}
+              filteredList={filteredList}
+              dishDetails={dishDetails}
+            />
+            <SearchByDistance
+              dishesInfo={dishesInfo}
+              setDishesInfo={setDishesInfo}
+              setCenter={setCenter}
+              center={center}
+              distance={distance}
+              setDistance={setDistance}
+              />
+          
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} sx={{ height: "50vh", width: "548" }}>
           <SearchInput
             searchValue={searchValue}
             setSearchValue={setSearchValue}
-          />
-          <SearchByDistance
-            dishesInfo={dishesInfo}
-            setDishesInfo={setDishesInfo}
-            setCenter={setCenter}
-            center={center}
-            distance={distance}
-            setDistance={setDistance}
           />
           <VendorsList
             dishId={dishId}

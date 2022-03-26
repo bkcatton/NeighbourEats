@@ -13,11 +13,13 @@ import {
   MenuItem,
   InputBase,
   Stack,
+  FormControlLabel,
+  Switch,
 } from "@mui/material/";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 
-import { UserContext } from "../Providers/UserProvider";
+import { UserContext, setVendorModeFromStorage } from "../Providers/UserProvider";
 import { styled, alpha } from "@mui/material/styles";
 
 // login styling
@@ -51,6 +53,39 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const Android12Switch = styled(Switch)(({ theme }) => ({
+  padding: 8,
+  "& .MuiSwitch-track": {
+    borderRadius: 22 / 2,
+    "&:before, &:after": {
+      content: '""',
+      position: "absolute",
+      top: "50%",
+      transform: "translateY(-50%)",
+      width: 16,
+      height: 16,
+    },
+    "&:before": {
+      backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
+        theme.palette.getContrastText(theme.palette.primary.main)
+      )}" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/></svg>')`,
+      left: 12,
+    },
+    "&:after": {
+      backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
+        theme.palette.getContrastText(theme.palette.primary.main)
+      )}" d="M19,13H5V11H19V13Z" /></svg>')`,
+      right: 12,
+    },
+  },
+  "& .MuiSwitch-thumb": {
+    boxShadow: "none",
+    width: 16,
+    height: 16,
+    margin: 2,
+  },
+}));
+
 const pageLinks = [{ text: "Browse", route: "/" }];
 
 const authPageLinks = [
@@ -66,10 +101,10 @@ const vendorPageLinks = [
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-
-  const { user, login, logout } = useContext(UserContext);
+  const { user, login, logout, vendorMode, setVendorMode, setVendorModeFromStorage } = useContext(UserContext);
   const { userId, name, isVendor, avatar } = user;
   const [input, setInput] = useState("");
+  // /const [vendorMode, setVendorMode] = useState(false || vendorModeFromLocalStorage);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -246,6 +281,7 @@ const ResponsiveAppBar = () => {
               ))}
             {/* map over page routes to be shown if user is logged in and is a vendor */}
             {isVendor &&
+              vendorMode &&
               vendorPageLinks.map((page) => (
                 <Link
                   key={page.text}
@@ -264,6 +300,27 @@ const ResponsiveAppBar = () => {
           </Box>
           <Box sx={{ flexGrow: 0, justifyContent: "flex-end" }}>
             <Stack direction="row" alignItems="center">
+              {vendorMode && (
+                <Typography sx={{ pr: 2 }}>Vendor Mode</Typography>
+              )}
+              {!vendorMode && (
+                <Typography sx={{ pr: 2 }}>Buyer Mode</Typography>
+              )}
+              {isVendor && (
+                <FormControlLabel
+                  label={""}
+                  control={
+                    <Android12Switch
+                      checked={vendorMode}
+                      onChange={() => {
+                       setVendorModeFromStorage();
+                        setVendorMode((prev) => !prev)
+                      }
+                    }
+                    />
+                  }
+                />
+              )}
               {name && <Typography sx={{ mr: 2 }}>{name}</Typography>}
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

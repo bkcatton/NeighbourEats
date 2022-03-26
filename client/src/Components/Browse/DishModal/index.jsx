@@ -19,7 +19,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   minWidth: 450,
-  bgcolor: "background.paper",
+  bgcolor: "info.main",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
@@ -91,7 +91,7 @@ const TransitionsModal = (props) => {
                 item
                 xs={12}
                 md={6}
-                sx={{ backgroundColor: "#D3D3D3", padding: "1.2rem" }}
+                sx={{ backgroundColor: "secondary.main", padding: "1.2rem" }}
               >
                 <Typography>Reviews</Typography>
                 <DishReviews dishReviews={dishReviews} />
