@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Grid, Box, Stack } from "@mui/material";
+import { Grid, Box, Typography, Card, Divider } from "@mui/material";
 
 import axiosConfig from "../../axiosConfig";
 import getFilteredTitlesBySearch from "../../Helpers/getFilteredTitlesBySearch";
@@ -103,7 +103,7 @@ const Browse = () => {
 
     // calling the function to get the geocoords for each address
     dishItemsWithReview.forEach((item) => {
-      getCoordinatesForDishItem(item)
+      getCoordinatesForDishItem(item);
     });
   }, [dishesReviews.length, dishesInfo.length]);
 
@@ -111,102 +111,56 @@ const Browse = () => {
   let filteredList = [...dishesInfo];
 
   if (searchValue) {
-    filteredList = getFilteredTitlesBySearch(searchValue, filteredList)
+    filteredList = getFilteredTitlesBySearch(searchValue, filteredList);
   }
-  
+
   if (distance < 60) {
-    filteredList = getFilteredTitlesByDistance(distance, filteredList)
+    filteredList = getFilteredTitlesByDistance(distance, filteredList);
   }
 
   return (
-
-    <Box display="flex">
-    <Stack direction="row" >
-      <Box>
-        <MapContainer
-          center={center}
-          setCenter={setCenter}
-          dishId={dishId}
-          setDishId={setDishId}
-          filteredList={filteredList}
-          dishDetails={dishDetails}
-        />
-        <SearchByDistance
-          dishesInfo={dishesInfo}
-          setDishesInfo={setDishesInfo}
-          setCenter={setCenter}
-          center={center}
-          distance={distance}
-          setDistance={setDistance}
+    <Box>
+      <Typography variant="h3" sx={{ my: 4 }} textAlign="center">What are you feeling today?</Typography>
+      <Typography variant="h5" textAlign="center" sx={{ my: 2 }}>
+        Search for find it right here on the map!
+      </Typography>
+      <Divider sx={{ my: 2, borderBottomWidth: 8 }} color="#123C69" />
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <MapContainer
+            center={center}
+            setCenter={setCenter}
+            dishId={dishId}
+            setDishId={setDishId}
+            filteredList={filteredList}
+            dishDetails={dishDetails}
           />
-      </Box>
-      <Box>
-        <SearchInput
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-        />
-        <VendorsList
-          dishId={dishId}
-          setDishId={setDishId}
-          filteredList={filteredList}
-          dishDetails={dishDetails}
-          searchValue={searchValue}
-        />
-      </Box>
-    </Stack>
-    <DishModal dishId={dishId} open={open} setOpen={setOpen} />
-  </Box>
-
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <SearchInput
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
+          <VendorsList
+            dishId={dishId}
+            setDishId={setDishId}
+            filteredList={filteredList}
+            dishDetails={dishDetails}
+            searchValue={searchValue}
+          />
+          <SearchByDistance
+            dishesInfo={dishesInfo}
+            setDishesInfo={setDishesInfo}
+            setCenter={setCenter}
+            center={center}
+            distance={distance}
+            setDistance={setDistance}
+          />
+        </Grid>
+      </Grid>
+      <DishModal dishId={dishId} open={open} setOpen={setOpen} />
+    </Box>
   );
 };
 
 export default Browse;
-
-
-
-  
-{/* <Box>
-<Grid
-  container
-  spacing={2}
-  columnSpacing={{ md: 2 }}
-  rowSpacing={{ md: 2 }}
-  sx={{ mb: 2, mx: "auto" }}
-  direction="row"
-  justifyContent="center"
-  alignItems="stretch"
->
-  <Grid item xs={12} md={6} sx={{ height: "50vh", width: "548" }}>
-    <MapContainer
-      center={center}
-      setCenter={setCenter}
-      dishId={dishId}
-      setDishId={setDishId}
-      filteredList={filteredList}
-      dishDetails={dishDetails}
-    />
-    <SearchByDistance
-      dishesInfo={dishesInfo}
-      setDishesInfo={setDishesInfo}
-      setCenter={setCenter}
-      center={center}
-      distance={distance}
-      setDistance={setDistance}
-      />
-  </Grid>
-  <Grid item xs={12} md={6} sx={{ height: "50vh", width: "548" }}>
-    <SearchInput
-      searchValue={searchValue}
-      setSearchValue={setSearchValue}
-    />
-    <VendorsList
-      dishId={dishId}
-      setDishId={setDishId}
-      filteredList={filteredList}
-      dishDetails={dishDetails}
-      searchValue={searchValue}
-    />
-  </Grid>
-</Grid>
-<DishModal dishId={dishId} open={open} setOpen={setOpen} />
-</Box> */}

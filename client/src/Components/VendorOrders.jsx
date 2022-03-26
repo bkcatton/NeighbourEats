@@ -42,7 +42,7 @@ const VendorOrders = () => {
     const { title, paid_price_cents, quantity, image_link, bought_by } = item;
 
     return (
-      <Grid item xs={12} sm={6} md={4}>
+      <Grid item xs={12} sm={6} md={3}>
         <Card sx={{ maxWidth: 345 }}>
           <CardActionArea>
             <CardMedia
@@ -81,20 +81,13 @@ const VendorOrders = () => {
   });
 
   return (
-    <Box
-      sx={{ width: "100%" }}
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-    >
-      <Box>
-        <Typography variant="h4" sx={{ mb: 2 }}>
-          Current Orders:
-        </Typography>
-        <Grid sx={{ flexGrow: 1 }} container spacing={4}>
-          {ordersList}
-        </Grid>
-      </Box>
+    <Box>
+      <Typography variant="h3" sx={{ m: 4 }}>
+        Current Orders:
+      </Typography>
+      <Grid sx={{ flexGrow: 1 }} container spacing={2}>
+        {ordersList}
+      </Grid>
     </Box>
   );
 };

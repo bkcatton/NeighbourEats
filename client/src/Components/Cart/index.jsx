@@ -6,7 +6,7 @@ import {
   CardContent,
   CardMedia,
   CardActionArea,
-  Button,
+  Container,
   Typography,
   Stack,
   Icon,
@@ -151,36 +151,48 @@ const Cart = () => {
   });
 
   return (
-    <Box sx={{ maxWidth: 800, mx: "auto" }}>
-      <Typography variant="h4" sx={{ mb: 2 }}>
-        My Cart
-      </Typography>
+    <Container maxWidth="md">
+      <Typography variant="h3" sx={{ my: 4 }}>My Cart</Typography>
       {ordersList.length ? (
-        ordersList
+        <Box>{ordersList}</Box>
       ) : (
-        <Typography>
-          You currently have no orders. Back to <Link to="/">Browse</Link>?
-        </Typography>
-      )}
-      <Stack
-        direction="row"
-        alignItems="baseline"
-        justifyContent="space-between"
-      >
-        {!!ordersList.length && (
-          <Typography sx={{ mb: 1 }}>
-            Cart Total: <strong>{getFormattedCurrency(orderTotal)}</strong>
+        <Box>
+          <Typography>
+            You currently have no new orders! Back to <Link to="/">Browse</Link>?
           </Typography>
-        )}
-        {!!ordersList.length && (
-          <PaymentForm
-            orderTotal={orderTotal}
-            userOrders={userOrders}
-            onCheckout={onCheckout}
+          <CardMedia
+            component="img"
+            image="https://images.unsplash.com/photo-1598134493179-51332e56807f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
+            alt="dog"
           />
-        )}
-      </Stack>
-    </Box>
+        </Box>
+      )}
+      {!!ordersList.length && (
+        <Card>
+          <CardContent>
+            <Stack
+              direction="row"
+              alignItems="baseline"
+              justifyContent="space-between"
+            >
+              {!!ordersList.length && (
+                <Typography sx={{ mb: 1 }}>
+                  Cart Total:{" "}
+                  <strong>{getFormattedCurrency(orderTotal)}</strong>
+                </Typography>
+              )}
+              {!!ordersList.length && (
+                <PaymentForm
+                  orderTotal={orderTotal}
+                  userOrders={userOrders}
+                  onCheckout={onCheckout}
+                />
+              )}
+            </Stack>
+          </CardContent>
+        </Card>
+      )}
+    </Container>
   );
 };
 

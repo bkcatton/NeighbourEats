@@ -17,16 +17,16 @@ const App = () => {
     <BrowserRouter>
       <CssBaseline />
       <Box backgroundColor="secondary.main" minHeight="100vh">
-      <NavBar />
-      <Container maxWidth="xl">
-        <Routes>
-          <Route path="/" element={<Browse />} />
-          <Route path="/orders/cart" element={<Cart />} />
-          <Route path="/orders/previous" element={<PreviousOrders />} />
-          <Route path="/orders/vendor" element={<VendorOrders />} />
-          <Route path="/dishes/new" element={<NewDish />} />
-        </Routes>
-      </Container>
+        <NavBar />
+        <Container maxWidth="xl">
+          <Routes>
+            <Route path="/" element={<Browse />} />
+            <Route path="/orders/cart" element={<Cart />} />
+            <Route path="/orders/previous" element={<PreviousOrders />} />
+            <Route path="/orders/vendor" element={<VendorOrders />} />
+            <Route path="/dishes/new" element={<NewDish />} />
+          </Routes>
+        </Container>
       </Box>
     </BrowserRouter>
   );

@@ -73,13 +73,13 @@ const VendorsList = (props) => {
   ];
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <DataGrid
         selectionModel={selectionModel}
         rows={rows}
         columns={columns}
         sx={{ borderColor: "primary.main", backgroundColor: "info.main" }}
-        style={{ minHeight: "50vh", width: 548 }}
+        style={{ minHeight: "55vh", width: 548 }}
       />
     </Box>
   );

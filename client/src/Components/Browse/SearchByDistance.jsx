@@ -63,7 +63,7 @@ const SearchByDistance = (props) => {
               props.setCenter({ lat: 50.102214, lng: -119.397488 })
             }
             variant="contained"
-            sx={{mr: 2}}
+            sx={{ mr: 2 }}
           >
             Find My Location
           </Button>

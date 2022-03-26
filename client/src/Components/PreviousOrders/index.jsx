@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext, Fragment } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Card,
-  Paper,
+  Container,
   CardContent,
   CardActionArea,
   Typography,
@@ -59,11 +59,7 @@ const PreviousOrders = () => {
 
   const ordersList = orders.map((item, i) => {
     return (
-      <Card
-        elevation={2}
-        key={i}
-        sx={{ mb: 2, width: "50%", justifyContent: "center" }}
-      >
+      <Card elevation={2} key={i} sx={{ mb: 2, justifyContent: "center" }}>
         <CardActionArea>
           <Stack direction="row" justifyContent="space-between">
             <CardContent
@@ -80,7 +76,7 @@ const PreviousOrders = () => {
                   textAlign="left"
                   sx={{ mb: "1em" }}
                 >
-                  {item.title}
+                  {item.quantity} x {item.title}
                 </Typography>
                 <LeaveReview
                   reviewBody={reviewBody}
@@ -92,8 +88,10 @@ const PreviousOrders = () => {
                   dishId={item.dish_id}
                 />
               </Stack>
-              <Typography variant="body2" sx={{ mt: "auto" }}>
-                {`${getFormattedCurrency(item.paid_price_cents)}`}
+              <Typography>
+                {`${getFormattedCurrency(
+                  item.paid_price_cents * item.quantity
+                )}`}
               </Typography>
             </CardContent>
           </Stack>
@@ -103,27 +101,12 @@ const PreviousOrders = () => {
   });
 
   return (
-    <Fragment>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Typography
-          variant="h4"
-          gutterBottom
-          component="div"
-          textAlign="center"
-          sx={{ mb: 1 }}
-        >
-          Previous Orders
-        </Typography>
+    <Container maxWidth="md">
+      <Typography variant="h3" sx={{ my: 4 }}>Previous Orders</Typography>
+      <Stack>
         {ordersList.length ? ordersList : <Typography>No Orders</Typography>}
-      </Box>
-    </Fragment>
+      </Stack>
+    </Container>
   );
 };
 

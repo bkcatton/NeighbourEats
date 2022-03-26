@@ -63,24 +63,19 @@ const NewDish = () => {
   };
 
   return (
-    <Box
-      component="form"
-      sx={{
-        "& > :not(style)": { m: 1, width: "100%" },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <Typography variant="h4" gutterBottom component="div" textAlign="center">
-        Create a New Dish!
-      </Typography>
+    <Box>
+        <Typography variant="h3" sx={{ m: 4 }} textAlign="center">
+          What are you making today?
+        </Typography>
       <Stack
         direction="row"
         justifyContent="space-around"
-        alignItems="center"
         spacing={2}
       >
         <Item sx={{ width: "50%" }}>
+        <Typography variant="h4" color="black" sx={{ mb: 2 }}>
+          Create a New Dish!
+        </Typography>
           <TextField
             fullWidth
             label="Dish Name"
@@ -144,6 +139,7 @@ const NewDish = () => {
           </Button>
         </Item>
         <Item sx={{ width: "50%" }}>
+          {/* https://images.unsplash.com/photo-1598134493136-7b63ebbd7b64?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80 */}
           <img src={imageLink} style={{ width: "100%" }} alt="" />
         </Item>
       </Stack>
