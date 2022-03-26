@@ -1,6 +1,6 @@
 import React, { useState, useContext, Fragment } from "react";
 import { Link } from "react-router-dom";
-import { Button, ButtonGroup } from "@mui/material";
+import { Box, Button, ButtonGroup, Stack } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 import axiosConfig from "../../../axiosConfig";
@@ -47,55 +47,56 @@ const AddToOrder = (props) => {
   };
 
   return (
-    <div>
-      <ButtonGroup>
-        {!checkout ? (
-          <Fragment>
-            <Button
-              disabled={quantity < 2}
-              onClick={() => setQuantity((prev) => prev - 1)}
-            >
-              -
+    <Box>
+      <Stack direction="row" sx={{ mt: 2 }}>
+        <ButtonGroup sx={{ marginRight: 'auto' }}>
+          {!checkout ? (
+            <Fragment>
+              <Button
+                disabled={quantity < 2}
+                onClick={() => setQuantity((prev) => prev - 1)}
+              >
+                -
+              </Button>
+              <Button style={{ color: "black" }} disabled>
+                <strong>{quantity}</strong>
+              </Button>
+              <Button onClick={() => setQuantity((prev) => prev + 1)}>+</Button>
+            </Fragment>
+          ) : (
+            <Button variant="text" sx={{ color: "black" }}>
+              Quantity: {quantity}
             </Button>
-            <Button style={{ color: "black" }} disabled>
-              <strong>{quantity}</strong>
-            </Button>
-            <Button onClick={() => setQuantity((prev) => prev + 1)}>+</Button>
-          </Fragment>
-        ) : (
-          <Button variant="text" sx={{ color: "black" }}>
-            Quantity: {quantity}
+          )}
+        </ButtonGroup>
+        {!checkout && !loading && (
+          <Button onClick={onSubmit} variant="outlined">
+            Add to Order
           </Button>
         )}
-      </ButtonGroup>
-      {!checkout && !loading && (
-        <Button fullWidth onClick={onSubmit} variant="outlined">
-          Add to Order
-        </Button>
-      )}
-      {loading && (
-        <LoadingButton
-          fullWidth
-          loading
-          variant="outlined"
-          sx={{ color: "primary.main" }}
-        >
-          Submit
-        </LoadingButton>
-      )}
-      {checkout && (
-        <Button
-          fullWidth
-          variant="outlined"
-          sx={{ color: "success.main", borderColor: "success.main" }}
-        >
-          Added!
-        </Button>
-      )}
+        {loading && (
+          <LoadingButton
+            loading
+            variant="outlined"
+            sx={{ color: "primary.main" }}
+          >
+            Add to Order
+          </LoadingButton>
+        )}
+        {checkout && (
+          <Button
+            variant="outlined"
+            // width="133px"
+            sx={{ color: "success.main", borderColor: "success.main", width: "133px" }}
+          >
+            Added!
+          </Button>
+        )}
+      </Stack>
       <Button fullWidth component={Link} to={`/orders/cart`}>
         View Cart
       </Button>
-    </div>
+    </Box>
   );
 };
 

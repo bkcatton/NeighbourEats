@@ -24,7 +24,7 @@ const theme = createTheme({
       main: '#f00', // RED BUTTONS
     },
     success: {
-      main: '#0f0', // success BUTTONS
+      main: '#266402', // success BUTTONS
     },
     info: {
       main: '#fff', // CARDS

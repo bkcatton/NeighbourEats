@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Backdrop, Modal, Card, CardContent, Fade, Typography, Grid } from "@mui/material";
+import { Backdrop, Modal, Card, CardContent, CardMedia, Fade, Typography, Grid } from "@mui/material";
 
 import AddToOrder from "./AddToOrder";
 import DishReviews from "./DishReviews";
@@ -15,7 +15,6 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   borderRadius: "10px",
-  maxHeight: "50vh",
 };
 
 const TransitionsModal = (props) => {
@@ -74,11 +73,13 @@ const TransitionsModal = (props) => {
                   <Typography id="transition-modal-description" sx={{ mt: 2 }}>
                     {dishDetails.paid_price_cents}
                   </Typography>
-                  <img
-                    src={dishDetails.image_link}
-                    alt={dishDetails.title}
-                    style={{ height: "100px" }}
-                  />
+                    <CardMedia
+                      component="img"
+                      width="100%"
+                      image={dishDetails.image_link}
+                      alt={dishDetails.title}
+                      sx={{ boxShadow: 4}}
+                    />
                   <AddToOrder dishDetails={dishDetails} />
                 </CardContent>
               </Grid>
