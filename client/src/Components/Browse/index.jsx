@@ -3,7 +3,7 @@ import axios from "axios";
 import { Grid, Box, Stack } from "@mui/material";
 
 import axiosConfig from "../../axiosConfig";
-import getFilteredTitlesBySearch from "../../Helpers/getFilteredTitles";
+import getFilteredTitlesBySearch from "../../Helpers/getFilteredTitlesBySearch";
 import getFilteredTitlesByDistance from "../../Helpers/getFilteredTitlesByDistance";
 import MapContainer from "./MapContainer";
 import VendorsList from "./VendorsList";
@@ -18,7 +18,7 @@ const Browse = () => {
   const [searchValue, setSearchValue] = useState("");
   const [distance, setDistance] = useState(60);
   const [open, setOpen] = useState(false);
-
+  
   // get map to start centered at this location
   const initialCenter = {
     lat: 40.712776,

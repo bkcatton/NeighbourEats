@@ -19,7 +19,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 
-import { UserContext, setVendorModeFromStorage } from "../Providers/UserProvider";
+import { UserContext } from "../Providers/UserProvider";
 import { styled, alpha } from "@mui/material/styles";
 
 // login styling
@@ -101,10 +101,10 @@ const vendorPageLinks = [
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const { user, login, logout, vendorMode, setVendorMode, setVendorModeFromStorage } = useContext(UserContext);
+  const { user, login, logout, setVendorModeFromStorage, vendorMode } = useContext(UserContext);
   const { userId, name, isVendor, avatar } = user;
   const [input, setInput] = useState("");
-  // /const [vendorMode, setVendorMode] = useState(false || vendorModeFromLocalStorage);
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -140,6 +140,12 @@ const ResponsiveAppBar = () => {
       logout();
     }, 500);
   };
+
+  
+  
+
+  console.log("vendor Mode state", vendorMode);
+  //checkVendorModeFromStorage();
 
   return (
     <AppBar position="static" sx={{ mb: 2 }}>
@@ -313,8 +319,7 @@ const ResponsiveAppBar = () => {
                     <Android12Switch
                       checked={vendorMode}
                       onChange={() => {
-                       setVendorModeFromStorage();
-                        setVendorMode((prev) => !prev)
+                        setVendorModeFromStorage();
                       }
                     }
                     />

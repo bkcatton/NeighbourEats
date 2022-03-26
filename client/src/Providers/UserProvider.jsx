@@ -3,7 +3,8 @@ import axiosConfig from '../axiosConfig';
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState({ userId: '', name: '', isVendor: false, avatar: '', vendorMode: false });
-  const [vendorMode, setVendorMode] = useState(false);
+  const [vendorMode, setVendorMode] = useState(localStorage.getItem('vendorMode'))
+  
   
   useEffect(() => {
     function setUserId() {
@@ -14,7 +15,19 @@ const UserProvider = ({ children }) => {
       let vendorMode = localStorage.getItem('vendorMode')
       if (isVendor === 'true') {
         isVendor = true
+        
       }
+
+      if (vendorMode === 'true') {
+        vendorMode = true
+        setVendorMode(vendorMode)
+      }
+
+      if (vendorMode === 'false') {
+        vendorMode = false
+        setVendorMode(vendorMode)
+      }
+
 
       if (userId) {
         setUser({ userId, name, isVendor, avatar, vendorMode })
@@ -34,6 +47,7 @@ const UserProvider = ({ children }) => {
       localStorage.setItem('isVendor', data.is_vendor)
       localStorage.setItem('avatar', data.avatar)
       localStorage.setItem('name', data.full_name)
+      localStorage.setItem('vendorMode', false)
     
     } catch (error) {
       console.log(error);
@@ -50,17 +64,27 @@ const UserProvider = ({ children }) => {
       vendorMode: false
     }));
   };
+  
+  const setVendorModeinState = () => {
+    if (localStorage.getItem('vendorMode')) {
+      setVendorMode(true)
+    }
+    if (localStorage.getItem('vendorMode') === 'false') {
+      setVendorMode(false)
+    }
+  }
 
   const setVendorModeFromStorage = () => {
-    localStorage.setItem('vendorMode', (localStorage.getItem('isVendor')) ? true : false)
+   (localStorage.getItem("vendorMode") === 'true') ? localStorage.setItem('vendorMode', 'false') : localStorage.setItem('vendorMode', 'true')
+   setVendorModeinState();
   }
 
   return (
-    <UserContext.Provider value={{ user, login, logout, setVendorMode, setVendorModeFromStorage}} >
+    <UserContext.Provider value={{ user, login, logout, vendorMode, setVendorModeFromStorage}} >
       {children}
     </UserContext.Provider>
   );
 }
 
 export default UserProvider
-export const UserContext = React.createContext({ userId: '', name: '', isVendor: false, avatar: ''});
+export const UserContext = React.createContext({ userId: '', name: '', isVendor: false, avatar: '', vendorMode: false});
