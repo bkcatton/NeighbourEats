@@ -9,7 +9,7 @@ const StyledRating = styled(Rating)({
     color: "#ff6d75",
   },
   "& .MuiRating-iconHover": {
-    color: "#ff3d47",
+    color: "#f00",
   },
 });
 
@@ -21,6 +21,7 @@ export default function HeartRating(props) {
       }}
     >
       <StyledRating
+        size="small"
         name="customized-color"
         value={+props.rating}
         getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}

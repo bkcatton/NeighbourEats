@@ -48,15 +48,16 @@ const SearchByDistance = (props) => {
 
   return (
     <Card
-      sx={{ borderColor: "primary.main", mb: 2, backgroundColor: "info.main" }}
+      sx={{ borderColor: "primary.main", mb: 2, backgroundColor: "info.main", py: 1 }}
     >
-      <CardContent>
+      {/* <CardContent> */}
         <Stack direction="row" alignItems="center" sx={{ px: 2 }}>
           <Button
             onClick={() =>
               props.setCenter({ lat: 50.102214, lng: -119.397488 })
             }
             variant="contained"
+            size="small"
             sx={{ mr: 2 }}
           >
             Find My Location
@@ -68,10 +69,13 @@ const SearchByDistance = (props) => {
             sx={{ px: 2 }}
           >
             <Stack direction="row" justifyContent="space-evenly">
-              <Typography sx={{ mb: 1 }}>
+              <Typography variant="subtitle2">
                 How far are you willing to travel?{" "}
               </Typography>
-              <strong>{`${props.distance}${sliderString}`}</strong>
+              <Typography variant="subtitle2">
+                {`${props.distance}${sliderString}`}
+              </Typography>
+              {/* <strong >{`${props.distance}${sliderString}`}</strong> */}
             </Stack>
             <Slider
               value={props.distance}
@@ -80,7 +84,7 @@ const SearchByDistance = (props) => {
             />
           </Stack>
         </Stack>
-      </CardContent>
+      {/* </CardContent> */}
     </Card>
   );
 };

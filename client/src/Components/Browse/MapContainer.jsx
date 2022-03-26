@@ -12,6 +12,7 @@ import { getCountryCode } from "../../Helpers/getCountryCode";
 const containerStyle = {
   width: "100%",
   height: "100%",
+  minHeight: '55vh'
 };
 
 const MapContainer = (props) => {

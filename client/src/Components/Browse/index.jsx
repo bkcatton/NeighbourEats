@@ -125,33 +125,33 @@ const Browse = () => {
 
   return (
     <Box>
-      <Typography variant="h3" sx={{ my: 4 }} textAlign="center">What are you feeling today?</Typography>
-      <Typography variant="h5" textAlign="center" sx={{ mb: 2 }}>
+      <Typography variant="h4" component="h2" sx={{ my: 3 }} textAlign="center">What are you in the mood for today?</Typography>
+      {/* <Typography variant="h6" textAlign="center" sx={{ mb: 2 }}>
         Search for find it right here on the map!
-      </Typography>
-      <Divider sx={{ my: 2, borderBottomWidth: 8 }} color="#123C69" />
+      </Typography> */}
+      <Divider sx={{ my: 2, borderBottomWidth: 4 }} color="#123C69" />
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           {loadingMap ?
           <Fragment>
             <Skeleton />
-            <Skeleton height="80px" />
+            <Skeleton height="5.4vh" />
             <Skeleton />
-            <Skeleton height="80px" />
+            <Skeleton height="5.4vh" />
             <Skeleton />
-            <Skeleton height="80px" />
+            <Skeleton height="5.4vh" />
             <Skeleton />
-            <Skeleton height="80px" />
+            <Skeleton height="5.4vh" />
             <Skeleton />
-            <Skeleton height="80px" />
+            <Skeleton height="5.4vh" />
             <Skeleton />
-            <Skeleton height="80px" />
+            <Skeleton height="5.4vh" />
             <Skeleton />
-            <Skeleton height="80px" />
+            <Skeleton height="5.4vh" />
             <Skeleton />
-            <Skeleton height="80px" />
+            <Skeleton height="5.4vh" />
             <Skeleton />
-            <Skeleton height="80px" />
+            <Skeleton height="5.4vh" />
           </Fragment>
           :
           <MapContainer
@@ -164,7 +164,7 @@ const Browse = () => {
           />}
         </Grid>
         <Grid item xs={12} md={6}>
-        <SearchByDistance
+          <SearchByDistance
             dishesInfo={dishesInfo}
             setDishesInfo={setDishesInfo}
             setCenter={setCenter}
@@ -176,7 +176,6 @@ const Browse = () => {
             searchValue={searchValue}
             setSearchValue={setSearchValue}
           />
-          
           <VendorsList
             dishId={dishId}
             setDishId={setDishId}

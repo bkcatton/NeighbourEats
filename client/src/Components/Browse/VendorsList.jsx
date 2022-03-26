@@ -44,7 +44,7 @@ const VendorsList = (props) => {
       headerName: "Dish",
       minWidth: 200,
       renderCell: ({ value }) => (
-        <Typography
+        <Typography variant="body2"
           onClick={() => props.dishDetails(getId(value, props.filteredList))}
           onMouseOver={() => props.setDishId(getId(value, props.filteredList))}
           onMouseOut={() => props.setDishId(null)}
