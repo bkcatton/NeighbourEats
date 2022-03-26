@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Backdrop, Modal, Card, Fade, Typography, Grid } from "@mui/material";
+import { Backdrop, Modal, Card, CardContent, Fade, Typography, Grid } from "@mui/material";
 
 import AddToOrder from "./AddToOrder";
 import DishReviews from "./DishReviews";
@@ -14,8 +14,8 @@ const style = {
   bgcolor: "info.main",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
   borderRadius: "10px",
+  maxHeight: "50vh",
 };
 
 const TransitionsModal = (props) => {
@@ -57,38 +57,42 @@ const TransitionsModal = (props) => {
       >
         <Fade in={props.open}>
           <Card sx={style}>
+
             <Grid container>
               <Grid item xs={12} md={6}>
-                <Typography
-                  id="transition-modal-title"
-                  variant="h6"
-                  component="h2"
-                >
-                  {dishDetails.title}
-                </Typography>
-                <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                  {dishDetails.dish_description}
-                </Typography>
-                <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                  {dishDetails.paid_price_cents}
-                </Typography>
-                <img
-                  src={dishDetails.image_link}
-                  alt={dishDetails.title}
-                  style={{ height: "100px" }}
-                />
-                <AddToOrder dishDetails={dishDetails} />
+                <CardContent>
+                  <Typography
+                    id="transition-modal-title"
+                    variant="h5"
+                    component="h2"
+                  >
+                    {dishDetails.title}
+                  </Typography>
+                  <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                    {dishDetails.dish_description}
+                  </Typography>
+                  <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                    {dishDetails.paid_price_cents}
+                  </Typography>
+                  <img
+                    src={dishDetails.image_link}
+                    alt={dishDetails.title}
+                    style={{ height: "100px" }}
+                  />
+                  <AddToOrder dishDetails={dishDetails} />
+                </CardContent>
               </Grid>
               <Grid
                 item
                 xs={12}
                 md={6}
-                sx={{ backgroundColor: "secondary.main", padding: "1.2rem" }}
-              >
-                <Typography>Reviews</Typography>
+                style={{ padding: "1rem", background: "linear-gradient(to right, white, #eee2dc)"}}
+                >
+                <Typography variant="h5" pb="10px">Reviews</Typography>
                 <DishReviews dishReviews={dishReviews} />
               </Grid>
             </Grid>
+              
           </Card>
         </Fade>
       </Modal>

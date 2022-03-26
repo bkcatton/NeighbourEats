@@ -134,24 +134,7 @@ const Browse = () => {
         <Grid item xs={12} md={6}>
           {loadingMap ?
           <Fragment>
-            <Skeleton />
-            <Skeleton height="5.4vh" />
-            <Skeleton />
-            <Skeleton height="5.4vh" />
-            <Skeleton />
-            <Skeleton height="5.4vh" />
-            <Skeleton />
-            <Skeleton height="5.4vh" />
-            <Skeleton />
-            <Skeleton height="5.4vh" />
-            <Skeleton />
-            <Skeleton height="5.4vh" />
-            <Skeleton />
-            <Skeleton height="5.4vh" />
-            <Skeleton />
-            <Skeleton height="5.4vh" />
-            <Skeleton />
-            <Skeleton height="5.4vh" />
+            <Skeleton variant="rectangular" height="70vh" />
           </Fragment>
           :
           <MapContainer
@@ -176,13 +159,36 @@ const Browse = () => {
             searchValue={searchValue}
             setSearchValue={setSearchValue}
           />
+          {loadingMap ? 
+          <Fragment>
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+          </Fragment>
+          :
           <VendorsList
             dishId={dishId}
             setDishId={setDishId}
             filteredList={filteredList}
             dishDetails={dishDetails}
             searchValue={searchValue}
-          />
+          />}
         </Grid>
       </Grid>
       <DishModal dishId={dishId} open={open} setOpen={setOpen} />
