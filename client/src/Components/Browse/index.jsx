@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, Stack } from "@mui/material";
 
 import axiosConfig from "../../axiosConfig";
 import getFilteredTitlesBySearch from "../../Helpers/getFilteredTitles";
@@ -119,51 +119,94 @@ const Browse = () => {
   }
 
   return (
-    <Box>
-      <Grid
-        container
-        spacing={2}
-        columnSpacing={{ md: 2 }}
-        rowSpacing={{ md: 2 }}
-        sx={{ mb: 2, mx: "auto" }}
-      >
-        <Grid item xs={12} md={6} sx={{ height: "50vh", width: "548" }}>
-          
-            <MapContainer
-              center={center}
-              setCenter={setCenter}
-              dishId={dishId}
-              setDishId={setDishId}
-              filteredList={filteredList}
-              dishDetails={dishDetails}
-            />
-            <SearchByDistance
-              dishesInfo={dishesInfo}
-              setDishesInfo={setDishesInfo}
-              setCenter={setCenter}
-              center={center}
-              distance={distance}
-              setDistance={setDistance}
-              />
-          
-        </Grid>
-        <Grid item xs={12} md={6} sx={{ height: "50vh", width: "548" }}>
-          <SearchInput
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
+
+    <Box display="flex">
+    <Stack direction="row" >
+      <Box>
+        <MapContainer
+          center={center}
+          setCenter={setCenter}
+          dishId={dishId}
+          setDishId={setDishId}
+          filteredList={filteredList}
+          dishDetails={dishDetails}
+        />
+        <SearchByDistance
+          dishesInfo={dishesInfo}
+          setDishesInfo={setDishesInfo}
+          setCenter={setCenter}
+          center={center}
+          distance={distance}
+          setDistance={setDistance}
           />
-          <VendorsList
-            dishId={dishId}
-            setDishId={setDishId}
-            filteredList={filteredList}
-            dishDetails={dishDetails}
-            searchValue={searchValue}
-          />
-        </Grid>
-      </Grid>
-      <DishModal dishId={dishId} open={open} setOpen={setOpen} />
-    </Box>
+      </Box>
+      <Box>
+        <SearchInput
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
+        <VendorsList
+          dishId={dishId}
+          setDishId={setDishId}
+          filteredList={filteredList}
+          dishDetails={dishDetails}
+          searchValue={searchValue}
+        />
+      </Box>
+    </Stack>
+    <DishModal dishId={dishId} open={open} setOpen={setOpen} />
+  </Box>
+
   );
 };
 
 export default Browse;
+
+
+
+  
+{/* <Box>
+<Grid
+  container
+  spacing={2}
+  columnSpacing={{ md: 2 }}
+  rowSpacing={{ md: 2 }}
+  sx={{ mb: 2, mx: "auto" }}
+  direction="row"
+  justifyContent="center"
+  alignItems="stretch"
+>
+  <Grid item xs={12} md={6} sx={{ height: "50vh", width: "548" }}>
+    <MapContainer
+      center={center}
+      setCenter={setCenter}
+      dishId={dishId}
+      setDishId={setDishId}
+      filteredList={filteredList}
+      dishDetails={dishDetails}
+    />
+    <SearchByDistance
+      dishesInfo={dishesInfo}
+      setDishesInfo={setDishesInfo}
+      setCenter={setCenter}
+      center={center}
+      distance={distance}
+      setDistance={setDistance}
+      />
+  </Grid>
+  <Grid item xs={12} md={6} sx={{ height: "50vh", width: "548" }}>
+    <SearchInput
+      searchValue={searchValue}
+      setSearchValue={setSearchValue}
+    />
+    <VendorsList
+      dishId={dishId}
+      setDishId={setDishId}
+      filteredList={filteredList}
+      dishDetails={dishDetails}
+      searchValue={searchValue}
+    />
+  </Grid>
+</Grid>
+<DishModal dishId={dishId} open={open} setOpen={setOpen} />
+</Box> */}

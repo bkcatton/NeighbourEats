@@ -3,7 +3,6 @@ import axiosConfig from '../axiosConfig';
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState({ userId: '', name: '', isVendor: false, avatar: '', vendorMode: false });
-  
   const [vendorMode, setVendorMode] = useState(false);
   
   useEffect(() => {
@@ -53,7 +52,7 @@ const UserProvider = ({ children }) => {
   };
 
   const setVendorModeFromStorage = () => {
-    localStorage.setItem('vendorMode', localStorage.getItem('isVendor') ? true : false)
+    localStorage.setItem('vendorMode', (localStorage.getItem('isVendor')) ? true : false)
   }
 
   return (

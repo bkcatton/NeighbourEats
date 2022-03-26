@@ -22,7 +22,7 @@ const SearchInput = (props) => {
       placeholder="Find a dish!"
       value={props.searchValue}
       onChange={(e) => props.setSearchValue(e.target.value)}
-      sx={{ backgroundColor: "info.main", borderColor: "primary.main" }}
+      sx={{ backgroundColor: "info.main", borderColor: "primary.main", mb: 2 }}
       InputProps={{
         endAdornment: (
           <SearchIconWrapper>
