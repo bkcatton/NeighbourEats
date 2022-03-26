@@ -1,7 +1,9 @@
 import React, { useState, useContext, Fragment } from "react";
 import { Link } from "react-router-dom";
-import { Box, Button, ButtonGroup, Stack } from "@mui/material";
+import { Box, Button, ButtonGroup, Stack, Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Divider } from "@mui/material";
 
 import axiosConfig from "../../../axiosConfig";
 import { UserContext } from "../../../Providers/UserProvider";
@@ -93,9 +95,14 @@ const AddToOrder = (props) => {
           </Button>
         )}
       </Stack>
-      <Button fullWidth component={Link} to={`/orders/cart`}>
+      <Divider sx={{ mt: 2 }} />
+      <Link
+        component={Typography}
+        style={{ textDecoration: 'none', color: 'black', display: 'flex', alignItems: "center", margin: '1rem 0 0 1rem' }}
+        to='/orders/cart'>
         View Cart
-      </Button>
+        <ShoppingCartIcon style={{ marginLeft: '0.5rem' }}/>
+      </Link>
     </Box>
   );
 };
