@@ -1,16 +1,16 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Browse from "./Components/Browse";
-import Cart from "./Components/Cart";
-import PreviousOrders from "./Components/PreviousOrders";
-import NewDish from "./Components/NewDish";
-import VendorOrders from "./Components/VendorOrders";
+import Browse from './Components/Browse';
+import Cart from './Components/Cart';
+import PreviousOrders from './Components/PreviousOrders';
+import NewDish from './Components/NewDish';
+import VendorOrders from './Components/VendorOrders';
 
-import CssBaseline from "@mui/material/CssBaseline";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import NavBar from "./Components/NavBar";
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import NavBar from './Components/NavBar';
 
 const App = () => {
   return (
@@ -18,7 +18,7 @@ const App = () => {
       <CssBaseline />
       <Box backgroundColor="secondary.main" minHeight="100vh">
         <NavBar />
-        <Container maxWidth="xl">
+        <Container maxWidth="lg">
           <Routes>
             <Route path="/" element={<Browse />} />
             <Route path="/orders/cart" element={<Cart />} />

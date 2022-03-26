@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react';
 import {
   AppBar,
   Box,
@@ -15,87 +15,87 @@ import {
   Stack,
   FormControlLabel,
   Switch,
-} from "@mui/material/";
-import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
+} from '@mui/material/';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
-import { UserContext } from "../Providers/UserProvider";
-import { styled, alpha } from "@mui/material/styles";
+import { UserContext } from '../Providers/UserProvider';
+import { styled, alpha } from '@mui/material/styles';
 
 // login styling
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
+  '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: "5ch",
-  [theme.breakpoints.up("md")]: {
-    width: "auto",
+  width: '5ch',
+  [theme.breakpoints.up('md')]: {
+    width: 'auto',
   },
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
+  color: 'inherit',
+  '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon,
     // paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     paddingLeft: `0.5em`, // CHANGED FROM ABOVE LINE
-    transition: theme.transitions.create("width"),
-    width: "5ch",
-    [theme.breakpoints.up("sm")]: {
-      width: "20ch",
+    transition: theme.transitions.create('width'),
+    width: '5ch',
+    [theme.breakpoints.up('sm')]: {
+      width: '20ch',
     },
   },
 }));
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
   padding: 8,
-  "& .MuiSwitch-track": {
+  '& .MuiSwitch-track': {
     borderRadius: 22 / 2,
-    "&:before, &:after": {
+    '&:before, &:after': {
       content: '""',
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
+      position: 'absolute',
+      top: '50%',
+      transform: 'translateY(-50%)',
       width: 16,
       height: 16,
     },
-    "&:before": {
+    '&:before': {
       backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
         theme.palette.getContrastText(theme.palette.primary.main)
       )}" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/></svg>')`,
       left: 12,
     },
-    "&:after": {
+    '&:after': {
       backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
         theme.palette.getContrastText(theme.palette.primary.main)
       )}" d="M19,13H5V11H19V13Z" /></svg>')`,
       right: 12,
     },
   },
-  "& .MuiSwitch-thumb": {
-    boxShadow: "none",
+  '& .MuiSwitch-thumb': {
+    boxShadow: 'none',
     width: 16,
     height: 16,
     margin: 2,
   },
 }));
 
-const pageLinks = [{ text: "Browse", route: "/" }];
+const pageLinks = [{ text: 'Browse', route: '/' }];
 
 const authPageLinks = [
-  { text: "Cart", route: "/orders/cart" },
-  { text: "Previous Orders", route: "/orders/previous" },
+  { text: 'Cart', route: '/orders/cart' },
+  { text: 'Previous Orders', route: '/orders/previous' },
 ];
 
 const vendorPageLinks = [
-  { text: "Current Orders", route: "/orders/vendor" },
-  { text: "Add New Dish", route: "/dishes/new" },
+  { text: 'Current Orders', route: '/orders/vendor' },
+  { text: 'Add New Dish', route: '/dishes/new' },
 ];
 
 const ResponsiveAppBar = () => {
@@ -104,12 +104,12 @@ const ResponsiveAppBar = () => {
   const { user, login, logout, setVendorModeFromStorage, vendorMode } =
     useContext(UserContext);
   const { userId, name, isVendor, avatar } = user;
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
 
-  const handleOpenNavMenu = (event) => {
+  const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
+  const handleOpenUserMenu = event => {
     setAnchorElUser(event.currentTarget);
   };
 
@@ -143,18 +143,18 @@ const ResponsiveAppBar = () => {
 
   return (
     <AppBar position="static" sx={{ mb: 2 }}>
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            Neighborhood Eats
+            NeighbourEats
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -169,30 +169,30 @@ const ResponsiveAppBar = () => {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
+                vertical: 'bottom',
+                horizontal: 'left',
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
+                vertical: 'top',
+                horizontal: 'left',
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: "block", md: "none" },
+                display: { xs: 'block', md: 'none' },
               }}
             >
-              {pageLinks.map((page) => (
+              {pageLinks.map(page => (
                 <Link
                   key={page.text}
                   onClick={handleCloseNavMenu}
                   component={Typography}
                   to={page.route}
                   style={{
-                    textDecoration: "none",
-                    fontSize: "larger",
-                    color: "#111",
+                    textDecoration: 'none',
+                    fontSize: 'larger',
+                    color: '#111',
                   }}
                 >
                   <MenuItem onClick={handleCloseNavMenu}>{page.text}</MenuItem>
@@ -200,16 +200,16 @@ const ResponsiveAppBar = () => {
               ))}
               {/* map over page routes to be shown if user is logged in */}
               {userId &&
-                authPageLinks.map((page) => (
+                authPageLinks.map(page => (
                   <Link
                     key={page.text}
                     onClick={handleCloseNavMenu}
                     component={Typography}
                     to={page.route}
                     style={{
-                      textDecoration: "none",
-                      fontSize: "larger",
-                      color: "#111",
+                      textDecoration: 'none',
+                      fontSize: 'larger',
+                      color: '#111',
                     }}
                   >
                     <MenuItem onClick={handleCloseNavMenu}>
@@ -219,16 +219,16 @@ const ResponsiveAppBar = () => {
                 ))}
               {/* map over page routes to be shown if user is logged in and is a vendor */}
               {isVendor &&
-                vendorPageLinks.map((page) => (
+                vendorPageLinks.map(page => (
                   <Link
                     key={page.text}
                     onClick={handleCloseNavMenu}
                     component={Typography}
                     to={page.route}
                     style={{
-                      textDecoration: "none",
-                      fontSize: "larger",
-                      color: "#111",
+                      textDecoration: 'none',
+                      fontSize: 'larger',
+                      color: '#111',
                     }}
                   >
                     <MenuItem onClick={handleCloseNavMenu}>
@@ -242,21 +242,21 @@ const ResponsiveAppBar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
             Neighborhood Eats
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pageLinks.map((page) => (
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {pageLinks.map(page => (
               <Link
                 key={page.text}
                 onClick={handleCloseNavMenu}
                 component={Typography}
                 to={page.route}
                 style={{
-                  textDecoration: "none",
-                  fontSize: "larger",
-                  color: "#FFF",
+                  textDecoration: 'none',
+                  fontSize: 'larger',
+                  color: '#FFF',
                 }}
               >
                 <MenuItem onClick={handleCloseNavMenu}>{page.text}</MenuItem>
@@ -264,16 +264,16 @@ const ResponsiveAppBar = () => {
             ))}
             {/* map over page routes to be shown if user is logged in */}
             {userId &&
-              authPageLinks.map((page) => (
+              authPageLinks.map(page => (
                 <Link
                   key={page.text}
                   onClick={handleCloseNavMenu}
                   component={Typography}
                   to={page.route}
                   style={{
-                    textDecoration: "none",
-                    fontSize: "larger",
-                    color: "#FFF",
+                    textDecoration: 'none',
+                    fontSize: 'larger',
+                    color: '#FFF',
                   }}
                 >
                   <MenuItem onClick={handleCloseNavMenu}>{page.text}</MenuItem>
@@ -282,23 +282,23 @@ const ResponsiveAppBar = () => {
             {/* map over page routes to be shown if user is logged in and is a vendor */}
             {isVendor &&
               vendorMode &&
-              vendorPageLinks.map((page) => (
+              vendorPageLinks.map(page => (
                 <Link
                   key={page.text}
                   onClick={handleCloseNavMenu}
                   component={Typography}
                   to={page.route}
                   style={{
-                    textDecoration: "none",
-                    fontSize: "larger",
-                    color: "#FFF",
+                    textDecoration: 'none',
+                    fontSize: 'larger',
+                    color: '#FFF',
                   }}
                 >
                   <MenuItem onClick={handleCloseNavMenu}>{page.text}</MenuItem>
                 </Link>
               ))}
           </Box>
-          <Box sx={{ flexGrow: 0, justifyContent: "flex-end" }}>
+          <Box sx={{ flexGrow: 0, justifyContent: 'flex-end' }}>
             <Stack direction="row" alignItems="center">
               {vendorMode && (
                 <Typography sx={{ pr: 2 }}>Vendor Mode</Typography>
@@ -308,7 +308,7 @@ const ResponsiveAppBar = () => {
               )}
               {isVendor && (
                 <FormControlLabel
-                  label={""}
+                  label={''}
                   control={
                     <Android12Switch
                       checked={vendorMode}
@@ -327,17 +327,17 @@ const ResponsiveAppBar = () => {
               </Tooltip>
             </Stack>
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
+                vertical: 'top',
+                horizontal: 'right',
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
+                vertical: 'top',
+                horizontal: 'right',
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
@@ -348,15 +348,15 @@ const ResponsiveAppBar = () => {
                     <Search>
                       <StyledInputBase
                         placeholder="Log In"
-                        inputProps={{ "aria-label": "login" }}
+                        inputProps={{ 'aria-label': 'login' }}
                         value={input}
-                        onChange={(e) => setInput(e.target.value)}
+                        onChange={e => setInput(e.target.value)}
                       />
                     </Search>
                     <Button
                       size="large"
                       color="inherit"
-                      onClick={(e) => handleLogin(e, input)}
+                      onClick={e => handleLogin(e, input)}
                     >
                       Log In
                     </Button>
