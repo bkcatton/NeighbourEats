@@ -88,7 +88,6 @@ const AddToOrder = (props) => {
         {checkout && (
           <Button
             variant="outlined"
-            // width="133px"
             sx={{ color: "success.main", borderColor: "success.main", width: "133px" }}
           >
             Added!

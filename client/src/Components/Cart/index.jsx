@@ -22,6 +22,7 @@ const Cart = () => {
   const [userOrders, setUserOrders] = useState([]);
   const [orderId, setOrderId] = useState(null);
   const [orderTotal, setOrderTotal] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { user } = useContext(UserContext);
   const { userId } = user;
 
@@ -37,6 +38,7 @@ const Cart = () => {
     const fetchData = async () => {
       try {
         const { data } = await axiosConfig.get(`/orders/user/${userId}`);
+        setLoading(false)
 
         if (data) {
           setUserOrders(data);
@@ -44,6 +46,7 @@ const Cart = () => {
           const newOrderTotal = getOrderTotal(data);
           setOrderTotal(newOrderTotal);
         }
+       
       } catch (error) {
         console.log(error);
       }
@@ -81,10 +84,7 @@ const Cart = () => {
     const { title, paid_price_cents, quantity, image_link, dish_description } =
       item;
     return (
-      <Card key={i} elevation={2} sx={{ mb: 2 }}>
-        <CardActionArea
-          sx={{ display: "flex", justifyContent: "space-between" }}
-        >
+      <Card key={i} elevation={2} sx={{ mb: 2, display: "flex", justifyContent: "space-between" }}>
           <CardContent
             sx={{
               display: "flex",
@@ -137,7 +137,6 @@ const Cart = () => {
               <DeleteIcon fontSize="inherit" />
             </IconButton>
           </Stack>
-        </CardActionArea>
       </Card>
     );
   });
@@ -147,46 +146,39 @@ const Cart = () => {
       <Typography variant="h3" sx={{ my: 4 }}>
         My Cart
       </Typography>
-      {ordersList.length ? (
-        <Box>{ordersList}</Box>
-      ) : (
-        <Box>
+        {!loading && !!ordersList.length && <Box>{ordersList}</Box>}
+        {!loading && !ordersList.length && <Box>
           <Typography>
-            You currently have no new orders! Back to <Link to="/">Browse</Link>
-            ?
+            You currently have no new orders! Back to <Link to="/">Browse</Link>?
           </Typography>
           <CardMedia
             component="img"
             image="https://images.unsplash.com/photo-1598134493179-51332e56807f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
             alt="dog"
           />
-        </Box>
-      )}
-      {!!ordersList.length && (
-        <Card>
+        </Box>}
+        {!loading && !!ordersList.length && <Card>
           <CardContent>
             <Stack
               direction="row"
               alignItems="baseline"
               justifyContent="space-between"
             >
-              {!!ordersList.length && (
-                <Typography sx={{ mb: 1 }}>
+              <Typography sx={{ mb: 1 }}>
                   Cart Total:{" "}
                   <strong>{getFormattedCurrency(orderTotal)}</strong>
                 </Typography>
-              )}
-              {!!ordersList.length && (
+             
                 <PaymentForm
                   orderTotal={orderTotal}
                   userOrders={userOrders}
                   onCheckout={onCheckout}
                 />
-              )}
+             
             </Stack>
           </CardContent>
-        </Card>
-      )}
+        </Card>}
+     
     </Container>
   );
 };

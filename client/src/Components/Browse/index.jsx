@@ -100,7 +100,7 @@ const Browse = () => {
         setTimeout(() => {
           
           setLoadingMap(false)
-        }, 2000);
+        }, 1000);
       } catch (error) {
         console.log("this is the error", error);
       }
