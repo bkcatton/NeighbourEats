@@ -6,7 +6,6 @@ import ListItemText from '@mui/material/ListItemText';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ListItemIcon from "@mui/material/ListItemIcon";
 
-
 const DishReviews = (props) => {
   const reviewsList = props.dishReviews.map((item) => {
     return (

@@ -17,6 +17,12 @@ const style = {
   borderRadius: "10px",
 };
 
+/*
+props passed in from browse/index:
+1. dishId: used to make axios get request for a particular dish
+2. open, setOpen: used to open and close modal
+*/
+
 const TransitionsModal = (props) => {
   const [dishDetails, setDishDetails] = useState({});
   const [dishReviews, setDishReviews] = useState([]);
@@ -56,7 +62,6 @@ const TransitionsModal = (props) => {
       >
         <Fade in={props.open}>
           <Card sx={style}>
-
             <Grid container>
               <Grid item xs={12} md={6}>
                 <CardContent>
