@@ -90,7 +90,7 @@ const getCoordinatesForDishItem = async (dishItem) => {
       setLoadingVendorList(false)
     }, 1250);
   } catch (error) {
-    console.log("this is the error", error);
+    console.log(error);
   }
 };
 
