@@ -25,6 +25,7 @@ const Browse = () => {
   const [searchValue, setSearchValue] = useState("");
   const [distance, setDistance] = useState(60);
   const [loadingMap, setLoadingMap] = useState(true)
+  const [loadingVendorList, setLoadingVendorList] = useState(true)
   const [center, setCenter] = useState(initialCenter);
   
   // initial load; get all dishes and all reviews
@@ -84,6 +85,10 @@ const getCoordinatesForDishItem = async (dishItem) => {
       
       setLoadingMap(false)
     }, 1000);
+    setTimeout(() => {
+      
+      setLoadingVendorList(false)
+    }, 1250);
   } catch (error) {
     console.log("this is the error", error);
   }
@@ -160,7 +165,7 @@ const getCoordinatesForDishItem = async (dishItem) => {
             searchValue={searchValue}
             setSearchValue={setSearchValue}
           />
-          {loadingMap ? 
+          {loadingVendorList ? 
           <Fragment>
             <Skeleton />
             <Skeleton />

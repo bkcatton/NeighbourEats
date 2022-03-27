@@ -15,10 +15,12 @@ const containerStyle = {
   minHeight: '55vh',
 };
 
+
 const MapContainer = (props) => {
   const [selected, setSelected] = useState({});
   let locations = [...props.filteredList];
-
+  const [loading, setLoading] = useState(true)
+  //console.log(window.google.maps)
   // watch for dishId to change, set the selected value (for the info window) based on dish id
   useEffect(() => {
     setSelected({});
@@ -33,8 +35,8 @@ const MapContainer = (props) => {
   }, [props.dishId]);
 
   return (
-    
-      <LoadScript 
+
+        <LoadScript 
         googleMapsApiKey={process.env.REACT_APP_GMAPS_APIKEY}>
         <GoogleMap
           mapContainerStyle={containerStyle}
@@ -77,7 +79,6 @@ const MapContainer = (props) => {
           </Fragment>
         </GoogleMap>
       </LoadScript>
-   
   );
 };
 

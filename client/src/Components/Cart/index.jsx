@@ -5,12 +5,11 @@ import {
   Card,
   CardContent,
   CardMedia,
-  CardActionArea,
   Container,
   Typography,
   Stack,
+  IconButton
 } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { UserContext } from "../../Providers/UserProvider";
@@ -28,25 +27,30 @@ const Cart = () => {
 
   const getOrderTotal = (array) => {
     let runningTotal = 0;
+
     for (const item of array) {
       runningTotal += item.paid_price_cents * item.quantity;
     }
+    
     return runningTotal;
   };
 
   useEffect(() => {
     const fetchData = async () => {
+      
       try {
         const { data } = await axiosConfig.get(`/orders/user/${userId}`);
-        setLoading(false)
+        setLoading(false);
 
-        if (data) {
-          setUserOrders(data);
-          setOrderId(data[0].order_id);
-          const newOrderTotal = getOrderTotal(data);
-          setOrderTotal(newOrderTotal);
+        if (!data[0]) {
+          return;
         }
-       
+        
+        setUserOrders(data);
+        setOrderId(data[0].order_id);
+        
+        const newOrderTotal = getOrderTotal(data);
+        setOrderTotal(newOrderTotal);       
       } catch (error) {
         console.log(error);
       }
@@ -65,6 +69,7 @@ const Cart = () => {
       });
 
       setUserOrders(remainingOrders);
+      
       const newOrderTotal = getOrderTotal(remainingOrders);
       setOrderTotal(newOrderTotal);
     } catch (error) {

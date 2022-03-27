@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import {
   Typography,
   Card,
-  CardContent,
   Button,
   Slider,
   Stack,
@@ -33,13 +32,15 @@ const SearchByDistance = (props) => {
           `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${userLocation.lat}%2C${userLocation.lng}&destinations=${coordsString}&mode=walking&key=${process.env.REACT_APP_GMAPS_APIKEY}`
         )
         .then(({ data }) => {
-          newMapCoordsObj[obj].duration = data.rows[0].elements[0].duration;
+          const timeToDestination = data.rows[0].elements[0].duration
+          newMapCoordsObj[obj].duration = timeToDestination;
         });
     }
 
     return newMapCoordsObj;
   };
 
+  // get all walking durations for each dish, update if new user location is set
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       getAllDistances(props.dishesInfo);
@@ -54,7 +55,6 @@ const SearchByDistance = (props) => {
     <Card
       sx={{ borderColor: "primary.main", mb: 2, backgroundColor: "info.main", py: 1 }}
     >
-      {/* <CardContent> */}
         <Stack direction="row" alignItems="center" sx={{ px: 2 }}>
           <Button
             onClick={() =>
@@ -90,7 +90,6 @@ const SearchByDistance = (props) => {
             />
           </Stack>
         </Stack>
-      {/* </CardContent> */}
     </Card>
   );
 };
