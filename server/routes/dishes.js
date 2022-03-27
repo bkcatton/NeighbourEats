@@ -3,7 +3,6 @@ const router = express.Router();
 
 module.exports = (db) => {
   router.post("/new", (req, res) => {
-    console.log("In add new dish", req.body);
     const { title, description, price, imageLink, countryStyle, userId } =
       req.body;
     db.query(

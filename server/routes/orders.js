@@ -39,7 +39,6 @@ module.exports = db => {
 
   router.delete('/delete', async (req, res) => {
     const { orderItemsId } = req.body;
-    console.log(orderItemsId)
     try {
       const orders = await db.query(
         `DELETE FROM order_items
@@ -73,7 +72,6 @@ module.exports = db => {
 
   router.post('/order_item', async (req, res) => {
     const { order_id, dish_id, quantity, paid_price_cents } = req.body;
-    console.log('in /order_item', req.body);
     try {
       await db.query(
         `INSERT INTO order_items(order_id, dish_id, quantity, paid_price_cents)
@@ -104,7 +102,6 @@ module.exports = db => {
 
   router.post('/reviews', async (req, res) => {
     const { reviewBody, starRating, userId, dishId } = req.body;
-console.log("in backed query", req.body)
     try {
       await db.query(
         `INSERT INTO reviews(content, star_rating, reviewer_id, dish_id)

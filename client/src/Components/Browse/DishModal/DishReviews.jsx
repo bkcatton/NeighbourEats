@@ -3,11 +3,9 @@ import { Divider, Typography, Box } from "@mui/material/";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ListItemIcon from "@mui/material/ListItemIcon";
 
-import HeartRating from "../HeartRating";
 
 const DishReviews = (props) => {
   const reviewsList = props.dishReviews.map((item) => {

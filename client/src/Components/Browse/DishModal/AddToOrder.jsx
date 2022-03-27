@@ -35,6 +35,7 @@ const AddToOrder = (props) => {
         const { id: order_id } = data.data;
         const { id: dish_id } = props.dishDetails;
         const paid_price_cents = Number(props.dishDetails.price_cents);
+        
         // create new order item using newly created order id
         axiosConfig
           .post(`/orders/order_item`, {
@@ -56,10 +57,7 @@ const AddToOrder = (props) => {
             <Fragment>
               <Button
                 disabled={quantity < 2}
-                onClick={() => setQuantity((prev) => prev - 1)}
-              >
-                -
-              </Button>
+                onClick={() => setQuantity((prev) => prev - 1)}>-</Button>
               <Button style={{ color: "black" }} disabled>
                 <strong>{quantity}</strong>
               </Button>
