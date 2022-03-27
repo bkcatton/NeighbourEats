@@ -13,6 +13,10 @@ const SearchByDistance = (props) => {
   const userLocation = props.center;
 
   const encodeMapCoord = (mapCoord) => {
+    if (!mapCoord.location) {
+      return;
+    }
+
     const allCoordsString = encodeURIComponent(
       `${mapCoord.location.lat},${mapCoord.location.lng}`
     );
@@ -26,7 +30,7 @@ const SearchByDistance = (props) => {
       const coordsString = encodeMapCoord(newMapCoordsObj[obj]);
       axios
         .get(
-          `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${userLocation.lat}%2C${userLocation.lng}&destinations=${coordsString}&key=${process.env.REACT_APP_GMAPS_APIKEY}`
+          `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${userLocation.lat}%2C${userLocation.lng}&destinations=${coordsString}&mode=walking&key=${process.env.REACT_APP_GMAPS_APIKEY}`
         )
         .then(({ data }) => {
           newMapCoordsObj[obj].duration = data.rows[0].elements[0].duration;
@@ -73,7 +77,7 @@ const SearchByDistance = (props) => {
           >
             <Stack direction="row" justifyContent="space-evenly">
               <Typography variant="subtitle2">
-                How far are you willing to travel?{" "}
+                How far are you willing to walk?{" "}
               </Typography>
               <Typography variant="subtitle2">
                 {`${props.distance}${sliderString}`}

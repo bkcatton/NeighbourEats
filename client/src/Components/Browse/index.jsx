@@ -11,22 +11,23 @@ import SearchInput from "./SearchInput";
 import DishModal from "./DishModal";
 import SearchByDistance from "./SearchByDistance";
 
+// get map to start centered at this location
+const initialCenter = {
+  lat: 40.719344,
+  lng: -74.003431,
+};
+
 const Browse = () => {
   const [dishId, setDishId] = useState(null);
   const [dishesInfo, setDishesInfo] = useState([]);
   const [dishesReviews, setDishesReviews] = useState([]);
+  const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [distance, setDistance] = useState(60);
-  const [open, setOpen] = useState(false);
   const [loadingMap, setLoadingMap] = useState(true)
-  
-  // get map to start centered at this location
-  const initialCenter = {
-    lat: 40.719344,
-    lng: -74.003431,
-  };
   const [center, setCenter] = useState(initialCenter);
-
+  
+  // initial load; get all dishes and all reviews
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,7 +45,7 @@ const Browse = () => {
     fetchData();
   }, []);
 
-  // setting the modal dish id and opening the modal
+  // setting the modal dish id and opening the modal that shows all details for each dish
   const dishDetails = (id) => {
     for (const item of dishesInfo) {
       if (item.id === id) {
@@ -54,10 +55,44 @@ const Browse = () => {
     }
   };
 
+// 3. getting the geocoordinates back based on an inputed address
+const getCoordinatesForDishItem = async (dishItem) => {
+  const { id, street_number, street_name, city, state_code } = dishItem;
+  const parameter = encodeURIComponent(
+    `${street_number} ${street_name} ${city} ${state_code}`
+  );
+
+  // adding the geocoordinates to each item in dishesInfo. Set dishesInfo = to the new object with all dish info and coords
+  try {
+    const response = await axios.get(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${parameter}&key=${process.env.REACT_APP_GMAPS_APIKEY}`
+    );
+    
+  // 1. loop through each item, axios fetch its location
+  // 2. for each item, create new array, loop through entire new array to find its id
+  // 3. when id found, add location key-value pair to new array
+  // 4. set state as new array
+  const { location } = response.data.results[0].geometry;
+  const dishesInfoClone = [...dishesInfo];
+    for (const dish of dishesInfoClone) {
+      if (dish.id === id) {
+        dish.location = location;
+      }
+    }
+    setDishesInfo(dishesInfoClone);
+    setTimeout(() => {
+      
+      setLoadingMap(false)
+    }, 1000);
+  } catch (error) {
+    console.log("this is the error", error);
+  }
+};
+
   useEffect(() => {
     if (!dishesReviews.length || !dishesInfo.length) return;
-
-    // adding the reviews array and average rating to each dish
+    
+    // 1. adding 2 key-value pairs to each dish => reviews: [], average_rating: int
     const dishItemsWithReview = dishesInfo.map((item) => {
       item.reviews = [];
       let runningTotal = 0;
@@ -75,44 +110,13 @@ const Browse = () => {
       return item;
     });
 
-    // getting the geocoordinates back based on an inputed address
-    const getCoordinatesForDishItem = async (dishItem) => {
-      const { id, street_number, street_name, city, state_code } = dishItem;
-      const parameter = encodeURIComponent(
-        `${street_number} ${street_name} ${city} ${state_code}`
-      );
-
-      // adding the geocoordinates to each item in dishesInfo. Set dishesInfo = to the new object with all dish info and coords
-      try {
-        const response = await axios.get(
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${parameter}&key=${process.env.REACT_APP_GMAPS_APIKEY}`
-        );
-        
-        const { location } = response.data.results[0].geometry;
-        const dishesInfoClone = [...dishesInfo];
-        for (const dish of dishesInfoClone) {
-          if (dish.id === id) {
-            dish.location = location;
-          }
-        }
-
-        setDishesInfo(dishesInfoClone);
-        setTimeout(() => {
-          
-          setLoadingMap(false)
-        }, 1000);
-      } catch (error) {
-        console.log("this is the error", error);
-      }
-    };
-
-    // calling the function to get the geocoords for each address
+    // 2. calling the function to get the geocoords for each address
     dishItemsWithReview.forEach((item) => {
       getCoordinatesForDishItem(item);
     });
   }, [dishesReviews.length, dishesInfo.length]);
 
-  // filter search results
+  // filter search results based on search term and distance willing to travel
   let filteredList = [...dishesInfo];
 
   if (searchValue) {

@@ -13,6 +13,10 @@ const StyledRating = styled(Rating)({
   },
 });
 
+/*
+props passed down: 
+rating passed from browse/index to render ratings
+*/
 export default function HeartRating(props) {
   return (
     <Box
