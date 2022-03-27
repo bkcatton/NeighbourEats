@@ -82,7 +82,7 @@ const VendorOrders = () => {
 
   return (
     <Box>
-      <Typography variant="h3" sx={{ m: 4 }}>
+      <Typography variant="h4" component="h2" sx={{ my: 4 }}>
         Current Orders:
       </Typography>
       <Grid sx={{ flexGrow: 1 }} container spacing={2}>

@@ -15,7 +15,6 @@ import {
   styled,
 } from "@mui/material/";
 import { LoadingButton } from "@mui/lab";
-
 import { UserContext } from "../Providers/UserProvider";
 import axiosConfig from "../axiosConfig";
 
@@ -70,6 +69,7 @@ const NewDish = () => {
       if (!data) {
         return;
       }
+
       // simulate form submission loading and success states
       setTimeout(() => {
         setLoading(false);
@@ -91,7 +91,8 @@ const NewDish = () => {
 
   return (
     <Box>
-      <Typography variant="h3" sx={{ m: 4 }} textAlign="center">
+      {/* <Button onClick={handleClick(SlideTransition)}>Slide Transition</Button> */}
+      <Typography variant="h4" component="h2" sx={{ my: 3 }} textAlign="center">
         What are you making today?
       </Typography>
       <Stack direction="row" justifyContent="space-around" spacing={2}>
@@ -152,7 +153,7 @@ const NewDish = () => {
           <TextField
             type="text"
             fullWidth
-            label="Country of Origin"
+            label="Country Style"
             margin="normal"
             value={countryStyle}
             onChange={(e) => setCountryStyle(e.target.value)}
@@ -193,7 +194,7 @@ const NewDish = () => {
             </LoadingButton>
           )}
           {success && (
-            <Button sx={{ mt: 2 }} variant="contained" fullWidth>
+            <Button sx={{ mt: 2, color: "success.main" }} variant="outlined" fullWidth>
               Successfully Uploaded!
             </Button>
           )}

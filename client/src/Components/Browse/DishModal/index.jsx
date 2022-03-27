@@ -93,7 +93,6 @@ const TransitionsModal = (props) => {
                 <DishReviews dishReviews={dishReviews} />
               </Grid>
             </Grid>
-              
           </Card>
         </Fade>
       </Modal>

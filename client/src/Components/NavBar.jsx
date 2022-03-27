@@ -300,10 +300,10 @@ const ResponsiveAppBar = () => {
           </Box>
           <Box sx={{ flexGrow: 0, justifyContent: 'flex-end' }}>
             <Stack direction="row" alignItems="center">
-              {vendorMode && (
+              {vendorMode && userId && (
                 <Typography sx={{ pr: 2 }}>Vendor Mode</Typography>
               )}
-              {!vendorMode && (
+              {!vendorMode && userId && (
                 <Typography sx={{ pr: 2 }}>Buyer Mode</Typography>
               )}
               {isVendor && (

@@ -54,7 +54,10 @@ const SearchByDistance = (props) => {
         <Stack direction="row" alignItems="center" sx={{ px: 2 }}>
           <Button
             onClick={() =>
-              props.setCenter({ lat: 50.102214, lng: -119.397488 })
+              props.setCenter({
+                lat: 40.719344,
+                lng: -74.003431,
+              })
             }
             variant="contained"
             size="small"
@@ -75,7 +78,6 @@ const SearchByDistance = (props) => {
               <Typography variant="subtitle2">
                 {`${props.distance}${sliderString}`}
               </Typography>
-              {/* <strong >{`${props.distance}${sliderString}`}</strong> */}
             </Stack>
             <Slider
               value={props.distance}

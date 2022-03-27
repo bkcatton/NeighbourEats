@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useNavigate } from 'react'
 import axiosConfig from '../axiosConfig';
 
 const UserProvider = ({ children }) => {
@@ -40,7 +40,7 @@ const UserProvider = ({ children }) => {
   const login = async (e, userId) => {
     e.preventDefault();
     localStorage.setItem('userId', userId)
-    
+
     try {
       const { data } = await axiosConfig.get(`/users/${userId}`);
       setUser({ userId: data.id, name: data.full_name, isVendor: data.is_vendor, avatar: data.avatar, vendorMode: false });
@@ -56,6 +56,8 @@ const UserProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.clear()
+    window.location.reload(false);
+    window.location.href = "http://localhost:3000";
 
     setUser(() => ({
       userId: '',

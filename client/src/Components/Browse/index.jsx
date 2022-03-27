@@ -22,8 +22,8 @@ const Browse = () => {
   
   // get map to start centered at this location
   const initialCenter = {
-    lat: 40.712776,
-    lng: -74.005974,
+    lat: 40.719344,
+    lng: -74.003431,
   };
   const [center, setCenter] = useState(initialCenter);
 
@@ -126,9 +126,6 @@ const Browse = () => {
   return (
     <Box>
       <Typography variant="h4" component="h2" sx={{ my: 3 }} textAlign="center">What are you in the mood for today?</Typography>
-      {/* <Typography variant="h6" textAlign="center" sx={{ mb: 2 }}>
-        Search for find it right here on the map!
-      </Typography> */}
       <Divider sx={{ my: 2, borderBottomWidth: 4 }} color="#123C69" />
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>

@@ -101,7 +101,7 @@ const PreviousOrders = () => {
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h3" sx={{ my: 4 }}>
+      <Typography variant="h4" component="h2" sx={{ my: 3 }}>
         Previous Orders
       </Typography>
       <Stack>
