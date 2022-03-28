@@ -12,7 +12,7 @@ Clone the project from githup using either HTTPS or SSH
 
 ### Stack
 [React](https://reactjs.org/)\
-[Postgres](https://www.npmjs.com/package/pg)\
+[PostgreSQL](https://www.npmjs.com/package/pg)\
 [Express](https://www.npmjs.com/package/express)\
 [Node.js](https://nodejs.org/en/)\
 [Axios](https://www.npmjs.com/package/axios)
