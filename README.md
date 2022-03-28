@@ -12,9 +12,10 @@ Clone the project from githup using either HTTPS or SSH
 
 ### Stack
 [React](https://reactjs.org/)\
-[PostgreSQL](https://www.npmjs.com/package/pg)\
-[Express](https://www.npmjs.com/package/express)\
 [Node.js](https://nodejs.org/en/)\
+[Express](https://www.npmjs.com/package/express)\
+[PostgreSQL](https://www.postgresql.org/docs/current/app-psql.html)\
+[node-postgres](https://www.npmjs.com/package/pg)\
 [Axios](https://www.npmjs.com/package/axios)
 
 ### API Keys Are Required to Run this App
@@ -36,7 +37,7 @@ Clone the project from githup using either HTTPS or SSH
 5. You may need to download an extension to allow CORS on your browser. We used [this extension](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en) from the chrome web store.
 
 
-### Install Dependencies 
+### Install Dependencies
 
 To install server dependencies:
 1. Navigate to /server with `cd server`
@@ -56,8 +57,6 @@ To install client dependencies:
 5. Navigate to /client with `cd client`
 6. Start the client side with the following command: 
 `npm start`
-
-
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
