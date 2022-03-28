@@ -40,6 +40,8 @@ Clone the project from githup using either HTTPS or SSH
 
 4. You may need to download an extension to allow CORS on your browser. We used [this extension](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en) from the chrome web store.
 
+### Install PostgreSQL
+- Ensure you have installed on your local machine
 
 ### Install Dependencies
 
@@ -58,7 +60,7 @@ To install client dependencies:
 3. Seed database with the following command:
 `npm run db:reset`
 4. Start the server with `nodemon index.js`, or `node index.js`
-5. Navigate to /client with `cd client`
+5. In your other terminal window, navigate to /client with `cd client`
 6. Start the client side with the following command:
 `npm start`
 
@@ -69,6 +71,7 @@ The page will reload when you make changes.\
 You may see some lint errors in the console.
 
 ## Using the App
+
 ### You can filter options by walking time
 ![Search by distance](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/app_demo_1.gif?raw=true)
 
@@ -77,6 +80,9 @@ You may see some lint errors in the console.
 
 ### Search by dish name or by country
 ![Search by Country of Origin](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/app_search_demo.gif?raw=true)
+
+### Search by multiple filters at the same time
+![Search by Multiple Filters](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/app_multi_search_demo.gif)
 
 
 
