@@ -92,7 +92,13 @@ You may see some lint errors in the console.
 ![Cart](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/App_Cart.png)
 
 ### Current Orders - see what has been ordered from your available dishes
-![Cart](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/Current_orders.png)
+![Current Orders](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/Current_orders.png)
+
+### Previous Orders - see what you have ordered in the past
+![Previous Orders](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/Previous_orders.png)
+
+### Add a New Dish
+![Add a new dish](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/Add_new_dish.png)
 
 
 
