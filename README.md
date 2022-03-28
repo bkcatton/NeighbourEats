@@ -24,7 +24,7 @@ Clone the project from githup using either HTTPS or SSH
 - SSH - `git clone git@github.com:bkcatton/NeighbourEats.git`
 
 ### API Keys Are Required to Run this App
-1. You will need your own google maps api key. Sign up for a free one [here](https://developers.google.com/maps).
+1. You will need your own google maps api key. Sign up for a free one [here](https://developers.google.com/maps)
 
    You *must* enable the following options from the google maps api dashboard:
    
@@ -83,7 +83,10 @@ You may see some lint errors in the console.
 ![Search by Country of Origin](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/app_search_demo.gif?raw=true)
 
 ### Search by multiple filters at the same time
-![Search by Multiple Filters](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/app_multi_search_demo.gif)
+![Search by Multiple Filters](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/app_multi_search_demo.gif?raw=true)
+
+### Cart - see all dishes in your cart
+![Cart]()
 
 
 
