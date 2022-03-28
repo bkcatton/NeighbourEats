@@ -3,7 +3,7 @@
 A RESTful web API that allows users to buy and sell home-cooked
 food items with their local neighbours. Core features are built
 around the Google Maps API and includes an interactive map
-browsing interface, dynamic search, sorting, filtering,
+browsing interface, dynamic search, sorting, filtering.
 
 ## Lighthouse Labs
 Final project for [Lighthouse Labs](https://www.lighthouselabs.ca/en/web-development-bootcamp).\
@@ -85,8 +85,15 @@ You may see some lint errors in the console.
 ### Search by multiple filters at the same time
 ![Search by Multiple Filters](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/app_multi_search_demo.gif?raw=true)
 
+### Main Page - browse for a dish
+![Browse](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/App_Browse.png)
+
 ### Cart - see all dishes in your cart
-![Cart]()
+![Cart](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/App_Cart.png)
+
+### Current Orders - see what has been ordered from your available dishes
+![Cart](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/Current_orders.png)
+
 
 
 
