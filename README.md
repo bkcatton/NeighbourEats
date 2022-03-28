@@ -72,6 +72,7 @@ You may see some lint errors in the console.
 
 ![Search by distance](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/app_demo_1.gif?raw=true)
 
+![Flag Hover](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/App_hover_demo.gif)
 
 
 
