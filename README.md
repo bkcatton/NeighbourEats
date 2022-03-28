@@ -30,11 +30,10 @@ Clone the project from githup using either HTTPS or SSH
    iii. Maps JavaScript API
 
 2. You will need your own Stripe API key. Sign up for one [here](https://stripe.com/docs/api).
+   
+3. Assign both of the API keys to your own .env file in the /client directory. See the `.env.example` file for reference.
 
-    
-4. Assign both of the API keys to your own .env file in the /client directory. See the `.env.example` file for reference.
-
-5. You may need to download an extension to allow CORS on your browser. We used [this extension](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en) from the chrome web store.
+4. You may need to download an extension to allow CORS on your browser. We used [this extension](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en) from the chrome web store.
 
 
 ### Install Dependencies
@@ -66,7 +65,7 @@ You may see some lint errors in the console.
 
 ## Using the App
 
-https://github.com/bkcatton/NeighbourEats/blob/main/client/public/app_demo_1.gif
+![Search by distance](https://github.com/bkcatton/NeighbourEats/blob/main/client/public/app_demo_1.gif?raw=true)
 
 
 
