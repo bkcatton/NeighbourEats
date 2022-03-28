@@ -51,11 +51,11 @@ To install client dependencies:
 
 1. Open two different terminal windows, one for the server and one for the client
 2. Navigate to /server with `cd server`
-3. Seed database with the following command: 
+3. Seed database with the following command:
 `npm run db:reset`
 4. Start the server with `nodemon index.js`, or `node index.js`
 5. Navigate to /client with `cd client`
-6. Start the client side with the following command: 
+6. Start the client side with the following command:
 `npm start`
 
 Runs the app in the development mode.\
@@ -65,6 +65,8 @@ The page will reload when you make changes.\
 You may see some lint errors in the console.
 
 ## Using the App
+
+https://github.com/bkcatton/NeighbourEats/blob/main/client/public/app_demo_1.gif
 
 
 
