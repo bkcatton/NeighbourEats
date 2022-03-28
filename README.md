@@ -5,28 +5,28 @@ food items with their local neighbours. Core features are built
 around the Google Maps API and includes an interactive map
 browsing interface, dynamic search, sorting, filtering,
 
-## Authors
-[Albert Ho](https://github.com/albho)
-[Ben Catton](https://github.com/bkcatton)
-[Christian Girling](https://github.com/girlingc)
+## Lighthouse Labs
+Final project for [Lighthouse Labs](https://www.lighthouselabs.ca/en/web-development-bootcamp).\
+Created by [Albert Ho](https://github.com/albho),
+[Ben Catton](https://github.com/bkcatton),
+and [Christian Girling](https://github.com/girlingc).\
+Check out our planning documents in the [wiki](https://github.com/bkcatton/NeighbourEats/wiki) tab!
+
+## Stack
+- [React](https://reactjs.org/)
+- [Node.js](https://nodejs.org/en/)
+- [Express](https://www.npmjs.com/package/express)
+- [PostgreSQL](https://www.postgresql.org/docs/current/app-psql.html)
 
 ## Getting Started
 Clone the project from githup using either HTTPS or SSH
 - HTTPS - `git clone https://github.com/bkcatton/NeighbourEats.git`
 - SSH - `git clone git@github.com:bkcatton/NeighbourEats.git`
 
-### Stack
-[React](https://reactjs.org/)\
-[Node.js](https://nodejs.org/en/)\
-[Express](https://www.npmjs.com/package/express)\
-[PostgreSQL](https://www.postgresql.org/docs/current/app-psql.html)\
-[node-postgres](https://www.npmjs.com/package/pg)\
-[Axios](https://www.npmjs.com/package/axios)
-
 ### API Keys Are Required to Run this App
 1. You will need your own google maps api key. Sign up for a free one [here](https://developers.google.com/maps).
 
-   You must enable the following options from the google maps api dashboard:
+   You *must* enable the following options from the google maps api dashboard:
    
    i. Distance Matrix API
    
@@ -34,14 +34,15 @@ Clone the project from githup using either HTTPS or SSH
 
    iii. Maps JavaScript API
 
-2. You will need your own Stripe API key. Sign up for one [here](https://stripe.com/docs/api).
+2. You will need your own Stripe API key. Sign up for one [here](https://stripe.com/docs/api)
    
-3. Assign both of the API keys to your own .env file in the /client directory. See the `.env.example` file for reference.
+3. Assign both of the API keys to your own `.env` file in the /client directory. See the `.env.example` file for reference
 
 4. You may need to download an extension to allow CORS on your browser. We used [this extension](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en) from the chrome web store.
 
 ### Install PostgreSQL
-- Ensure you have installed on your local machine
+- Ensure you have [PostgreSQL](https://www.postgresql.org/docs/13/app-psql.html) installed on your local machine.
+- Create a database on your local machine and put the appropriate keys to the `.env` file in the /server directory. See the `.env.example` file for reference.
 
 ### Install Dependencies
 
