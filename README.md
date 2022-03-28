@@ -5,6 +5,11 @@ food items with their local neighbours. Core features are built
 around the Google Maps API and includes an interactive map
 browsing interface, dynamic search, sorting, filtering,
 
+## Authors
+[Albert Ho](https://github.com/albho)
+[Ben Catton](https://github.com/bkcatton)
+[Christian Girling](https://github.com/girlingc)
+
 ## Getting Started
 Clone the project from githup using either HTTPS or SSH
 - HTTPS - `git clone https://github.com/bkcatton/NeighbourEats.git`
