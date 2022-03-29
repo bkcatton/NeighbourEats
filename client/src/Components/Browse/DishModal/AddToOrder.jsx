@@ -9,7 +9,6 @@ import axiosConfig from "../../../axiosConfig";
 import { UserContext } from "../../../Providers/UserProvider";
 
 const AddToOrder = (props) => {
-  const [quantity, setQuantity] = useState(1);
   const [checkout, setCheckout] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -41,7 +40,7 @@ const AddToOrder = (props) => {
           .post(`/orders/order_item`, {
             order_id,
             dish_id,
-            quantity,
+            quantity: props.quantity,
             paid_price_cents,
           })
           .catch((error) => console.log(error));
@@ -56,16 +55,16 @@ const AddToOrder = (props) => {
           {!checkout ? (
             <Fragment>
               <Button
-                disabled={quantity < 2}
-                onClick={() => setQuantity((prev) => prev - 1)}>-</Button>
+                disabled={props.quantity < 2}
+                onClick={() => props.setQuantity((prev) => prev - 1)}>-</Button>
               <Button style={{ color: "black" }} disabled>
-                <strong>{quantity}</strong>
+                <strong>{props.quantity}</strong>
               </Button>
-              <Button onClick={() => setQuantity((prev) => prev + 1)}>+</Button>
+              <Button onClick={() => props.setQuantity((prev) => prev + 1)}>+</Button>
             </Fragment>
           ) : (
             <Button variant="text" sx={{ color: "black" }}>
-              Quantity: {quantity}
+              Quantity: {props.quantity}
             </Button>
           )}
         </ButtonGroup>
