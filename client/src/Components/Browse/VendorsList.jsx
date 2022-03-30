@@ -48,6 +48,7 @@ const VendorsList = (props) => {
           onClick={() => props.dishDetails(getId(value, props.filteredList))}
           onMouseOver={() => props.setDishId(getId(value, props.filteredList))}
           onMouseOut={() => props.setDishId(null)}
+          style={{cursor: 'pointer'}}
         >
           {value}
         </Typography>
