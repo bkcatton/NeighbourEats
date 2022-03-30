@@ -4,6 +4,7 @@ import { Backdrop, Modal, Card, CardContent, CardMedia, Fade, Typography, Grid }
 import AddToOrder from "./AddToOrder";
 import DishReviews from "./DishReviews";
 import axiosConfig from "../../../axiosConfig";
+import getFormattedCurrency from '../../../Helpers/getFormattedCurrency'
 
 const style = {
   position: "absolute",
@@ -24,6 +25,7 @@ props passed in from browse/index:
 */
 
 const TransitionsModal = (props) => {
+  const [quantity, setQuantity] = useState(1);
   const [dishDetails, setDishDetails] = useState({});
   const [dishReviews, setDishReviews] = useState([]);
   const handleClose = () => props.setOpen(false);
@@ -75,9 +77,6 @@ const TransitionsModal = (props) => {
                   <Typography id="transition-modal-description" sx={{ mt: 2 }}>
                     {dishDetails.dish_description}
                   </Typography>
-                  <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                    {dishDetails.paid_price_cents}
-                  </Typography>
                     <CardMedia
                       component="img"
                       width="100%"
@@ -85,7 +84,14 @@ const TransitionsModal = (props) => {
                       alt={dishDetails.title}
                       sx={{ boxShadow: 4}}
                     />
-                  <AddToOrder dishDetails={dishDetails} />
+                    <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                      Price: {getFormattedCurrency(dishDetails.price_cents)}
+                    </Typography>
+                    <Typography>
+                      Total: {getFormattedCurrency(dishDetails.price_cents * quantity)}
+                    </Typography>
+                  <AddToOrder dishDetails={dishDetails} quantity={quantity} setQuantity={setQuantity} />
+
                 </CardContent>
               </Grid>
               <Grid
