@@ -40,7 +40,7 @@ const SearchByDistance = (props) => {
     return newMapCoordsObj;
   };
 
-  // get all walking durations for each dish, update if new user location is set
+  // Get all walking durations for each dish, update if new user location is set
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       getAllDistances(props.dishesInfo);
